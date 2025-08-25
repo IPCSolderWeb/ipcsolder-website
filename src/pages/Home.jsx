@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, CheckCircle, Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { 
+  HiArrowRight as ArrowRight, 
+  HiCheckCircle as CheckCircle, 
+  HiPhone as Phone, 
+  HiMail as Mail, 
+  HiLocationMarker as MapPin, 
+  HiClock as Clock 
+} from 'react-icons/hi';
 
 const Home = ({ currentLanguage = 'es' }) => {
   const [isVisible, setIsVisible] = useState({});

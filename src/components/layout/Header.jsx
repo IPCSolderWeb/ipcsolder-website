@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { HiMenu as Menu, HiX as X } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
 
 const Header = ({

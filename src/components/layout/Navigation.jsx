@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronDown, ExternalLink } from 'lucide-react';
+import { HiChevronDown as ChevronDown, HiExternalLink as ExternalLink } from 'react-icons/hi';
 
 const Navigation = ({ 
   variant = 'desktop', // 'desktop' | 'mobile'

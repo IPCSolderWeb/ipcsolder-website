@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Clock, 
-  ChevronRight,
-  Facebook,
-  Linkedin,
-  Twitter,
-  Youtube,
-  ExternalLink
-} from 'lucide-react';
+  FiPhone as Phone, 
+  FiMail as Mail, 
+  FiMapPin as MapPin, 
+  FiClock as Clock, 
+  FiChevronRight as ChevronRight,
+  FiExternalLink as ExternalLink
+} from 'react-icons/fi';
+import {
+  FaFacebook as Facebook,
+  FaLinkedin as Linkedin,
+  FaTwitter as Twitter,
+  FaYoutube as Youtube
+} from 'react-icons/fa';
 
 const Footer = () => {
   const [currentLanguage, setCurrentLanguage] = useState('es');
