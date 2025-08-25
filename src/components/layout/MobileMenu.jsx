@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, ChevronDown, ChevronRight } from 'lucide-react';
+import { HiX as X, HiChevronDown as ChevronDown, HiChevronRight as ChevronRight } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
 
 const MobileMenu = ({ 

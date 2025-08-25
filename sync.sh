@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # ========================================
-# Script de Sincronización Automática - VERSIÓN INTERACTIVA
-# Sincroniza cambios entre ShinerPunk y rossel-mx
+# Script de Sincronización Automática - IPCSOLDER VERSION
+# Sincroniza cambios entre ShinerPunk y IPCSolderWeb
 # ========================================
 
 # Colores para output
@@ -21,7 +21,7 @@ print_message() {
 # Función para mostrar el banner
 show_banner() {
     print_message "╔══════════════════════════════════════════════╗" $CYAN
-    print_message "║           SYNC ROSSEL ECOMMERCE              ║" $CYAN
+    print_message "║           SYNC IPCSOLDER WEBSITE             ║" $CYAN
     print_message "║         Sincronización Automática           ║" $CYAN
     print_message "╚══════════════════════════════════════════════╝" $CYAN
     echo
@@ -68,7 +68,7 @@ fi
 if [ "$HAS_CHANGES" = true ]; then
     echo
     print_message "💬 INGRESA EL MENSAJE DE COMMIT:" $CYAN
-    print_message "   (Ejemplo: Fix email confirmation and improve checkout UX)" $YELLOW
+    print_message "   (Ejemplo: Add hero section and product grid components)" $YELLOW
     echo -n "📝 Mensaje: "
     read -r COMMIT_MESSAGE
     
@@ -104,7 +104,7 @@ fi
 # Push a repositorio personal (ShinerPunk)
 print_message "📤 Subiendo a repositorio personal (ShinerPunk)..." $BLUE
 if git push origin main; then
-    print_message "✅ Push exitoso a ShinerPunk/rossel-ecommerce" $GREEN
+    print_message "✅ Push exitoso a ShinerPunk/ipcsolder-website" $GREEN
 else
     print_message "❌ Error al hacer push a repositorio personal" $RED
     exit 1
@@ -112,12 +112,12 @@ fi
 
 echo
 
-# Push a repositorio de Rossel
-print_message "📤 Subiendo a repositorio de Rossel..." $BLUE
-if git push rossel main; then
-    print_message "✅ Push exitoso a rossel-mx/rossel-ecommerce" $GREEN
+# Push a repositorio de IPCSolder
+print_message "📤 Subiendo a repositorio de IPCSolder..." $BLUE
+if git push ipcsolder main; then
+    print_message "✅ Push exitoso a IPCSolderWeb/ipcsolder-website" $GREEN
 else
-    print_message "❌ Error al hacer push a repositorio de Rossel" $RED
+    print_message "❌ Error al hacer push a repositorio de IPCSolder" $RED
     exit 1
 fi
 
@@ -128,6 +128,6 @@ print_message "║               COMPLETADA! 🎉                 ║" $GREEN
 print_message "╚══════════════════════════════════════════════╝" $GREEN
 echo
 print_message "✅ Código actualizado en ambas cuentas" $GREEN
-print_message "🚀 Vercel debería hacer deploy automáticamente desde rossel-mx" $GREEN
+print_message "🚀 Vercel debería hacer deploy automáticamente desde IPCSolderWeb" $GREEN
 print_message "🌐 Verifica el deploy en: https://vercel.com/dashboard" $BLUE
 echo
