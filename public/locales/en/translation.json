@@ -1,0 +1,479 @@
+{
+  "header": {
+    "contact": {
+      "email": "📧 sales@ipcsolder.com",
+      "phone": "📞 +52 (33) 1234-5678",
+      "location": "📍 Guadalajara, Jalisco"
+    },
+    "nav": {
+      "home": "Home",
+      "about": "About Us",
+      "products": "Products",
+      "services": "Services",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "dropdowns": {
+      "about": {
+        "title": "Company",
+        "items": [
+          { "key": "history", "label": "History" },
+          { "key": "mission", "label": "Mission & Values" },
+          { "key": "team", "label": "Expert Team" }
+        ]
+      },
+      "products": {
+        "sections": [
+          {
+            "title": "Main Categories",
+            "items": [
+              { "key": "mro", "label": "MRO - Maintenance & Operations" },
+              { "key": "esd", "label": "ESD - Electrostatic Protection" },
+              { "key": "solder", "label": "Solder - Soldering Products" }
+            ]
+          },
+          {
+            "title": "Specialized Services",
+            "items": [
+              { "key": "machines", "label": "Machines - Maintenance & Repair" },
+              { "key": "laser", "label": "Laser - Precision Cutting & Engraving" },
+              { "key": "tooling", "label": "Tooling - Specialized Tools" }
+            ]
+          }
+        ]
+      },
+      "services": {
+        "sections": [
+          {
+            "title": "Technical Support",
+            "items": [
+              { "key": "assessment", "label": "Line Assessment" },
+              { "key": "consulting", "label": "Process Consulting" },
+              { "key": "support", "label": "Post-Sale Support" }
+            ]
+          },
+          {
+            "title": "Resources",
+            "items": [
+              { "key": "technical", "label": "Technical Sheets" },
+              { "key": "documentation", "label": "Documentation" }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "IPCSolder",
+      "subtitle": "Electronics Assembly Solutions!",
+      "description": "Leaders in electronic soldering and industrial solutions for maquiladoras, automotive and telecommunications.",
+      "cta": "Request Information"
+    },
+    "valueProposition": {
+      "title": "We Are The Experts",
+      "subtitle": "In Electronic Soldering and Industrial Solutions",
+      "description": "With over 15 years of experience, IPCSolder has established itself as the leading provider of specialized technical solutions for the electronics industry. From maquiladoras to OEM manufacturers, we provide exactly what each process needs.",
+      "features": [
+        "Proven industry experience",
+        "Customized technical solutions",
+        "Specialized 24/7 support",
+        "Certified quality products"
+      ]
+    },
+    "products": {
+      "title": "Our Product Categories",
+      "subtitle": "Complete solutions for every stage of your manufacturing process",
+      "viewMore": "View more",
+      "categories": {
+        "mro": {
+          "title": "MRO",
+          "subtitle": "Maintenance, Repair & Operations",
+          "items": [
+            "Type K Thermocouples",
+            "Chip Bonder",
+            "Isopropyl Alcohol (IPA)",
+            "Nozzle Cleaner",
+            "Router Bits"
+          ]
+        },
+        "esd": {
+          "title": "ESD",
+          "subtitle": "Electrostatic Discharge Protection",
+          "items": [
+            "EVA Trays",
+            "Thermoformed Trays",
+            "Antistatic Containers",
+            "Fiberglass Trays",
+            "EVA Mats"
+          ]
+        },
+        "solder": {
+          "title": "SOLDER PRODUCTS",
+          "subtitle": "Specialized Soldering Materials",
+          "items": [
+            "Solder Bars",
+            "Solder Wires",
+            "Liquid Flux",
+            "Solder Preforms"
+          ]
+        },
+        "machines": {
+          "title": "MACHINES",
+          "subtitle": "Specialized Equipment and Services",
+          "items": [
+            "SMT",
+            "BACKEND",
+            "AUTOMATIC INSPECTION",
+            "CONFORMAL",
+            "THROUGH HOLE",
+            "REPAIR"
+          ]
+        },
+        "laser": {
+          "title": "LASER",
+          "subtitle": "Laser Cutting and Engraving Systems",
+          "items": [
+            "Precision Cutting",
+            "Specialized Laser Engraving",
+            "Inspection Templates",
+            "Custom Work"
+          ]
+        },
+        "tooling": {
+          "title": "TOOLING",
+          "subtitle": "Specialized Tools and Fixtures",
+          "items": [
+            "SMT",
+            "BACKEND",
+            "ASSEMBLY"
+          ]
+        }
+      }
+    },
+    "services": {
+      "title": "Our Specialized Services",
+      "subtitle": "Comprehensive solutions beyond products",
+      "list": [
+        {
+          "title": "Specialized Technical Support",
+          "description": "Personalized technical consulting to optimize your manufacturing processes."
+        },
+        {
+          "title": "Production Line Assessment",
+          "description": "Complete evaluation of your lines to identify improvement opportunities."
+        },
+        {
+          "title": "Process Consulting",
+          "description": "Process optimization based on our 15+ years of experience."
+        },
+        {
+          "title": "Technical Training",
+          "description": "Specialized training for your technical team."
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contact Our Experts",
+      "subtitle": "We are ready to help you find the perfect solution",
+      "description": "Our team of specialists is available to analyze your specific needs and provide you with the best technical recommendations.",
+      "contactInfo": "Contact Information",
+      "labels": {
+        "phone": "Call now",
+        "email": "Send email",
+        "address": "Our location",
+        "hours": "Business hours"
+      },
+      "info": {
+        "phone": "+52 (33) 1234-5678",
+        "email": "sales@ipcsolder.com",
+        "address": "Guadalajara, Jalisco, Mexico",
+        "hours": "Mon - Fri: 8:00 AM - 6:00 PM"
+      },
+      "cta": "Request Quote"
+    }
+  },
+  "mobileMenu": {
+    "title": "IPCSolder",
+    "language": "Language",
+    "nav": {
+      "home": "Home",
+      "about": "About Us",
+      "products": "Products",
+      "services": "Services",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "submenus": {
+      "about": [
+        {
+          "key": "history",
+          "label": "History"
+        },
+        {
+          "key": "mission",
+          "label": "Mission & Values"
+        },
+        {
+          "key": "team",
+          "label": "Expert Team"
+        }
+      ],
+      "products": [
+        {
+          "key": "mro",
+          "label": "MRO"
+        },
+        {
+          "key": "esd",
+          "label": "ESD"
+        },
+        {
+          "key": "solder",
+          "label": "Solder"
+        },
+        {
+          "key": "machines",
+          "label": "Machines"
+        },
+        {
+          "key": "laser",
+          "label": "Laser"
+        },
+        {
+          "key": "tooling",
+          "label": "Tooling"
+        }
+      ],
+      "services": [
+        {
+          "key": "assessment",
+          "label": "Line Assessment"
+        },
+        {
+          "key": "consulting",
+          "label": "Process Consulting"
+        },
+        {
+          "key": "support",
+          "label": "Technical Support"
+        },
+        {
+          "key": "technical",
+          "label": "Technical Sheets"
+        }
+      ]
+    },
+    "languageButtons": {
+      "spanish": "Español",
+      "english": "English"
+    }
+  },
+  "footer": {
+    "company": {
+      "name": "IPCSolder",
+      "tagline": "We Are The Experts",
+      "description": "Leaders in electronic soldering and industrial solutions for maquiladoras, automotive and telecommunications. Over 15 years of experience serving the electronics industry."
+    },
+    "contact": {
+      "title": "Contact Information",
+      "phone": "+52 (33) 1234-5678",
+      "email": "sales@ipcsolder.com",
+      "address": "Guadalajara, Jalisco, Mexico",
+      "hours": "Mon - Fri: 8:00 AM - 6:00 PM"
+    },
+    "navigation": {
+      "company": {
+        "title": "Company",
+        "links": [
+          {
+            "name": "About Us",
+            "url": "/about"
+          },
+          {
+            "name": "Mission & Values",
+            "url": "/mission-values"
+          },
+          {
+            "name": "History",
+            "url": "/history"
+          },
+          {
+            "name": "Expert Team",
+            "url": "/team"
+          },
+          {
+            "name": "Certifications",
+            "url": "/certifications"
+          }
+        ]
+      },
+      "products": {
+        "title": "Products",
+        "links": [
+          {
+            "name": "MRO",
+            "url": "/products/mro"
+          },
+          {
+            "name": "ESD",
+            "url": "/products/esd"
+          },
+          {
+            "name": "Solder",
+            "url": "/products/solder"
+          },
+          {
+            "name": "Machines",
+            "url": "/products/machines"
+          },
+          {
+            "name": "Laser",
+            "url": "/products/laser"
+          },
+          {
+            "name": "Tooling",
+            "url": "/products/tooling"
+          }
+        ]
+      },
+      "services": {
+        "title": "Services",
+        "links": [
+          {
+            "name": "Technical Sheets",
+            "url": "/technical-sheets"
+          },
+          {
+            "name": "Technical Support",
+            "url": "/support"
+          },
+          {
+            "name": "Consulting",
+            "url": "/consulting"
+          },
+          {
+            "name": "Training",
+            "url": "/training"
+          },
+          {
+            "name": "Technical Blog",
+            "url": "/blog"
+          }
+        ]
+      }
+    },
+    "industries": {
+      "title": "Industries",
+      "list": [
+        "Consumer Electronics",
+        "Automotive",
+        "Maquiladoras",
+        "Communications",
+        "OEM Manufacturers"
+      ]
+    },
+    "newsletter": {
+      "title": "Technical Newsletter",
+      "description": "Receive technical papers and industry updates",
+      "placeholder": "Your corporate email",
+      "button": "Subscribe"
+    },
+    "legal": {
+      "copyright": "© 2025 IPCSolder. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "cookies": "Cookie Policy",
+      "developer": "Developed by ShinerDev"
+    },
+    "social": {
+      "title": "Follow Us"
+    }
+  },
+  "common": {
+    "cta": {
+      "viewAll": "View All Products",
+      "requestInfo": "Request Information",
+      "getQuote": "Request Quote",
+      "contact": "Contact",
+      "learnMore": "Learn More",
+      "viewMore": "View more",
+      "callNow": "Call now",
+      "sendEmail": "Send email"
+    },
+    "language": {
+      "spanish": "Español",
+      "english": "English"
+    },
+    "navigation": {
+      "menu": "Menu",
+      "close": "Close"
+    },
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "forms": {
+    "contact": {
+      "title": "Contact Form",
+      "subtitle": "How can we help you?",
+      "fields": {
+        "name": {
+          "label": "Full name",
+          "placeholder": "Your full name"
+        },
+        "email": {
+          "label": "Corporate email",
+          "placeholder": "you@company.com"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+52 (33) 1234-5678"
+        },
+        "company": {
+          "label": "Company",
+          "placeholder": "Your company name"
+        },
+        "position": {
+          "label": "Position",
+          "placeholder": "Your position at the company"
+        },
+        "industry": {
+          "label": "Industry",
+          "placeholder": "Select your industry"
+        },
+        "message": {
+          "label": "How can we help you?",
+          "placeholder": "Describe your need or project..."
+        }
+      },
+      "industries": [
+        "Consumer Electronics",
+        "Automotive",
+        "Maquiladoras",
+        "Communications",
+        "OEM Manufacturers",
+        "Other"
+      ],
+      "buttons": {
+        "submit": "Send Inquiry",
+        "sending": "Sending...",
+        "reset": "Clear Form"
+      },
+      "validation": {
+        "required": "This field is required",
+        "email": "Invalid email",
+        "phone": "Invalid phone",
+        "minLength": "Minimum {{count}} characters"
+      },
+      "success": {
+        "title": "Message sent successfully!",
+        "description": "We will contact you within the next 24 hours."
+      },
+      "error": {
+        "title": "Error sending",
+        "description": "Please try again or contact us directly."
+      }
+    }
+  }
+}
