@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPCSolder - Sitio en Mantenimiento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+        
+        .icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+        
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .contact-item {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn:hover, .lang-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+            
+            .logo {
+                font-size: 36px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            p {
+                font-size: 16px;
+            }
+            
+            .language-switcher {
+                position: static;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="language-switcher">
+        <button class="lang-btn active" onclick="switchLanguage('es')">ES</button>
+        <button class="lang-btn" onclick="switchLanguage('en')">EN</button>
+    </div>
+    
+    <div class="container">
+        <div class="logo">IPCSolder</div>
+        <div class="icon">🔧</div>
+        
+        <div id="content-es">
+            <h1>Sitio en Mantenimiento</h1>
+            <p>Estamos actualizando nuestro sitio web para ofrecerte una mejor experiencia. Volveremos pronto con nuevas funcionalidades y mejoras.</p>
+            <div class="spinner"></div>
+            <p><strong>Tiempo estimado:</strong> 2-4 horas</p>
+            
+            <div class="contact-info">
+                <h3>¿Necesitas ayuda urgente?</h3>
+                <div class="contact-item">📧 ventas@ipcsolder.com</div>
+                <div class="contact-item">📞 +52 (33) 1234-5678</div>
+                <div class="contact-item">📍 Guadalajara, Jalisco</div>
+            </div>
+        </div>
+        
+        <div id="content-en" style="display: none;">
+            <h1>Site Under Maintenance</h1>
+            <p>We're updating our website to provide you with a better experience. We'll be back soon with new features and improvements.</p>
+            <div class="spinner"></div>
+            <p><strong>Estimated time:</strong> 2-4 hours</p>
+            
+            <div class="contact-info">
+                <h3>Need urgent help?</h3>
+                <div class="contact-item">📧 sales@ipcsolder.com</div>
+                <div class="contact-item">📞 +52 (33) 1234-5678</div>
+                <div class="contact-item">📍 Guadalajara, Jalisco</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function switchLanguage(lang) {
+            // Ocultar todos los contenidos
+            document.getElementById('content-es').style.display = 'none';
+            document.getElementById('content-en').style.display = 'none';
+            
+            // Mostrar el contenido seleccionado
+            document.getElementById('content-' + lang).style.display = 'block';
+            
+            // Actualizar botones
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Cambiar idioma del HTML
+            document.documentElement.lang = lang;
+        }
+        
+        // Auto-refresh cada 30 minutos para verificar si el sitio ya está disponible
+        setTimeout(() => {
+            window.location.reload();
+        }, 30 * 60 * 1000);
+    </script>
+</body>
+</html>
