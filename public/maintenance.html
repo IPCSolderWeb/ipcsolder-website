@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPCSolder - Sitio en Mantenimiento</title>
+    <title>IPCSolder - Renovando Nuestro Sitio Web</title>
     <style>
         * {
             margin: 0;
@@ -13,8 +13,8 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            color: white;
+            background: #ffffff;
+            color: #1e3a8a;
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -25,25 +25,22 @@
         .container {
             text-align: center;
             max-width: 600px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
             border-radius: 20px;
             padding: 60px 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.2);
+            color: white;
         }
         
         .logo {
             font-size: 48px;
             font-weight: 700;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             letter-spacing: -1px;
+            color: white;
         }
         
-        .icon {
-            font-size: 80px;
-            margin-bottom: 30px;
-            opacity: 0.8;
-        }
+
         
         h1 {
             font-size: 32px;
@@ -99,18 +96,20 @@
         }
         
         .lang-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: white;
+            background: rgba(30, 58, 138, 0.1);
+            border: 1px solid rgba(30, 58, 138, 0.3);
+            color: #1e3a8a;
             padding: 8px 16px;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-weight: 500;
         }
         
         .lang-btn:hover, .lang-btn.active {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: white;
+            background: #1e3a8a;
+            color: white;
+            border-color: #1e3a8a;
         }
         
         @media (max-width: 768px) {
@@ -146,33 +145,33 @@
     
     <div class="container">
         <div class="logo">IPCSolder</div>
-        <div class="icon">🔧</div>
-        
         <div id="content-es">
-            <h1>Sitio en Mantenimiento</h1>
-            <p>Estamos actualizando nuestro sitio web para ofrecerte una mejor experiencia. Volveremos pronto con nuevas funcionalidades y mejoras.</p>
+            <h1>¡Renovando Nuestro Sitio Web!</h1>
+            <p>Estamos trabajando intensamente para traerte una experiencia completamente renovada. Nuestro nuevo sitio web incluirá un diseño moderno, mejor navegación y funcionalidades mejoradas para atenderte mejor.</p>
             <div class="spinner"></div>
-            <p><strong>Tiempo estimado:</strong> 2-4 horas</p>
+            <p><strong>Nos tomaremos un poco más de tiempo para hacerlo perfecto</strong></p>
+            <p style="font-size: 16px; opacity: 0.8;">Estimamos estar de vuelta muy pronto</p>
             
             <div class="contact-info">
-                <h3>¿Necesitas ayuda urgente?</h3>
+                <h3>¿Necesitas ayuda mientras tanto?</h3>
+                <p style="font-size: 14px; margin-bottom: 15px; opacity: 0.9;">Nuestro equipo sigue disponible para atenderte</p>
                 <div class="contact-item">📧 ventas@ipcsolder.com</div>
-                <div class="contact-item">📞 +52 (33) 1234-5678</div>
-                <div class="contact-item">📍 Guadalajara, Jalisco</div>
+                <div class="contact-item">📞 +52 (33) 2691 1764</div>
             </div>
         </div>
         
         <div id="content-en" style="display: none;">
-            <h1>Site Under Maintenance</h1>
-            <p>We're updating our website to provide you with a better experience. We'll be back soon with new features and improvements.</p>
+            <h1>Renovating Our Website!</h1>
+            <p>We're working intensively to bring you a completely renewed experience. Our new website will include a modern design, better navigation, and improved functionalities to serve you better.</p>
             <div class="spinner"></div>
-            <p><strong>Estimated time:</strong> 2-4 hours</p>
+            <p><strong>We're taking a bit more time to make it perfect</strong></p>
+            <p style="font-size: 16px; opacity: 0.8;">We estimate to be back very soon</p>
             
             <div class="contact-info">
-                <h3>Need urgent help?</h3>
-                <div class="contact-item">📧 sales@ipcsolder.com</div>
-                <div class="contact-item">📞 +52 (33) 1234-5678</div>
-                <div class="contact-item">📍 Guadalajara, Jalisco</div>
+                <h3>Need help in the meantime?</h3>
+                <p style="font-size: 14px; margin-bottom: 15px; opacity: 0.9;">Our team is still available to assist you</p>
+                <div class="contact-item">📧 ventas@ipcsolder.com</div>
+                <div class="contact-item">📞 +52 (33) 2691 1764</div>
             </div>
         </div>
     </div>
@@ -194,10 +193,10 @@
             document.documentElement.lang = lang;
         }
         
-        // Auto-refresh cada 30 minutos para verificar si el sitio ya está disponible
+        // Auto-refresh cada 15 minutos para verificar si el sitio ya está disponible
         setTimeout(() => {
             window.location.reload();
-        }, 30 * 60 * 1000);
+        }, 15 * 60 * 1000);
     </script>
 </body>
 </html>
