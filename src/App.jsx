@@ -4,6 +4,7 @@ import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import MaintenanceChecker from './components/MaintenanceChecker';
 
 // Importar estilos (si no están en main.jsx)
 import './index.css';
@@ -205,8 +206,9 @@ const App = () => {
 
   // Aplicación principal
   return (
-    <Router>
-      <div className="App">
+    <MaintenanceChecker>
+      <Router>
+        <div className="App">
         {/* Layout wrapper para todas las páginas */}
         <Layout 
           currentLanguage={currentLanguage}
@@ -307,8 +309,9 @@ const App = () => {
             }}
           />
         )}
-      </div>
-    </Router>
+        </div>
+      </Router>
+    </MaintenanceChecker>
   );
 };
 
