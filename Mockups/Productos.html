@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - IPCSolder</title>
+    <style>
+        /* Fuente de Panasonic */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles - Identical to homepage */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 0;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(30, 58, 138, 0.1);
+        }
+        
+        .top-bar {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .top-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .lang-btn {
+            padding: 4px 12px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+        
+        .nav-container {
+            padding: 15px 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            margin: 0;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #93c5fd;
+        }
+        
+        .nav-link.active {
+            color: #93c5fd;
+            border-bottom: 2px solid #93c5fd;
+        }
+        
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-item:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 280px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            margin-top: 10px;
+        }
+        
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-content {
+            padding: 20px 0;
+        }
+        
+        .dropdown-section {
+            margin-bottom: 15px;
+        }
+        
+        .dropdown-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .dropdown-title {
+            color: #1e3a8a;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0 20px 8px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 8px;
+        }
+        
+        .dropdown-link {
+            display: block;
+            color: #4b5563;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-link:hover {
+            background: #f3f4f6;
+            color: #1e3a8a;
+            padding-left: 25px;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: #f8fafc;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .breadcrumb-nav a {
+            color: #3b82f6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: #1e3a8a;
+        }
+        
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.05"><path d="M0,20 Q250,80 500,20 T1000,20 L1000,100 L0,100 Z"/></svg>') repeat-x;
+            background-size: 100% 100px;
+        }
+        
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .page-subtitle {
+            font-size: 20px;
+            color: #93c5fd;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .page-description {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #cbd5e1;
+        }
+        
+        /* Categories Filter */
+        .categories-filter {
+            background: white;
+            padding: 30px 0;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 12px 24px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        /* Product Categories */
+        .products-section {
+            padding: 60px 0;
+            background: #f8fafc;
+        }
+        
+        .category-section {
+            margin-bottom: 100px;
+            scroll-margin-top: 120px;
+        }
+        
+        .category-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .category-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 36px;
+        }
+        
+        .category-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+        
+        .category-description {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .product-image {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .product-info h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+        }
+        
+        .product-subtitle {
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .product-description {
+            color: #4b5563;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .product-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .product-features li {
+            color: #4b5563;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            font-size: 14px;
+        }
+        
+        .product-features li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #3b82f6;
+            border: 1px solid #3b82f6;
+            flex: 1;
+        }
+        
+        .btn-secondary:hover {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #cbd5e1;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-cta {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-cta.primary {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-cta.primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-cta.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid #64748b;
+        }
+        
+        .btn-cta.secondary:hover {
+            background: #64748b;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer - Identical to homepage */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #3b82f6;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 30px;
+            text-align: center;
+            color: #9ca3af;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .page-title {
+                font-size: 36px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .filter-buttons {
+                gap: 10px;
+            }
+            
+            .filter-btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            .contact-info {
+                display: none;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Identical to homepage -->
+    <header class="header">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-info">
+                    <div class="contact-info">
+                        <span>📧 ventas@ipcsolder.com</span>
+                        <span>📞 +52 (33) 1234-5678</span>
+                        <span>📍 Guadalajara, Jalisco</span>
+                    </div>
+                    <div class="language-switcher">
+                        <button class="lang-btn active">ES</button>
+                        <button class="lang-btn">EN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-container">
+            <div class="container">
+                <nav class="navbar">
+                    <a href="#" class="logo">IPCSolder</a>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                Nosotros
+                                <span class="dropdown-arrow">▼</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Empresa</div>
+                                        <a href="#" class="dropdown-link">Historia</a>
+                                        <a href="#" class="dropdown-link">Misión y Valores</a>
+                                        <a href="#" class="dropdown-link">Equipo de Expertos</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                Productos
+                                <span class="dropdown-arrow">▼</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Categorías Principales</div>
+                                        <a href="#mro" class="dropdown-link">MRO - Mantenimiento y Operaciones</a>
+                                        <a href="#esd" class="dropdown-link">ESD - Protección Electrostática</a>
+                                        <a href="#solder" class="dropdown-link">Solder - Productos de Soldadura</a>
+                                    </div>
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Servicios Especializados</div>
+                                        <a href="#machines" class="dropdown-link">Machines - Mantenimiento y Reparación</a>
+                                        <a href="#laser" class="dropdown-link">Laser - Corte y Grabado de Precisión</a>
+                                        <a href="#tooling" class="dropdown-link">Tooling - Herramientas Especializadas</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                Servicios
+                                <span class="dropdown-arrow">▼</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Soporte Técnico</div>
+                                        <a href="#" class="dropdown-link">Assessment de Líneas</a>
+                                        <a href="#" class="dropdown-link">Consultoría de Procesos</a>
+                                        <a href="#" class="dropdown-link">Soporte Post-Venta</a>
+                                    </div>
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Recursos</div>
+                                        <a href="#" class="dropdown-link">Fichas Técnicas</a>
+                                        <a href="#" class="dropdown-link">Documentación</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contacto</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="#">Inicio</a>
+                <span>></span>
+                <span>Productos</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1 class="page-title">Nuestros Productos</h1>
+                <div class="page-subtitle">Electronics Assembly Solutions</div>
+                <p class="page-description">
+                    Seis divisiones especializadas con productos de alta calidad para todas las necesidades 
+                    de la industria electrónica. Cada categoría cuenta con expertos dedicados.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Filter -->
+    <div class="categories-filter">
+        <div class="container">
+            <div class="filter-buttons">
+                <a href="#mro" class="filter-btn" data-category="mro">MRO</a>
+                <a href="#esd" class="filter-btn" data-category="esd">ESD</a>
+                <a href="#solder" class="filter-btn" data-category="solder">SOLDER</a>
+                <a href="#machines" class="filter-btn" data-category="machines">MACHINES</a>
+                <a href="#laser" class="filter-btn" data-category="laser">LASER</a>
+                <a href="#tooling" class="filter-btn" data-category="tooling">TOOLING</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            
+            <!-- MRO Category -->
+            <div class="category-section" id="mro">
+                <div class="category-header">
+                    <div class="category-icon">📋</div>
+                    <h2 class="category-title">MRO</h2>
+                    <p class="category-description">
+                        Mantenimiento, Reparación y Operaciones. Productos esenciales para el funcionamiento 
+                        óptimo de líneas SMT y equipos de manufactura electrónica.
+                    </p>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🌡️</div>
+                            <div class="product-info">
+                                <h3>Termopares Tipo K</h3>
+                                <div class="product-subtitle">Medición de temperatura de precisión</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Termopares de alta precisión disponibles en diferentes longitudes con aislamiento 
+                            PFA y trenza de vidrio para temperaturas hasta 480°C.
+                        </p>
+                        <ul class="product-features">
+                            <li>Disponibles en 1, 2 y 3 metros</li>
+                            <li>Temperatura máxima conector: 220°C</li>
+                            <li>PFA aislado hasta 260°C</li>
+                            <li>Trenza de vidrio hasta 480°C</li>
+                            <li>Marca OMEGA</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🎯</div>
+                            <div class="product-info">
+                                <h3>Pallets</h3>
+                                <div class="product-subtitle">Transporte de PCBs</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Pallets especializados para transporte seguro de PCBs a través de 
+                            líneas de producción con posicionamiento preciso.
+                        </p>
+                        <ul class="product-features">
+                            <li>Posicionamiento preciso</li>
+                            <li>Transporte seguro</li>
+                            <li>Múltiples configuraciones</li>
+                            <li>Compatible con conveyor</li>
+                            <li>Materiales resistentes</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔩</div>
+                            <div class="product-info">
+                                <h3>Fixtures Especializados</h3>
+                                <div class="product-subtitle">Soluciones a medida</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Fixtures y bases especializadas para aplicaciones específicas incluyendo 
+                            bases rotatorias, de atornillado y configuraciones personalizadas.
+                        </p>
+                        <ul class="product-features">
+                            <li>Bases rotatorias</li>
+                            <li>Sistemas de atornillado</li>
+                            <li>Configuraciones personalizadas</li>
+                            <li>Soluciones mecánicas únicas</li>
+                            <li>Fabricación en taller propio</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">⚙️</div>
+                            <div class="product-info">
+                                <h3>Soluciones Mecánicas</h3>
+                                <div class="product-subtitle">Ingeniería personalizada</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Soluciones mecánicas personalizadas diseñadas específicamente para 
+                            resolver problemas únicos en líneas de producción electrónica.
+                        </p>
+                        <ul class="product-features">
+                            <li>Diseño ingenieril personalizado</li>
+                            <li>Soluciones únicas</li>
+                            <li>Fabricación especializada</li>
+                            <li>Optimización de procesos</li>
+                            <li>Soporte técnico completo</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Necesitas una solución específica?</h2>
+                <p>
+                    Nuestros expertos pueden ayudarte a encontrar el producto exacto que necesitas 
+                    o desarrollar una solución personalizada para tu aplicación.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn-cta primary">Solicitar Assessment Gratuito</a>
+                    <a href="#" class="btn-cta secondary">Descargar Catálogo Completo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IPCSolder</h3>
+                    <p style="color: #cbd5e1; margin-bottom: 20px;">
+                        Especialistas en soluciones de ensamble electrónico. 
+                        <strong>We are the experts!</strong>
+                    </p>
+                    <div style="display: flex; gap: 15px;">
+                        <a href="#" style="color: #cbd5e1;">LinkedIn</a>
+                        <a href="#" style="color: #cbd5e1;">Email</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Productos</h3>
+                    <ul>
+                        <li><a href="#mro">MRO</a></li>
+                        <li><a href="#esd">ESD</a></li>
+                        <li><a href="#solder">Solder</a></li>
+                        <li><a href="#machines">Machines</a></li>
+                        <li><a href="#laser">Laser</a></li>
+                        <li><a href="#tooling">Tooling</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#">Soporte Técnico</a></li>
+                        <li><a href="#">Assessment de Líneas</a></li>
+                        <li><a href="#">Consultoría</a></li>
+                        <li><a href="#">Fichas Técnicas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;">📧 ventas@ipcsolder.com</li>
+                        <li style="margin-bottom: 10px;">📞 +52 (33) 1234-5678</li>
+                        <li style="margin-bottom: 10px;">📍 Guadalajara, Jalisco</li>
+                        <li style="margin-bottom: 10px;">💬 WhatsApp</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 IPCSolder. Todos los derechos reservados. | Desarrollado por ShinerDev</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Language switcher functionality
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                console.log('Language switched to:', this.textContent);
+            });
+        });
+
+        // Category filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all buttons
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Get target category
+                const category = this.getAttribute('data-category');
+                const target = document.getElementById(category);
+                
+                if (target) {
+                    // Scroll to category with offset for sticky header
+                    const offset = 150;
+                    const targetPosition = target.offsetTop - offset;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.product-card, .category-section').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Update active filter based on scroll position
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.category-section');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 200;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            filterBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-category') === current) {
+                    btn.classList.add('active');
+                }
+            });
+        });
+
+        // Add staggered animation to product cards within each category
+        document.querySelectorAll('.category-section').forEach(section => {
+            const cards = section.querySelectorAll('.product-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Add hover effect to category icons
+        document.querySelectorAll('.category-icon').forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1) rotate(5deg)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Add subtle parallax effect to page hero
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.page-hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Mobile menu toggle (placeholder for future implementation)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggle');
+        }
+
+        // Product card hover effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderColor = '#3b82f6';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.borderColor = '#e2e8f0';
+            });
+        });
+
+        // Initialize page
+        window.addEventListener('load', function() {
+            // Set first filter as active by default
+            if (!document.querySelector('.filter-btn.active')) {
+                document.querySelector('.filter-btn').classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔴</div>
+                            <div class="product-info">
+                                <h3>Chip Bonder NE8800T</h3>
+                                <div class="product-subtitle">Adhesivo de curado térmico</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Adhesivo rojo de curado térmico para componentes SMT-TH, termopares y procesos 
+                            de soldadura selectiva.
+                        </p>
+                        <ul class="product-features">
+                            <li>Viscosidad media y excelente tixotropía</li>
+                            <li>Curado rápido para reducir tiempos</li>
+                            <li>Compatible con SMT, OLA, soldadura selectiva</li>
+                            <li>Ideal para termopares y componentes</li>
+                            <li>Presentación en jeringa</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🧪</div>
+                            <div class="product-info">
+                                <h3>Alcohol Isopropílico (IPA)</h3>
+                                <div class="product-subtitle">Limpieza y cosméticos de PCBs</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Alcohol isopropílico de alta pureza para limpieza general y cosméticos de tarjetas electrónicas.
+                        </p>
+                        <ul class="product-features">
+                            <li>Presentación conveniente de 20 litros</li>
+                            <li>Pureza 99.5% a 99.8%</li>
+                            <li>Propósitos de limpieza general</li>
+                            <li>Ideal para cosméticos de PCBs</li>
+                            <li>Evaporación rápida</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔧</div>
+                            <div class="product-info">
+                                <h3>Limpiador de Boquillas F37</h3>
+                                <div class="product-subtitle">Gel desoxidante para soldadura</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Gel desoxidante NCF37 diseñado para remover óxidos de boquillas de máquinas de soldadura.
+                        </p>
+                        <ul class="product-features">
+                            <li>Diseñado para soldadura selectiva</li>
+                            <li>Compatible con máquinas de ola</li>
+                            <li>Mejora flujo estable de soldadura</li>
+                            <li>Mayor repetibilidad del proceso</li>
+                            <li>Fácil aplicación en gel</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">⚡</div>
+                            <div class="product-info">
+                                <h3>Router Bits</h3>
+                                <div class="product-subtitle">Herramientas de corte de precisión</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Router bits de alta calidad para corte de PCBs con durabilidad superior y 
+                            compatibilidad con múltiples marcas de equipos.
+                        </p>
+                        <ul class="product-features">
+                            <li>Alta calidad y durabilidad extendida</li>
+                            <li>Gran resistencia al desgaste</li>
+                            <li>Tamaños estándar (1.2, 1.6, 2.0)</li>
+                            <li>Compatible con múltiples marcas</li>
+                            <li>Stock disponible en nuestras instalaciones</li>
+                            <li>Mejores precios del mercado</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ESD Category -->
+            <div class="category-section" id="esd">
+                <div class="category-header">
+                    <div class="category-icon">🛡️</div>
+                    <h2 class="category-title">ESD</h2>
+                    <p class="category-description">
+                        Protección electrostática para PCB, PCBA y dispositivos electrónicos durante 
+                        el proceso de manufactura, almacenamiento, manejo y envío.
+                    </p>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">📦</div>
+                            <div class="product-info">
+                                <h3>Bandejas EVA ESD</h3>
+                                <div class="product-subtitle">Protección personalizada</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Bandejas de espuma EVA conductiva con diseños personalizados para protección 
+                            específica de componentes electrónicos.
+                        </p>
+                        <ul class="product-features">
+                            <li>Diseños personalizados</li>
+                            <li>Diferentes tamaños y arreglos</li>
+                            <li>Material conductivo seguro</li>
+                            <li>Ahorro de espacio y apilables</li>
+                            <li>Protección durante transporte</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">📋</div>
+                            <div class="product-info">
+                                <h3>Bandejas Termoformadas ESD</h3>
+                                <div class="product-subtitle">Soluciones industriales</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Bandejas termoformadas ESD para aplicaciones industriales con compartimientos 
+                            específicos para diferentes tipos de componentes.
+                        </p>
+                        <ul class="product-features">
+                            <li>Compartimientos organizados</li>
+                            <li>Material termoformado resistente</li>
+                            <li>Protección ESD garantizada</li>
+                            <li>Ideales para líneas de producción</li>
+                            <li>Fácil limpieza y mantenimiento</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🗃️</div>
+                            <div class="product-info">
+                                <h3>Contenedores Plástico Corrugado ESD</h3>
+                                <div class="product-subtitle">Almacenamiento seguro</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Contenedores de plástico corrugado con propiedades ESD para almacenamiento 
+                            y transporte seguro de componentes sensibles.
+                        </p>
+                        <ul class="product-features">
+                            <li>Material corrugado resistente</li>
+                            <li>Propiedades antiestáticas</li>
+                            <li>Múltiples tamaños disponibles</li>
+                            <li>Apilables para optimizar espacio</li>
+                            <li>Ideal para almacenamiento a largo plazo</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🪟</div>
+                            <div class="product-info">
+                                <h3>Bandejas Fibra de Vidrio ESD</h3>
+                                <div class="product-subtitle">Máxima durabilidad</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Bandejas de fibra de vidrio con propiedades ESD para aplicaciones que requieren 
+                            máxima durabilidad y resistencia química.
+                        </p>
+                        <ul class="product-features">
+                            <li>Material de fibra de vidrio</li>
+                            <li>Resistencia química superior</li>
+                            <li>Durabilidad extrema</li>
+                            <li>Propiedades ESD permanentes</li>
+                            <li>Resistente a altas temperaturas</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔲</div>
+                            <div class="product-info">
+                                <h3>Láminas EVA Conductivas</h3>
+                                <div class="product-subtitle">Estaciones de trabajo ESD</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Láminas de EVA conductivo para estaciones de trabajo, desde 3mm hasta 50mm de espesor, 
+                            con resistencia eléctrica controlada.
+                        </p>
+                        <ul class="product-features">
+                            <li>Espesor de 3mm hasta 50mm</li>
+                            <li>Tamaño máximo: 120cm x 240cm</li>
+                            <li>Resistencia: 1x10³ a 1x10⁵ ohms</li>
+                            <li>Dureza 38 grados</li>
+                            <li>Antideslizante e impermeable</li>
+                            <li>Protección física y ESD</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SOLDER Category -->
+            <div class="category-section" id="solder">
+                <div class="category-header">
+                    <div class="category-icon">🔧</div>
+                    <h2 class="category-title">SOLDER</h2>
+                    <p class="category-description">
+                        Productos especializados de soldadura para electrónica incluyendo aleaciones, 
+                        flux y materiales de reparación con cumplimiento IPC.
+                    </p>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">📐</div>
+                            <div class="product-info">
+                                <h3>Barras de Soldadura</h3>
+                                <div class="product-subtitle">SAC305, SAC0307, SN63/PB37</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Barras de soldadura de alta calidad en diferentes aleaciones para máquinas 
+                            de soldadura de ola y selectiva.
+                        </p>
+                        <ul class="product-features">
+                            <li>Aleaciones SAC305, SAC0307, SN63/PB37</li>
+                            <li>Mojado más rápido</li>
+                            <li>Excelente apariencia cosmética</li>
+                            <li>Cumplimiento IPC</li>
+                            <li>Producción mínima desde 10,000 libras</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔵</div>
+                            <div class="product-info">
+                                <h3>Alambre de Soldadura</h3>
+                                <div class="product-subtitle">No Clean, baja emisión</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Alambre de soldadura con flux No Clean que reduce la carbonización de puntas 
+                            y minimiza salpicaduras durante la soldadura manual.
+                        </p>
+                        <ul class="product-features">
+                            <li>Menor carbonización de puntas</li>
+                            <li>Menos salpicaduras de flux</li>
+                            <li>Bajo humo y olor</li>
+                            <li>Aleaciones SAC305 y SN63/PB37</li>
+                            <li>Flux No Clean integrado</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🧪</div>
+                            <div class="product-info">
+                                <h3>Flux Líquido</h3>
+                                <div class="product-subtitle">Reduce defectos de soldadura</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Flux líquido No Clean con bajo residuo y gran actividad para mejorar 
+                            el proceso de soldadura y reducir defectos.
+                        </p>
+                        <ul class="product-features">
+                            <li>Reduce defectos de soldadura</li>
+                            <li>No Clean, bajo residuo</li>
+                            <li>Gran actividad de soldadura</li>
+                            <li>Mejora procesos de soldadura</li>
+                            <li>Compatible con plomo y libre de plomo</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">⚪</div>
+                            <div class="product-info">
+                                <h3>Preformas de Soldadura</h3>
+                                <div class="product-subtitle">Soldadura personalizada</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Preformas de soldadura personalizadas en diferentes aleaciones para 
+                            aplicaciones específicas de soldadura automática.
+                        </p>
+                        <ul class="product-features">
+                            <li>Diseños personalizados</li>
+                            <li>Aleaciones SAC305, SAC0307, SN63/PB37</li>
+                            <li>Mojado más rápido</li>
+                            <li>Excelente apariencia cosmética</li>
+                            <li>Cumplimiento IPC</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🖊️</div>
+                            <div class="product-info">
+                                <h3>Flux para Reparación</h3>
+                                <div class="product-subtitle">Líquido y Gel</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Flux especializado para reparación y retrabajo en formato líquido y gel, 
+                            ideal para aplicaciones de precisión y BGA.
+                        </p>
+                        <ul class="product-features">
+                            <li>Flux líquido en plumas recargables</li>
+                            <li>Flux gel para trabajos críticos BGA</li>
+                            <li>Bajo residuo, No Clean</li>
+                            <li>Actividad superior</li>
+                            <li>Jeringas neumáticas y manuales</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MACHINES Category -->
+            <div class="category-section" id="machines">
+                <div class="category-header">
+                    <div class="category-icon">⚙️</div>
+                    <h2 class="category-title">MACHINES</h2>
+                    <p class="category-description">
+                        Mantenimiento, reparación y soporte técnico para equipos SMT, backend, 
+                        inspección automática y líneas completas de producción.
+                    </p>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔩</div>
+                            <div class="product-info">
+                                <h3>Refacciones para Máquinas</h3>
+                                <div class="product-subtitle">Motores, sensores, filtros</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Refacciones originales y compatibles para equipos SMT de las principales marcas, 
+                            incluyendo motores DC, servos, sensores y componentes críticos.
+                        </p>
+                        <ul class="product-features">
+                            <li>Motores DC y servos</li>
+                            <li>Correas y sensores</li>
+                            <li>Grasas y filtros especializados</li>
+                            <li>Sopladores y sistemas de limpieza</li>
+                            <li>Refrigerante y resistencias</li>
+                            <li>Válvulas solenoides</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔧</div>
+                            <div class="product-info">
+                                <h3>Mantenimiento Preventivo</h3>
+                                <div class="product-subtitle">Programas especializados</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Programas de mantenimiento preventivo diseñados específicamente para equipos 
+                            SMT, backend e inspección automática.
+                        </p>
+                        <ul class="product-features">
+                            <li>Equipos SMT (Yamaha, Panasonic, ASM)</li>
+                            <li>Backend y Through Hole</li>
+                            <li>Inspección automática (AOI)</li>
+                            <li>Conformal coating</li>
+                            <li>Mantenimiento programado</li>
+                            <li>Reportes detallados</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🛠️</div>
+                            <div class="product-info">
+                                <h3>Servicios de Reparación</h3>
+                                <div class="product-subtitle">Técnicos especializados</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Servicios de reparación especializada para equipos de todas las marcas 
+                            con técnicos certificados y más de 30 años de experiencia.
+                        </p>
+                        <ul class="product-features">
+                            <li>Reparación en sitio</li>
+                            <li>Diagnóstico avanzado</li>
+                            <li>Calibración de equipos</li>
+                            <li>Actualización de software</li>
+                            <li>Garantía en reparaciones</li>
+                            <li>Soporte técnico 24/7</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">📞</div>
+                            <div class="product-info">
+                                <h3>Soporte Técnico</h3>
+                                <div class="product-subtitle">Consultoría especializada</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Soporte técnico especializado con ingenieros expertos que conocen 
+                            los equipos desde adentro y pueden solucionar problemas complejos.
+                        </p>
+                        <ul class="product-features">
+                            <li>Consultoría técnica especializada</li>
+                            <li>Optimización de procesos</li>
+                            <li>Troubleshooting avanzado</li>
+                            <li>Training y capacitación</li>
+                            <li>Documentación técnica</li>
+                            <li>Soporte remoto y en sitio</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LASER Category -->
+            <div class="category-section" id="laser">
+                <div class="category-header">
+                    <div class="category-icon">⚡</div>
+                    <h2 class="category-title">LASER</h2>
+                    <p class="category-description">
+                        Servicios de corte y grabado láser de precisión con flexibilidad, versatilidad 
+                        y exactitud para la industria electrónica.
+                    </p>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">✂️</div>
+                            <div class="product-info">
+                                <h3>Corte Láser de Precisión</h3>
+                                <div class="product-subtitle">Máxima exactitud</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Servicios de corte láser de alta precisión para materiales diversos 
+                            con tolerancias mínimas y acabados perfectos.
+                        </p>
+                        <ul class="product-features">
+                            <li>Precisión extrema</li>
+                            <li>Eficiencia y velocidad</li>
+                            <li>Flexibilidad en materiales</li>
+                            <li>Versatilidad en diseños</li>
+                            <li>Acabados de calidad</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🖼️</div>
+                            <div class="product-info">
+                                <h3>Grabado Láser</h3>
+                                <div class="product-subtitle">Marcado permanente</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Servicios de grabado láser para marcado permanente, códigos, 
+                            logos y información técnica en diversos materiales.
+                        </p>
+                        <ul class="product-features">
+                            <li>Marcado permanente</li>
+                            <li>Códigos y seriales</li>
+                            <li>Logos corporativos</li>
+                            <li>Información técnica</li>
+                            <li>Múltiples materiales</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔍</div>
+                            <div class="product-info">
+                                <h3>Plantillas de Inspección</h3>
+                                <div class="product-subtitle">Control de calidad</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Plantillas de inspección personalizadas cortadas con láser para 
+                            control de calidad y verificación de componentes electrónicos.
+                        </p>
+                        <ul class="product-features">
+                            <li>Diseños personalizados</li>
+                            <li>Tolerancias precisas</li>
+                            <li>Materiales especializados</li>
+                            <li>Control de calidad garantizado</li>
+                            <li>Durabilidad extendida</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">💼</div>
+                            <div class="product-info">
+                                <h3>Trabajos Láser Especializados</h3>
+                                <div class="product-subtitle">Proyectos a medida</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Trabajos láser especializados para proyectos únicos y aplicaciones 
+                            específicas de la industria electrónica.
+                        </p>
+                        <ul class="product-features">
+                            <li>Proyectos únicos</li>
+                            <li>Soluciones a medida</li>
+                            <li>Consultoría técnica</li>
+                            <li>Prototipos rápidos</li>
+                            <li>Escalabilidad a producción</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOOLING Category -->
+            <div class="category-section" id="tooling">
+                <div class="category-header">
+                    <div class="category-icon">🔩</div>
+                    <h2 class="category-title">TOOLING</h2>
+                    <p class="category-description">
+                        Herramientas especializadas para SMT, backend y assembly incluyendo squeegees, 
+                        fixtures, pallets y soluciones mecánicas personalizadas.
+                    </p>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">📏</div>
+                            <div class="product-info">
+                                <h3>Squeegees</h3>
+                                <div class="product-subtitle">Aplicación de pasta</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Squeegees de precisión para aplicación uniforme de pasta de soldadura 
+                            en procesos SMT con diferentes durezas y materiales.
+                        </p>
+                        <ul class="product-features">
+                            <li>Múltiples durezas disponibles</li>
+                            <li>Materiales especializados</li>
+                            <li>Cortes de precisión</li>
+                            <li>Durabilidad extendida</li>
+                            <li>Compatible con múltiples máquinas</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔧</div>
+                            <div class="product-info">
+                                <h3>Sujetadores de Tarjetas</h3>
+                                <div class="product-subtitle">Board holders precisos</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Sujetadores y board holders diseñados específicamente para diferentes 
+                            tamaños de PCB con sujeción segura y acceso completo.
+                        </p>
+                        <ul class="product-features">
+                            <li>Diseños personalizados</li>
+                            <li>Sujeción segura</li>
+                            <li>Acceso completo a la PCB</li>
+                            <li>Materiales duraderos</li>
+                            <li>Intercambio rápido</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>
+                            <a href="#" class="btn btn-secondary">Ficha Técnica</a>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-header">
+                            <div class="product-image">🔲</div>
+                            <div class="product-info">
+                                <h3>Placas Router</h3>
+                                <div class="product-subtitle">Corte de PCBs</div>
+                            </div>
+                        </div>
+                        <p class="product-description">
+                            Placas router especializadas para corte preciso de PCBs con 
+                            tolerancias mínimas y acabados perfectos.
+                        </p>
+                        <ul class="product-features">
+                            <li>Tolerancias de precisión</li>
+                            <li>Materiales resistentes al desgaste</li>
+                            <li>Diseños optimizados</li>
+                            <li>Larga vida útil</li>
+                            <li>Múltiples configuraciones</li>
+                        </ul>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-primary">Solicitar Cotización</a>

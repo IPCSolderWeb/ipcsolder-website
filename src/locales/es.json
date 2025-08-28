@@ -2,7 +2,7 @@
     "header": {
       "contact": {
         "email": "📧 ventas@ipcsolder.com",
-        "phone": "📞 +52 (33) 1234-5678",
+        "phone": "📞 +52 (33) 4514 2400",
         "location": "📍 Guadalajara, Jalisco"
       },
       "nav": {
@@ -65,113 +65,113 @@
     },
     "home": {
       "hero": {
-        "title": "IPCSolder",
-        "subtitle": "Electronics Assembly Solutions!",
-        "description": "Líderes en soldadura electrónica y soluciones industriales para maquiladoras, automotriz y telecomunicaciones.",
-        "cta": "Solicitar Información"
+        "title": "Electronics Assembly Solutions",
+        "subtitle": "We are the experts!",
+        "description": "Soluciones especializadas para la industria electrónica con más de 20 años de experiencia. Conocemos lo que necesita la industria y sabemos cómo solucionar sus problemas.",
+        "primaryCta": "¿Cómo podemos ayudarte a mejorar?",
+        "secondaryCta": "Ver Productos"
       },
-      "valueProposition": {
-        "title": "Nosotros Somos Los Expertos",
-        "subtitle": "En Soldadura Electrónica y Soluciones Industriales",
-        "description": "Con más de 15 años de experiencia, IPCSolder se ha consolidado como el proveedor líder en soluciones técnicas especializadas para la industria electrónica. Desde maquiladoras hasta fabricantes OEM, proporcionamos exactamente lo que cada proceso necesita.",
-        "features": [
-          "Experiencia comprobada en la industria",
-          "Soluciones técnicas personalizadas",
-          "Soporte especializado 24/7",
-          "Productos de calidad certificada"
-        ]
-      },
+
       "products": {
-        "title": "Nuestras Categorías de Productos",
-        "subtitle": "Soluciones completas para cada etapa de tu proceso de manufactura",
-        "viewMore": "Ver más",
+        "title": "Nuestras Especialidades",
+        "subtitle": "Seis divisiones especializadas con expertos dedicados en cada área de la industria electrónica",
+        "viewMore": "Ver productos",
         "categories": {
           "mro": {
             "title": "MRO",
-            "subtitle": "Maintenance, Repair & Operations",
+            "description": "Mantenimiento, Reparación y Operaciones para líneas SMT",
+            "icon": "clipboard",
             "items": [
               "Termopares Tipo K",
               "Chip Bonder",
-              "Alcohol Isopropílico (IPA)",
+              "Alcohol Isopropílico",
               "Limpiador de Boquillas",
               "Router Bits"
             ]
           },
           "esd": {
             "title": "ESD",
-            "subtitle": "Electrostatic Discharge Protection",
+            "description": "Protección electrostática para PCB y componentes electrónicos",
+            "icon": "shield",
             "items": [
               "Bandejas EVA",
               "Bandejas Termoformadas",
-              "Contenedores Antiestáticos",
-              "Bandejas de Fibra de Vidrio",
+              "Contenedores Plástico",
+              "Bandejas Fibra de Vidrio",
               "Alfombrillas EVA"
             ]
           },
           "solder": {
-            "title": "SOLDER PRODUCTS",
-            "subtitle": "Materiales de Soldadura Especializados",
+            "title": "SOLDER",
+            "description": "Productos especializados de soldadura para electrónica",
+            "icon": "wrench",
             "items": [
               "Barras de Soldadura",
-              "Alambres de Soldadura",
+              "Alambre de Soldadura",
               "Flux Líquido",
               "Preformas de Soldadura"
             ]
           },
           "machines": {
             "title": "MACHINES",
-            "subtitle": "Equipos y Servicios Especializados",
+            "description": "Mantenimiento y reparación de equipos SMT",
+            "icon": "cog",
             "items": [
-              "SMT",
-              "BACKEND",
-              "AUTOMATIC INSPECTION",
-              "CONFORMAL",
-              "THROUGH HOLE",
-              "REPAIR"
+              "Refacciones",
+              "Mantenimiento Preventivo",
+              "Servicio de Reparación",
+              "Soporte Técnico"
             ]
           },
           "laser": {
             "title": "LASER",
-            "subtitle": "Sistemas de Corte y Grabado Láser",
+            "description": "Servicios de corte y grabado láser de precisión",
+            "icon": "lightning",
             "items": [
               "Corte de Precisión",
-              "Grabado Láser Especializado",
-              "Plantillas de Inspección",
-              "Trabajos Personalizados"
+              "Grabado Láser",
+              "Plantillas de Inspección"
             ]
           },
           "tooling": {
             "title": "TOOLING",
-            "subtitle": "Herramientas y Fixtures Especializados",
+            "description": "Herramientas especializadas para líneas de producción",
+            "icon": "desktop",
             "items": [
-              "SMT",
-              "BACKEND",
-              "ASSEMBLY"
+              "Squeegees",
+              "Sujetadores de Tarjetas",
+              "Placas Router",
+              "Pallets y Fixtures"
             ]
           }
         }
       },
       "services": {
-        "title": "Nuestros Servicios Especializados",
-        "subtitle": "Soluciones integrales más allá de los productos",
+        "title": "¿Por qué somos diferentes?",
+        "subtitle": "Nuestro equipo de expertos con más de 20 años de experiencia conoce exactamente lo que necesita la industria",
         "list": [
           {
-            "title": "Soporte Técnico Especializado",
-            "description": "Asesoría técnica personalizada para optimizar tus procesos de manufactura."
+            "title": "Assessment de Líneas",
+            "description": "Revisamos tu línea de producción sin costo y te decimos dónde estás fallando y cómo mejorarlo",
+            "icon": "target"
           },
           {
-            "title": "Assessment de Líneas de Producción",
-            "description": "Evaluación completa de tus líneas para identificar oportunidades de mejora."
+            "title": "Atención Rápida",
+            "description": "Entendemos que el tiempo es crítico. Respuesta inmediata con soluciones técnicas reales",
+            "icon": "lightning"
           },
           {
-            "title": "Consultoría en Procesos",
-            "description": "Optimización de procesos basada en nuestra experiencia de más de 15 años."
-          },
-          {
-            "title": "Capacitación Técnica",
-            "description": "Entrenamiento especializado para tu equipo técnico."
+            "title": "Equipo de Expertos",
+            "description": "Cada especialista tiene más de 30 años de experiencia en su área específica",
+            "icon": "users"
           }
         ]
+      },
+      "cta": {
+        "title": "¿Cómo podemos ayudarte a mejorar tu producción?",
+        "description": "Contáctanos para un assessment gratuito de tu línea de producción. Te ayudamos a aumentar tu yield y reducir defectos.",
+        "primaryCta": "Solicitar Assessment Gratuito",
+        "secondaryCta": "Ver Fichas Técnicas"
       },
       "contact": {
         "title": "Contacta a Nuestros Expertos",
@@ -384,7 +384,7 @@
         "privacy": "Política de Privacidad",
         "terms": "Términos y Condiciones",
         "cookies": "Política de Cookies",
-        "developer": "Desarrollado por ShinerDev"
+        "developer": "Desarrollado por"
       },
       "social": {
         "title": "Síguenos"
