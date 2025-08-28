@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - IPCSolder</title>
+    <style>
+        /* Fuente de Panasonic */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles - Identical to homepage */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 0;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(30, 58, 138, 0.1);
+        }
+        
+        .top-bar {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .top-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .lang-btn {
+            padding: 4px 12px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+        
+        .nav-container {
+            padding: 15px 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            margin: 0;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #93c5fd;
+        }
+        
+        .nav-link.active {
+            color: #93c5fd;
+            border-bottom: 2px solid #93c5fd;
+        }
+        
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-item:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 280px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            margin-top: 10px;
+        }
+        
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-content {
+            padding: 20px 0;
+        }
+        
+        .dropdown-section {
+            margin-bottom: 15px;
+        }
+        
+        .dropdown-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .dropdown-title {
+            color: #1e3a8a;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0 20px 8px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 8px;
+        }
+        
+        .dropdown-link {
+            display: block;
+            color: #4b5563;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-link:hover {
+            background: #f3f4f6;
+            color: #1e3a8a;
+            padding-left: 25px;
+        }
+        
+        /* Breadcrumb */
+        .breadcrumb {
+            background: #f8fafc;
+            padding: 15px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .breadcrumb-nav {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #64748b;
+        }
+        
+        .breadcrumb-nav a {
+            color: #3b82f6;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-nav a:hover {
+            color: #1e3a8a;
+        }
+        
+        /* Page Hero */
+        .page-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.05"><path d="M0,20 Q250,80 500,20 T1000,20 L1000,100 L0,100 Z"/></svg>') repeat-x;
+            background-size: 100% 100px;
+        }
+        
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .page-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .page-subtitle {
+            font-size: 20px;
+            color: #93c5fd;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        
+        .page-description {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            color: #cbd5e1;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            background: #f8fafc;
+        }
+        
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+        
+        /* Contact Info */
+        .contact-info-side {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .contact-info-side h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info-side p {
+            color: #64748b;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .contact-methods {
+            margin-bottom: 30px;
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-method:hover {
+            background: #e2e8f0;
+            transform: translateX(5px);
+        }
+        
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .contact-method-info h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 5px;
+        }
+        
+        .contact-method-info p {
+            color: #64748b;
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .contact-method-info a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+        
+        .contact-method-info a:hover {
+            color: #1e3a8a;
+        }
+        
+        /* Map Section */
+        .map-section {
+            margin-top: 30px;
+        }
+        
+        .map-section h3 {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .map-container {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 300px;
+            border: 0;
+        }
+        
+        .map-description {
+            color: #64748b;
+            font-size: 14px;
+            text-align: center;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        /* Form Section */
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .form-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+        
+        .form-section .form-subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .contact-form {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .required {
+            color: #ef4444;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .form-checkbox input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+        }
+        
+        .form-checkbox label {
+            color: #4b5563;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .form-submit {
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .form-submit:active {
+            transform: translateY(0);
+        }
+        
+        /* Alternative Contact Methods */
+        .alt-contact-section {
+            padding: 60px 0;
+            background: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+        
+        .section-description {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .alt-contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .alt-contact-card {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .alt-contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+        
+        .alt-contact-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 28px;
+        }
+        
+        .alt-contact-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+        
+        .alt-contact-description {
+            color: #64748b;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .alt-contact-action {
+            display: inline-block;
+            background: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .alt-contact-action:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+        
+        /* Footer - Identical to homepage */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #3b82f6;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 30px;
+            text-align: center;
+            color: #9ca3af;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .page-title {
+                font-size: 36px;
+            }
+            
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .alt-contact-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .contact-info {
+                display: none;
+            }
+            
+            .map-container iframe {
+                height: 250px;
+            }
+        }
+        
+        /* Form Validation Styles */
+        .form-input.error,
+        .form-select.error,
+        .form-textarea.error {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        
+        .success-message {
+            background: #10b981;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* Loading State */
+        .form-submit.loading {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .form-submit.loading::after {
+            content: '';
+            width: 16px;
+            height: 16px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            display: inline-block;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Identical to homepage -->
+    <header class="header">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-info">
+                    <div class="contact-info">
+                        <span>📧 ventas@ipcsolder.com</span>
+                        <span>📞 +52 (33) 1234-5678</span>
+                        <span>📍 Guadalajara, Jalisco</span>
+                    </div>
+                    <div class="language-switcher">
+                        <button class="lang-btn active">ES</button>
+                        <button class="lang-btn">EN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-container">
+            <div class="container">
+                <nav class="navbar">
+                    <a href="#" class="logo">IPCSolder</a>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                Nosotros
+                                <span class="dropdown-arrow">▼</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Empresa</div>
+                                        <a href="#" class="dropdown-link">Historia</a>
+                                        <a href="#" class="dropdown-link">Misión y Valores</a>
+                                        <a href="#" class="dropdown-link">Equipo de Expertos</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                Productos
+                                <span class="dropdown-arrow">▼</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Categorías Principales</div>
+                                        <a href="#" class="dropdown-link">MRO - Mantenimiento y Operaciones</a>
+                                        <a href="#" class="dropdown-link">ESD - Protección Electrostática</a>
+                                        <a href="#" class="dropdown-link">Solder - Productos de Soldadura</a>
+                                    </div>
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Servicios Especializados</div>
+                                        <a href="#" class="dropdown-link">Machines - Mantenimiento y Reparación</a>
+                                        <a href="#" class="dropdown-link">Laser - Corte y Grabado de Precisión</a>
+                                        <a href="#" class="dropdown-link">Tooling - Herramientas Especializadas</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                Servicios
+                                <span class="dropdown-arrow">▼</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Soporte Técnico</div>
+                                        <a href="#" class="dropdown-link">Assessment de Líneas</a>
+                                        <a href="#" class="dropdown-link">Consultoría de Procesos</a>
+                                        <a href="#" class="dropdown-link">Soporte Post-Venta</a>
+                                    </div>
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Recursos</div>
+                                        <a href="#" class="dropdown-link">Fichas Técnicas</a>
+                                        <a href="#" class="dropdown-link">Documentación</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">Contacto</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <nav class="breadcrumb-nav">
+                <a href="#">Inicio</a>
+                <span>></span>
+                <span>Contacto</span>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-content">
+                <h1 class="page-title">Contacto</h1>
+                <div class="page-subtitle">¿Cómo te podemos ayudar a solucionar tu problema?</div>
+                <p class="page-description">
+                    Contáctanos para un assessment gratuito de tu línea de producción. 
+                    Nuestros expertos están listos para ayudarte a mejorar y optimizar tus procesos.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <!-- Contact Information -->
+                <div class="contact-info-side">
+                    <h2>¡Hablemos!</h2>
+                    <p>
+                        Nuestros expertos están listos para revisar tu línea de producción y ofrecerte 
+                        soluciones específicas. Preferimos un formulario completo para entender mejor 
+                        tu situación y poder darte la respuesta más precisa.
+                    </p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-icon">📧</div>
+                            <div class="contact-method-info">
+                                <h3>Email Corporativo</h3>
+                                <p><a href="mailto:ventas@ipcsolder.com">ventas@ipcsolder.com</a></p>
+                                <p>Respuesta en máximo 24 horas</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-method-info">
+                                <h3>Teléfono</h3>
+                                <p><a href="tel:+523312345678">+52 (33) 1234-5678</a></p>
+                                <p>Lunes a Viernes, 9:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">💬</div>
+                            <div class="contact-method-info">
+                                <h3>WhatsApp</h3>
+                                <p><a href="https://wa.me/523312345678">+52 (33) 1234-5678</a></p>
+                                <p>Para consultas rápidas</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-icon">📍</div>
+                            <div class="contact-method-info">
+                                <h3>Ubicación</h3>
+                                <p>Guadalajara, Jalisco, México</p>
+                                <p>Servicio en toda la República</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Section -->
+                    <div class="map-section">
+                        <h3>Nuestra Ubicación</h3>
+                        <div class="map-container">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d119066.54289823879!2d-103.43422074335936!3d20.659698988642324!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428b19efc1ae64b%3A0x20c69352378f9fd4!2sGuadalajara%2C%20Jal.!5e0!3m2!1ses!2smx!4v1647883234567!5m2!1ses!2smx" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                        <div class="map-description">
+                            📍 Guadalajara, Jalisco - Brindamos servicio en toda la República Mexicana
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="form-section">
+                    <h2>Formulario de Contacto</h2>
+                    <p class="form-subtitle">
+                        Llena este formulario con información completa para que podamos entender 
+                        tu situación y ofrecerte la mejor solución técnica.
+                    </p>
+                    
+                    <form class="contact-form" id="contactForm">
+                        <!-- Name -->
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name <span class="required">*</span></label>
+                            <input type="text" id="name" name="name" class="form-input" required>
+                        </div>
+                        
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" class="form-input" required>
+                        </div>
+                        
+                        <!-- Get Email Updates -->
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="emailUpdates" name="emailUpdates">
+                            <label for="emailUpdates">Get Email Updates from IPCSolder?</label>
+                        </div>
+                        
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label for="phone" class="form-label">Phone <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+52 (33) 1234-5678" required>
+                        </div>
+                        
+                        <!-- Job Title -->
+                        <div class="form-group">
+                            <label for="jobTitle" class="form-label">Job Title <span class="required">*</span></label>
+                            <select id="jobTitle" name="jobTitle" class="form-select" required>
+                                <option value="">Selecciona tu posición</option>
+                                <option value="ingeniero-produccion">Ingeniero de Producción</option>
+                                <option value="gerente-compras">Gerente de Compras</option>
+                                <option value="tecnico">Técnico</option>
+                                <option value="supervisor-produccion">Supervisor de Producción</option>
+                                <option value="gerente-planta">Gerente de Planta</option>
+                                <option value="director-operaciones">Director de Operaciones</option>
+                                <option value="ingeniero-procesos">Ingeniero de Procesos</option>
+                                <option value="ingeniero-calidad">Ingeniero de Calidad</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Company -->
+                        <div class="form-group">
+                            <label for="company" class="form-label">Company <span class="required">*</span></label>
+                            <input type="text" id="company" name="company" class="form-input" required>
+                        </div>
+                        
+                        <!-- State -->
+                        <div class="form-group">
+                            <label for="state" class="form-label">State <span class="required">*</span></label>
+                            <select id="state" name="state" class="form-select" required>
+                                <option value="">Selecciona tu estado</option>
+                                <option value="aguascalientes">Aguascalientes</option>
+                                <option value="baja-california">Baja California</option>
+                                <option value="baja-california-sur">Baja California Sur</option>
+                                <option value="campeche">Campeche</option>
+                                <option value="chiapas">Chiapas</option>
+                                <option value="chihuahua">Chihuahua</option>
+                                <option value="coahuila">Coahuila</option>
+                                <option value="colima">Colima</option>
+                                <option value="cdmx">Ciudad de México</option>
+                                <option value="durango">Durango</option>
+                                <option value="estado-mexico">Estado de México</option>
+                                <option value="guanajuato">Guanajuato</option>
+                                <option value="guerrero">Guerrero</option>
+                                <option value="hidalgo">Hidalgo</option>
+                                <option value="jalisco">Jalisco</option>
+                                <option value="michoacan">Michoacán</option>
+                                <option value="morelos">Morelos</option>
+                                <option value="nayarit">Nayarit</option>
+                                <option value="nuevo-leon">Nuevo León</option>
+                                <option value="oaxaca">Oaxaca</option>
+                                <option value="puebla">Puebla</option>
+                                <option value="queretaro">Querétaro</option>
+                                <option value="quintana-roo">Quintana Roo</option>
+                                <option value="san-luis-potosi">San Luis Potosí</option>
+                                <option value="sinaloa">Sinaloa</option>
+                                <option value="sonora">Sonora</option>
+                                <option value="tabasco">Tabasco</option>
+                                <option value="tamaulipas">Tamaulipas</option>
+                                <option value="tlaxcala">Tlaxcala</option>
+                                <option value="veracruz">Veracruz</option>
+                                <option value="yucatan">Yucatán</option>
+                                <option value="zacatecas">Zacatecas</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Industry -->
+                        <div class="form-group">
+                            <label for="industry" class="form-label">Industry <span class="required">*</span></label>
+                            <select id="industry" name="industry" class="form-select" required>
+                                <option value="">Selecciona tu industria</option>
+                                <option value="industria-consumo">Industria de Consumo</option>
+                                <option value="automotriz">Automotriz</option>
+                                <option value="maquilas">Maquilas</option>
+                                <option value="comunicaciones">Comunicaciones</option>
+                                <option value="fabricantes-originales">Fabricantes Originales</option>
+                                <option value="equipos-medicos">Equipos Médicos</option>
+                                <option value="aeroespacial">Aeroespacial</option>
+                                <option value="otra">Otra</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description: ¿Qué necesitas? ¿Cómo podemos ayudarte? ¿Cómo te solucionamos tu problema? <span class="required">*</span></label>
+                            <textarea id="description" name="description" class="form-textarea" 
+                                placeholder="Describe tu situación específica, qué problemas estás enfrentando en tu línea de producción, qué productos te interesan, o qué tipo de assessment necesitas. Entre más detalles nos proporciones, mejor podremos ayudarte." 
+                                required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-submit" id="submitBtn">
+                            Enviar Solicitud
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alternative Contact Methods -->
+    <section class="alt-contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Otras Formas de Contactarnos</h2>
+                <p class="section-description">
+                    Elige el método que más te convenga. Estamos aquí para ayudarte a mejorar tu producción.
+                </p>
+            </div>
+            
+            <div class="alt-contact-grid">
+                <div class="alt-contact-card">
+                    <div class="alt-contact-icon">🎯</div>
+                    <h3 class="alt-contact-title">Assessment Gratuito</h3>
+                    <p class="alt-contact-description">
+                        Programa una visita gratuita para revisar tu línea de producción
+                    </p>
+                    <a href="#" class="alt-contact-action">Solicitar Assessment</a>
+                </div>
+                
+                <div class="alt-contact-card">
+                    <div class="alt-contact-icon">📋</div>
+                    <h3 class="alt-contact-title">Fichas Técnicas</h3>
+                    <p class="alt-contact-description">
+                        Solicita documentación específica de nuestros productos
+                    </p>
+                    <a href="#" class="alt-contact-action">Solicitar Fichas</a>
+                </div>
+                
+                <div class="alt-contact-card">
+                    <div class="alt-contact-icon">💬</div>
+                    <h3 class="alt-contact-title">WhatsApp Directo</h3>
+                    <p class="alt-contact-description">
+                        Para consultas rápidas y soporte inmediato
+                    </p>
+                    <a href="https://wa.me/523312345678" class="alt-contact-action">Abrir WhatsApp</a>
+                </div>
+                
+                <div class="alt-contact-card">
+                    <div class="alt-contact-icon">📞</div>
+                    <h3 class="alt-contact-title">Llamada Directa</h3>
+                    <p class="alt-contact-description">
+                        Habla directamente con uno de nuestros expertos
+                    </p>
+                    <a href="tel:+523312345678" class="alt-contact-action">Llamar Ahora</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IPCSolder</h3>
+                    <p style="color: #cbd5e1; margin-bottom: 20px;">
+                        Especialistas en soluciones de ensamble electrónico. 
+                        <strong>We are the experts!</strong>
+                    </p>
+                    <div style="display: flex; gap: 15px;">
+                        <a href="#" style="color: #cbd5e1;">LinkedIn</a>
+                        <a href="#" style="color: #cbd5e1;">Email</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Productos</h3>
+                    <ul>
+                        <li><a href="#">MRO</a></li>
+                        <li><a href="#">ESD</a></li>
+                        <li><a href="#">Solder</a></li>
+                        <li><a href="#">Machines</a></li>
+                        <li><a href="#">Laser</a></li>
+                        <li><a href="#">Tooling</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#">Assessment de Líneas</a></li>
+                        <li><a href="#">Consultoría de Procesos</a></li>
+                        <li><a href="#">Soporte Técnico</a></li>
+                        <li><a href="#">Fichas Técnicas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;">📧 ventas@ipcsolder.com</li>
+                        <li style="margin-bottom: 10px;">📞 +52 (33) 1234-5678</li>
+                        <li style="margin-bottom: 10px;">📍 Guadalajara, Jalisco</li>
+                        <li style="margin-bottom: 10px;">💬 WhatsApp</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 IPCSolder. Todos los derechos reservados. | Desarrollado por ShinerDev</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Form validation and submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = this;
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Basic validation
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                }
+            });
+            
+            // Email validation
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                email.classList.add('error');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                alert('Por favor completa todos los campos requeridos correctamente.');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.classList.add('loading');
+            submitBtn.textContent = 'Enviando...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                // Show success message
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-message';
+                successDiv.textContent = '¡Gracias! Tu solicitud ha sido enviada. Nos pondremos en contacto contigo dentro de las próximas 24 horas.';
+                
+                form.parentNode.insertBefore(successDiv, form);
+                
+                // Reset form
+                form.reset();
+                
+                // Reset button
+                submitBtn.classList.remove('loading');
+                submitBtn.textContent = 'Enviar Solicitud';
+                submitBtn.disabled = false;
+                
+                // Remove success message after 5 seconds
+                setTimeout(() => {
+                    successDiv.remove();
+                }, 5000);
+                
+            }, 2000);
+        });
+
+        // Real-time validation
+        document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('error');
+                } else {
+                    this.classList.remove('error');
+                }
+            });
+            
+            field.addEventListener('input', function() {
+                if (this.classList.contains('error') && this.value.trim()) {
+                    this.classList.remove('error');
+                }
+            });
+        });
+
+        // Language switcher functionality
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                console.log('Language switched to:', this.textContent);
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.contact-method, .alt-contact-card, .form-section').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+
+        // Add staggered animation to contact methods
+        document.querySelectorAll('.contact-method').forEach((method, index) => {
+            method.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Add staggered animation to alternative contact cards
+        document.querySelectorAll('.alt-contact-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Add subtle parallax effect to page hero
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.page-hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+        });
+
+        // Phone number formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 10) {
+                value = value.replace(/^(\d{2})(\d{2})(\d{4})(\d{4})/, '+$1 ($2) $3-$4');
+            }
+            e.target.value = value;
+        });
+
+        // Mobile menu toggle (placeholder for future implementation)
+        function toggleMobileMenu() {
+            console.log('Mobile menu toggle');
+        }
+
+        // Initialize page
+        window.addEventListener('load', function() {
+            console.log('Contact page loaded');
+            
+            // Focus on first input for better UX
+            document.getElementById('name').focus();
+        });
+    </script>
+</body>
+</html>

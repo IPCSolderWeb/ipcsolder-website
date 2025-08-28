@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPCSolder - Electronics Assembly Solutions</title>
+    <style>
+        /* Fuente de Panasonic */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 0;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(30, 58, 138, 0.1);
+        }
+        
+        .top-bar {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .top-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .contact-info {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .lang-btn {
+            padding: 4px 12px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: white;
+        }
+        
+        .nav-container {
+            padding: 15px 0;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            letter-spacing: -1px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            margin: 0;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: #93c5fd;
+        }
+        
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-item:hover .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+        
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 280px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            margin-top: 10px;
+        }
+        
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .dropdown-content {
+            padding: 20px 0;
+        }
+        
+        .dropdown-section {
+            margin-bottom: 15px;
+        }
+        
+        .dropdown-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .dropdown-title {
+            color: #1e3a8a;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 0 20px 8px;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 8px;
+        }
+        
+        .dropdown-link {
+            display: block;
+            color: #4b5563;
+            text-decoration: none;
+            padding: 8px 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .dropdown-link:hover {
+            background: #f3f4f6;
+            color: #1e3a8a;
+            padding-left: 25px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="%23ffffff" opacity="0.05"><path d="M0,20 Q250,80 500,20 T1000,20 L1000,100 L0,100 Z"/></svg>') repeat-x;
+            background-size: 100% 100px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-subtitle {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #93c5fd;
+            font-weight: 500;
+        }
+        
+        .hero-description {
+            font-size: 18px;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #cbd5e1;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid #64748b;
+        }
+        
+        .btn-secondary:hover {
+            background: #64748b;
+            transform: translateY(-2px);
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 80px 0;
+            background: #f8fafc;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 15px;
+        }
+        
+        .section-description {
+            font-size: 18px;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .product-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+        
+        .product-description {
+            color: #64748b;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .product-items {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .product-items li {
+            color: #4b5563;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .product-items li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .product-link {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .product-link:hover {
+            color: #1e3a8a;
+        }
+        
+        /* Services Section */
+        .services-section {
+            padding: 80px 0;
+            background: white;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .service-card {
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 12px;
+            background: #f8fafc;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: #3b82f6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 32px;
+            transition: all 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon {
+            background: white;
+            color: #3b82f6;
+        }
+        
+        .service-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1e3a8a;
+        }
+        
+        .service-card:hover .service-title {
+            color: white;
+        }
+        
+        .service-description {
+            color: #64748b;
+        }
+        
+        .service-card:hover .service-description {
+            color: #e2e8f0;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #cbd5e1;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #3b82f6;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-section ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 30px;
+            text-align: center;
+            color: #9ca3af;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-info {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="top-info">
+                    <div class="contact-info">
+                        <span>📧 ventas@ipcsolder.com</span>
+                        <span>📞 +52 (33) 1234-5678</span>
+                        <span>📍 Guadalajara, Jalisco</span>
+                    </div>
+                    <div class="language-switcher">
+                        <button class="lang-btn active">ES</button>
+                        <button class="lang-btn">EN</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation -->
+        <div class="nav-container">
+            <div class="container">
+                <nav class="navbar">
+                    <a href="#" class="logo">IPCSolder</a>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                Nosotros
+                                <span class="dropdown-arrow">▼</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Empresa</div>
+                                        <a href="#" class="dropdown-link">Historia</a>
+                                        <a href="#" class="dropdown-link">Misión y Valores</a>
+                                        <a href="#" class="dropdown-link">Equipo de Expertos</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                Productos
+                                <span class="dropdown-arrow">▼</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Categorías Principales</div>
+                                        <a href="#" class="dropdown-link">MRO - Mantenimiento y Operaciones</a>
+                                        <a href="#" class="dropdown-link">ESD - Protección Electrostática</a>
+                                        <a href="#" class="dropdown-link">Solder - Productos de Soldadura</a>
+                                    </div>
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Servicios Especializados</div>
+                                        <a href="#" class="dropdown-link">Machines - Mantenimiento y Reparación</a>
+                                        <a href="#" class="dropdown-link">Laser - Corte y Grabado de Precisión</a>
+                                        <a href="#" class="dropdown-link">Tooling - Herramientas Especializadas</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                Servicios
+                                <span class="dropdown-arrow">▼</span>
+                            </a>
+                            <div class="dropdown">
+                                <div class="dropdown-content">
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Soporte Técnico</div>
+                                        <a href="#" class="dropdown-link">Assessment de Líneas</a>
+                                        <a href="#" class="dropdown-link">Consultoría de Procesos</a>
+                                        <a href="#" class="dropdown-link">Soporte Post-Venta</a>
+                                    </div>
+                                    <div class="dropdown-section">
+                                        <div class="dropdown-title">Recursos</div>
+                                        <a href="#" class="dropdown-link">Fichas Técnicas</a>
+                                        <a href="#" class="dropdown-link">Documentación</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contacto</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Electronics Assembly Solutions</h1>
+                <div class="hero-subtitle">We are the experts!</div>
+                <p class="hero-description">
+                    Soluciones especializadas para la industria electrónica con más de 20 años de experiencia. 
+                    Conocemos lo que necesita la industria y sabemos cómo solucionar sus problemas.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">¿Cómo podemos ayudarte a mejorar?</a>
+                    <a href="#" class="btn btn-secondary">Ver Productos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Nuestras Especialidades</h2>
+                <p class="section-description">
+                    Seis divisiones especializadas con expertos dedicados en cada área de la industria electrónica
+                </p>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">📋</div>
+                    <h3 class="product-title">MRO</h3>
+                    <p class="product-description">Mantenimiento, Reparación y Operaciones para líneas SMT</p>
+                    <ul class="product-items">
+                        <li>Termopares Tipo K</li>
+                        <li>Chip Bonder</li>
+                        <li>Alcohol Isopropílico</li>
+                        <li>Limpiador de Boquillas</li>
+                        <li>Router Bits</li>
+                    </ul>
+                    <a href="#" class="product-link">Ver productos →</a>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🛡️</div>
+                    <h3 class="product-title">ESD</h3>
+                    <p class="product-description">Protección electrostática para PCB y componentes electrónicos</p>
+                    <ul class="product-items">
+                        <li>Bandejas EVA</li>
+                        <li>Bandejas Termoformadas</li>
+                        <li>Contenedores Plástico</li>
+                        <li>Bandejas Fibra de Vidrio</li>
+                        <li>Alfombrillas EVA</li>
+                    </ul>
+                    <a href="#" class="product-link">Ver productos →</a>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🔧</div>
+                    <h3 class="product-title">SOLDER</h3>
+                    <p class="product-description">Productos especializados de soldadura para electrónica</p>
+                    <ul class="product-items">
+                        <li>Barras de Soldadura</li>
+                        <li>Alambre de Soldadura</li>
+                        <li>Flux Líquido</li>
+                        <li>Preformas de Soldadura</li>
+                    </ul>
+                    <a href="#" class="product-link">Ver productos →</a>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">⚙️</div>
+                    <h3 class="product-title">MACHINES</h3>
+                    <p class="product-description">Mantenimiento y reparación de equipos SMT</p>
+                    <ul class="product-items">
+                        <li>Refacciones</li>
+                        <li>Mantenimiento Preventivo</li>
+                        <li>Servicio de Reparación</li>
+                        <li>Soporte Técnico</li>
+                    </ul>
+                    <a href="#" class="product-link">Ver productos →</a>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">⚡</div>
+                    <h3 class="product-title">LASER</h3>
+                    <p class="product-description">Servicios de corte y grabado láser de precisión</p>
+                    <ul class="product-items">
+                        <li>Corte de Precisión</li>
+                        <li>Grabado Láser</li>
+                        <li>Plantillas de Inspección</li>
+                    </ul>
+                    <a href="#" class="product-link">Ver productos →</a>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon">🔩</div>
+                    <h3 class="product-title">TOOLING</h3>
+                    <p class="product-description">Herramientas especializadas para líneas de producción</p>
+                    <ul class="product-items">
+                        <li>Squeegees</li>
+                        <li>Sujetadores de Tarjetas</li>
+                        <li>Placas Router</li>
+                        <li>Pallets y Fixtures</li>
+                    </ul>
+                    <a href="#" class="product-link">Ver productos →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">¿Por qué somos diferentes?</h2>
+                <p class="section-description">
+                    Nuestro equipo de expertos con más de 20 años de experiencia conoce exactamente lo que necesita la industria
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3 class="service-title">Assessment de Líneas</h3>
+                    <p class="service-description">
+                        Revisamos tu línea de producción sin costo y te decimos dónde estás fallando y cómo mejorarlo
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">⚡</div>
+                    <h3 class="service-title">Atención Rápida</h3>
+                    <p class="service-description">
+                        Entendemos que el tiempo es crítico. Respuesta inmediata con soluciones técnicas reales
+                    </p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">👥</div>
+                    <h3 class="service-title">Equipo de Expertos</h3>
+                    <p class="service-description">
+                        Cada especialista tiene más de 30 años de experiencia en su área específica
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>¿Cómo podemos ayudarte a mejorar tu producción?</h2>
+                <p>
+                    Contáctanos para un assessment gratuito de tu línea de producción. 
+                    Te ayudamos a aumentar tu yield y reducir defectos.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">Solicitar Assessment Gratuito</a>
+                    <a href="#" class="btn btn-secondary">Ver Fichas Técnicas</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>IPCSolder</h3>
+                    <p style="color: #cbd5e1; margin-bottom: 20px;">
+                        Especialistas en soluciones de ensamble electrónico. 
+                        <strong>We are the experts!</strong>
+                    </p>
+                    <div style="display: flex; gap: 15px;">
+                        <a href="#" style="color: #cbd5e1;">LinkedIn</a>
+                        <a href="#" style="color: #cbd5e1;">Email</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Productos</h3>
+                    <ul>
+                        <li><a href="#">MRO</a></li>
+                        <li><a href="#">ESD</a></li>
+                        <li><a href="#">Solder</a></li>
+                        <li><a href="#">Machines</a></li>
+                        <li><a href="#">Laser</a></li>
+                        <li><a href="#">Tooling</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#">Soporte Técnico</a></li>
+                        <li><a href="#">Assessment de Líneas</a></li>
+                        <li><a href="#">Consultoría</a></li>
+                        <li><a href="#">Fichas Técnicas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contacto</h3>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;">💬 WhatsApp</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 IPCSolder. Todos los derechos reservados. | Desarrollado por ShinerDev</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Language switcher functionality
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Here you would implement actual language switching
+                console.log('Language switched to:', this.textContent);
+            });
+        });
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.product-card, .service-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Mobile menu toggle (placeholder for future implementation)
+        function toggleMobileMenu() {
+            // This would be implemented for mobile responsiveness
+            console.log('Mobile menu toggle');
+        }
+
+        // Add subtle parallax effect to hero
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add typing effect to hero subtitle
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect
+        window.addEventListener('load', function() {
+            const subtitle = document.querySelector('.hero-subtitle');
+            if (subtitle) {
+                const originalText = subtitle.textContent;
+                typeWriter(subtitle, originalText, 150);
+            }
+        });
+    </script>
+</body>
+</html>📧 ventas@ipcsolder.com</li>
+                        <li style="margin-bottom: 10px;">📞 +52 (33) 1234-5678</li>
+                        <li style="margin-bottom: 10px;">📍 Guadalajara, Jalisco</li>
+                        <li style="margin-bottom: 10px;">

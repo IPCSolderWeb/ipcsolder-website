@@ -1,8 +1,8 @@
 {
     "header": {
       "contact": {
-        "email": "📧 sales@ipcsolder.com",
-        "phone": "📞 +52 (33) 1234-5678",
+        "email": "📧 ventas@ipcsolder.com",
+        "phone": "📞 +52 (33) 4514 2400",
         "location": "📍 Guadalajara, Jalisco"
       },
       "nav": {
@@ -65,113 +65,113 @@
     },
     "home": {
       "hero": {
-        "title": "IPCSolder",
-        "subtitle": "Electronics Assembly Solutions!",
-        "description": "Leaders in electronic soldering and industrial solutions for maquiladoras, automotive and telecommunications.",
-        "cta": "Request Information"
+        "title": "Electronics Assembly Solutions",
+        "subtitle": "We are the experts!",
+        "description": "Specialized solutions for the electronics industry with over 20 years of experience. We know what the industry needs and we know how to solve your problems.",
+        "primaryCta": "How can we help you improve?",
+        "secondaryCta": "View Products"
       },
-      "valueProposition": {
-        "title": "We Are The Experts",
-        "subtitle": "In Electronic Soldering and Industrial Solutions",
-        "description": "With over 15 years of experience, IPCSolder has established itself as the leading provider of specialized technical solutions for the electronics industry. From maquiladoras to OEM manufacturers, we provide exactly what each process needs.",
-        "features": [
-          "Proven industry experience",
-          "Customized technical solutions",
-          "Specialized 24/7 support",
-          "Certified quality products"
-        ]
-      },
+
       "products": {
-        "title": "Our Product Categories",
-        "subtitle": "Complete solutions for every stage of your manufacturing process",
-        "viewMore": "View more",
+        "title": "Our Specialties",
+        "subtitle": "Six specialized divisions with dedicated experts in each area of the electronics industry",
+        "viewMore": "View products",
         "categories": {
           "mro": {
             "title": "MRO",
-            "subtitle": "Maintenance, Repair & Operations",
+            "description": "Maintenance, Repair and Operations for SMT lines",
+            "icon": "clipboard",
             "items": [
               "Type K Thermocouples",
               "Chip Bonder",
-              "Isopropyl Alcohol (IPA)",
+              "Isopropyl Alcohol",
               "Nozzle Cleaner",
               "Router Bits"
             ]
           },
           "esd": {
             "title": "ESD",
-            "subtitle": "Electrostatic Discharge Protection",
+            "description": "Electrostatic protection for PCB and electronic components",
+            "icon": "shield",
             "items": [
               "EVA Trays",
               "Thermoformed Trays",
-              "Antistatic Containers",
+              "Plastic Containers",
               "Fiberglass Trays",
               "EVA Mats"
             ]
           },
           "solder": {
-            "title": "SOLDER PRODUCTS",
-            "subtitle": "Specialized Soldering Materials",
+            "title": "SOLDER",
+            "description": "Specialized soldering products for electronics",
+            "icon": "wrench",
             "items": [
               "Solder Bars",
-              "Solder Wires",
+              "Solder Wire",
               "Liquid Flux",
               "Solder Preforms"
             ]
           },
           "machines": {
             "title": "MACHINES",
-            "subtitle": "Specialized Equipment and Services",
+            "description": "SMT equipment maintenance and repair",
+            "icon": "cog",
             "items": [
-              "SMT",
-              "BACKEND",
-              "AUTOMATIC INSPECTION",
-              "CONFORMAL",
-              "THROUGH HOLE",
-              "REPAIR"
+              "Spare Parts",
+              "Preventive Maintenance",
+              "Repair Service",
+              "Technical Support"
             ]
           },
           "laser": {
             "title": "LASER",
-            "subtitle": "Laser Cutting and Engraving Systems",
+            "description": "Precision laser cutting and engraving services",
+            "icon": "lightning",
             "items": [
               "Precision Cutting",
-              "Specialized Laser Engraving",
-              "Inspection Templates",
-              "Custom Work"
+              "Laser Engraving",
+              "Inspection Templates"
             ]
           },
           "tooling": {
             "title": "TOOLING",
-            "subtitle": "Specialized Tools and Fixtures",
+            "description": "Specialized tools for production lines",
+            "icon": "desktop",
             "items": [
-              "SMT",
-              "BACKEND",
-              "ASSEMBLY"
+              "Squeegees",
+              "Card Holders",
+              "Router Plates",
+              "Pallets and Fixtures"
             ]
           }
         }
       },
       "services": {
-        "title": "Our Specialized Services",
-        "subtitle": "Comprehensive solutions beyond products",
+        "title": "Why are we different?",
+        "subtitle": "Our team of experts with over 20 years of experience knows exactly what the industry needs",
         "list": [
           {
-            "title": "Specialized Technical Support",
-            "description": "Personalized technical consulting to optimize your manufacturing processes."
+            "title": "Line Assessment",
+            "description": "We review your production line at no cost and tell you where you are failing and how to improve it",
+            "icon": "target"
           },
           {
-            "title": "Production Line Assessment",
-            "description": "Complete evaluation of your lines to identify improvement opportunities."
+            "title": "Fast Response",
+            "description": "We understand that time is critical. Immediate response with real technical solutions",
+            "icon": "lightning"
           },
           {
-            "title": "Process Consulting",
-            "description": "Process optimization based on our 15+ years of experience."
-          },
-          {
-            "title": "Technical Training",
-            "description": "Specialized training for your technical team."
+            "title": "Expert Team",
+            "description": "Each specialist has over 30 years of experience in their specific area",
+            "icon": "users"
           }
         ]
+      },
+      "cta": {
+        "title": "How can we help you improve your production?",
+        "description": "Contact us for a free assessment of your production line. We help you increase your yield and reduce defects.",
+        "primaryCta": "Request Free Assessment",
+        "secondaryCta": "View Technical Sheets"
       },
       "contact": {
         "title": "Contact Our Experts",
@@ -384,7 +384,7 @@
         "privacy": "Privacy Policy",
         "terms": "Terms & Conditions",
         "cookies": "Cookie Policy",
-        "developer": "Developed by ShinerDev"
+        "developer": "Developed by"
       },
       "social": {
         "title": "Follow Us"

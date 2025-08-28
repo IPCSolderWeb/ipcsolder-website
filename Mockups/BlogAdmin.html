@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Admin - IPCSolder</title>
+    <style>
+        /* Fuente de Panasonic */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #f8fafc;
+            color: #333333;
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        .admin-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(30, 58, 138, 0.1);
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .admin-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .user-role {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Main Layout */
+        .admin-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            min-height: calc(100vh - 80px);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            border-right: 1px solid #e2e8f0;
+            padding: 30px 0;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+        }
+        
+        .sidebar-item {
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #64748b;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar-link:hover,
+        .sidebar-link.active {
+            background: #f1f5f9;
+            color: #1e3a8a;
+        }
+        
+        .sidebar-icon {
+            font-size: 18px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding: 30px;
+        }
+        
+        .content-header {
+            margin-bottom: 30px;
+        }
+        
+        .page-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+        
+        .page-description {
+            color: #64748b;
+        }
+        
+        /* Action Bar */
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .search-input {
+            padding: 10px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            width: 300px;
+            font-size: 14px;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #64748b;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+        
+        /* Posts Table */
+        .posts-table {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .table th,
+        .table td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .table tbody tr:hover {
+            background: #f8fafc;
+        }
+        
+        .post-title {
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 4px;
+        }
+        
+        .post-excerpt {
+            color: #64748b;
+            font-size: 14px;
+        }
+        
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .status-published {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-draft {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .language-badge {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            margin-right: 5px;
+        }
+        
+        .lang-es {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .lang-en {
+            background: #f3e8ff;
+            color: #7c3aed;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-edit {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        
+        .action-delete {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Form Styles */
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        .required {
+            color: #ef4444;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .editor-container {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .editor-toolbar {
+            background: #f8fafc;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .editor-btn {
+            padding: 6px 10px;
+            border: none;
+            background: transparent;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s ease;
+        }
+        
+        .editor-btn:hover {
+            background: #e2e8f0;
+        }
+        
+        .editor-content {
+            min-height: 300px;
+            padding: 15px;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            line-height: 1.6;
+        }
+        
+        /* Language Tabs */
+        .language-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .lang-tab {
+            padding: 12px 24px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-tab.active {
+            background: white;
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+        
+        .lang-content {
+            display: none;
+        }
+        
+        .lang-content.active {
+            display: block;
+        }
+        
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        /* Success/Error Messages */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+        
+        .message-success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        
+        .message-error {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e3a8a;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        /* Categories Table */
+        .category-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background: white;
+        }
+        
+        .category-info h4 {
+            margin: 0 0 5px 0;
+            color: #1e3a8a;
+        }
+        
+        .category-info p {
+            margin: 0;
+            color: #64748b;
+            font-size: 14px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .admin-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .action-bar {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-container {
+                overflow-x: auto;
+            }
+        }
+        
+        /* Hidden class for views */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">IPCSolder Admin</a>
+                <div class="admin-user">
+                    <div class="user-info">
+                        <div class="user-name">Manuel Zambrano</div>
+                        <div class="user-role">Administrador</div>
+                    </div>
+                    <button class="logout-btn" onclick="logout()">Salir</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link active" onclick="showView('posts')">
+                        <span class="sidebar-icon">📝</span>
+                        <span>Posts del Blog</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" onclick="showView('new-post')">
+                        <span class="sidebar-icon">➕</span>
+                        <span>Nuevo Post</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" onclick="showView('categories')">
+                        <span class="sidebar-icon">🏷️</span>
+                        <span>Categorías</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="../blog.html" class="sidebar-link">
+                        <span class="sidebar-icon">👁️</span>
+                        <span>Ver Blog Público</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Posts List View -->
+            <div id="posts-view" class="view">
+                <div class="content-header">
+                    <h1 class="page-title">Posts del Blog</h1>
+                    <p class="page-description">Gestiona todas las entradas del blog técnico en español e inglés</p>
+                </div>
+
+                <div class="action-bar">
+                    <input type="text" class="search-input" placeholder="Buscar posts..." id="searchInput">
+                    <button class="btn btn-primary" onclick="showView('new-post')">
+                        ➕ Nuevo Post
+                    </button>
+                </div>
+
+                <div class="posts-table">
+                    <div class="table-container">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Título</th>
+                                    <th>Idiomas</th>
+                                    <th>Categoría</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="postsTableBody">
+                                <tr>
+                                    <td>
+                                        <div class="post-title">Optimización de Aleaciones SAC305 en Procesos SMT</div>
+                                        <div class="post-excerpt">Análisis detallado de las mejores prácticas para implementar aleaciones SAC305...</div>
+                                    </td>
+                                    <td>
+                                        <span class="language-badge lang-es">ES</span>
+                                        <span class="language-badge lang-en">EN</span>
+                                    </td>
+                                    <td>Soldadura</td>
+                                    <td><span class="status-badge status-published">Publicado</span></td>
+                                    <td>15 Enero 2025</td>
+                                    <td>
+                                        <div class="actions">
+                                            <button class="action-btn action-edit" onclick="editCategory('esd')">Editar</button>
+                            <button class="action-btn action-delete" onclick="deleteCategory('esd')">Eliminar</button>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-info">
+                            <h4>Procesos</h4>
+                            <p>Optimización de procesos de manufactura electrónica</p>
+                        </div>
+                        <div class="actions">
+                            <button class="action-btn action-edit" onclick="editCategory('procesos')">Editar</button>
+                            <button class="action-btn action-delete" onclick="deleteCategory('procesos')">Eliminar</button>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-info">
+                            <h4>Investigación</h4>
+                            <p>Últimas investigaciones y tendencias en la industria</p>
+                        </div>
+                        <div class="actions">
+                            <button class="action-btn action-edit" onclick="editCategory('investigacion')">Editar</button>
+                            <button class="action-btn action-delete" onclick="deleteCategory('investigacion')">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Category Modal -->
+    <div id="categoryModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Nueva Categoría</h3>
+            </div>
+            <form id="categoryForm" onsubmit="saveCategory(event)">
+                <div class="form-group">
+                    <label class="form-label">Nombre <span class="required">*</span></label>
+                    <input type="text" class="form-input" id="categoryName" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Descripción</label>
+                    <textarea class="form-textarea" id="categoryDescription" rows="3"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeCategoryModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirmar Eliminación</h3>
+            </div>
+            <p>¿Estás seguro de que deseas eliminar este elemento? Esta acción no se puede deshacer.</p>
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentView = 'posts';
+        let currentLanguage = 'es';
+        let editingPostId = null;
+        let deleteTarget = null;
+
+        // View management
+        function showView(viewName) {
+            // Hide all views
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.add('hidden');
+            });
+            
+            // Show selected view
+            document.getElementById(viewName + '-view').classList.remove('hidden');
+            
+            // Update sidebar active state
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Find and activate the correct sidebar link
+            const activeLink = document.querySelector(`[onclick="showView('${viewName}')"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+            
+            currentView = viewName;
+            
+            // Reset form if switching to new post
+            if (viewName === 'new-post') {
+                resetPostForm();
+            }
+        }
+
+        // Language switching
+        function switchLanguage(lang) {
+            // Update tab states
+            document.querySelectorAll('.lang-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[onclick="switchLanguage('${lang}')"]`).classList.add('active');
+            
+            // Update content visibility
+            document.querySelectorAll('.lang-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(`lang-${lang}`).classList.add('active');
+            
+            currentLanguage = lang;
+        }
+
+        // Text formatting functions
+        function formatText(command) {
+            document.execCommand(command, false, null);
+            document.getElementById(`content-${currentLanguage}`).focus();
+        }
+
+        function insertLink() {
+            const url = prompt('Ingresa la URL:');
+            if (url) {
+                document.execCommand('createLink', false, url);
+            }
+        }
+
+        function insertImage() {
+            const url = prompt('Ingresa la URL de la imagen:');
+            if (url) {
+                document.execCommand('insertImage', false, url);
+            }
+        }
+
+        // Post management
+        function savePost(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = {
+                titleEs: document.getElementById('title-es').value,
+                titleEn: document.getElementById('title-en').value,
+                excerptEs: document.getElementById('excerpt-es').value,
+                excerptEn: document.getElementById('excerpt-en').value,
+                contentEs: document.getElementById('content-es').innerHTML,
+                contentEn: document.getElementById('content-en').innerHTML,
+                category: document.getElementById('category').value,
+                status: document.getElementById('status').value,
+                tags: document.getElementById('tags').value
+            };
+            
+            // Validate required fields
+            if (!formData.titleEs || !formData.excerptEs || !formData.category) {
+                showMessage('Por favor completa todos los campos requeridos.', 'error');
+                return;
+            }
+            
+            // Simulate save operation
+            console.log('Saving post:', formData);
+            
+            // Show success message
+            showMessage('Post guardado exitosamente.', 'success');
+            
+            // Redirect to posts view
+            setTimeout(() => {
+                showView('posts');
+                refreshPostsTable();
+            }, 1500);
+        }
+
+        function editPost(postId) {
+            editingPostId = postId;
+            showView('new-post');
+            
+            // Simulate loading post data
+            // In a real application, this would fetch data from the server
+            if (postId === 1) {
+                document.getElementById('title-es').value = 'Optimización de Aleaciones SAC305 en Procesos SMT';
+                document.getElementById('title-en').value = 'SAC305 Alloy Optimization in SMT Processes';
+                document.getElementById('category').value = 'soldadura';
+                document.getElementById('status').value = 'published';
+            }
+            
+            // Update header
+            document.querySelector('#new-post-view .page-title').textContent = 'Editar Post';
+        }
+
+        function deletePost(postId) {
+            deleteTarget = { type: 'post', id: postId };
+            document.getElementById('deleteModal').classList.add('active');
+        }
+
+        function resetPostForm() {
+            document.getElementById('postForm').reset();
+            document.getElementById('content-es').innerHTML = '';
+            document.getElementById('content-en').innerHTML = '';
+            editingPostId = null;
+            document.querySelector('#new-post-view .page-title').textContent = 'Nuevo Post del Blog';
+        }
+
+        function cancelForm() {
+            if (confirm('¿Seguro que deseas cancelar? Se perderán los cambios no guardados.')) {
+                showView('posts');
+            }
+        }
+
+        // Category management
+        function showCategoryModal() {
+            document.getElementById('categoryModal').classList.add('active');
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+            document.getElementById('categoryForm').reset();
+        }
+
+        function saveCategory(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('categoryName').value;
+            const description = document.getElementById('categoryDescription').value;
+            
+            console.log('Saving category:', { name, description });
+            
+            showMessage('Categoría guardada exitosamente.', 'success');
+            closeCategoryModal();
+            refreshCategoriesList();
+        }
+
+        function editCategory(categoryId) {
+            showCategoryModal();
+            document.querySelector('.modal-title').textContent = 'Editar Categoría';
+            
+            // Simulate loading category data
+            if (categoryId === 'soldadura') {
+                document.getElementById('categoryName').value = 'Soldadura';
+                document.getElementById('categoryDescription').value = 'Artículos sobre técnicas de soldadura, aleaciones y procesos SMT';
+            }
+        }
+
+        function deleteCategory(categoryId) {
+            deleteTarget = { type: 'category', id: categoryId };
+            document.getElementById('deleteModal').classList.add('active');
+        }
+
+        // Delete confirmation
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.remove('active');
+            deleteTarget = null;
+        }
+
+        function confirmDelete() {
+            if (deleteTarget) {
+                console.log('Deleting:', deleteTarget);
+                showMessage(`${deleteTarget.type === 'post' ? 'Post' : 'Categoría'} eliminado exitosamente.`, 'success');
+                
+                if (deleteTarget.type === 'post') {
+                    refreshPostsTable();
+                } else {
+                    refreshCategoriesList();
+                }
+            }
+            closeDeleteModal();
+        }
+
+        // Table refresh functions
+        function refreshPostsTable() {
+            // In a real application, this would fetch fresh data from the server
+            console.log('Refreshing posts table...');
+        }
+
+        function refreshCategoriesList() {
+            // In a real application, this would fetch fresh data from the server
+            console.log('Refreshing categories list...');
+        }
+
+        // Search functionality
+        document.getElementById('searchInput')?.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const rows = document.querySelectorAll('#postsTableBody tr');
+            
+            rows.forEach(row => {
+                const title = row.querySelector('.post-title').textContent.toLowerCase();
+                const excerpt = row.querySelector('.post-excerpt').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || excerpt.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+
+        // Message display
+        function showMessage(text, type) {
+            // Remove existing messages
+            document.querySelectorAll('.message').forEach(msg => msg.remove());
+            
+            const message = document.createElement('div');
+            message.className = `message message-${type}`;
+            message.textContent = text;
+            
+            const content = document.querySelector('.main-content');
+            content.insertBefore(message, content.firstChild);
+            
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                message.remove();
+            }, 3000);
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('¿Seguro que deseas cerrar sesión?')) {
+                window.location.href = '../index.html';
+            }
+        }
+
+        // Auto-save functionality (optional)
+        function enableAutoSave() {
+            const inputs = document.querySelectorAll('#postForm input, #postForm textarea, #postForm select, .editor-content');
+            
+            inputs.forEach(input => {
+                input.addEventListener('input', () => {
+                    // Save to localStorage
+                    const formData = new FormData(document.getElementById('postForm'));
+                    localStorage.setItem('blogPost_draft', JSON.stringify(Object.fromEntries(formData)));
+                });
+            });
+        }
+
+        // Load draft from localStorage
+        function loadDraft() {
+            const draft = localStorage.getItem('blogPost_draft');
+            if (draft && currentView === 'new-post') {
+                const data = JSON.parse(draft);
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) {
+                        element.value = data[key];
+                    }
+                });
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Blog Admin Panel loaded successfully');
+            
+            // Enable auto-save
+            enableAutoSave();
+            
+            // Load any existing draft
+            loadDraft();
+            
+            // Set initial focus
+            if (currentView === 'new-post') {
+                document.getElementById('title-es')?.focus();
+            }
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + S to save
+            if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                e.preventDefault();
+                if (currentView === 'new-post') {
+                    document.getElementById('postForm').dispatchEvent(new Event('submit'));
+                }
+            }
+            
+            // Esc to cancel/close modals
+            if (e.key === 'Escape') {
+                if (document.querySelector('.modal.active')) {
+                    closeCategoryModal();
+                    closeDeleteModal();
+                }
+            }
+        });
+    </script>
+</body>
+</html><button class="action-btn action-edit" onclick="editPost(2)">Editar</button>
+                                            <button class="action-btn action-delete" onclick="deletePost(1)">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="post-title">Mejores Prácticas de Control ESD en Líneas de Producción</div>
+                                        <div class="post-excerpt">Guía completa para implementar sistemas efectivos de control de descarga electrostática...</div>
+                                    </td>
+                                    <td>
+                                        <span class="language-badge lang-es">ES</span>
+                                    </td>
+                                    <td>ESD</td>
+                                    <td><span class="status-badge status-draft">Borrador</span></td>
+                                    <td>12 Enero 2025</td>
+                                    <td>
+                                        <div class="actions">
+                                            <button class="action-btn action-edit" onclick="editPost(2)">Editar</button>
+                                            <button class="action-btn action-delete" onclick="deletePost(2)">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="post-title">Tendencias en Soldadura Lead-Free 2025</div>
+                                        <div class="post-excerpt">Análisis de las últimas tendencias en tecnologías de soldadura sin plomo...</div>
+                                    </td>
+                                    <td>
+                                        <span class="language-badge lang-es">ES</span>
+                                        <span class="language-badge lang-en">EN</span>
+                                    </td>
+                                    <td>Investigación</td>
+                                    <td><span class="status-badge status-published">Publicado</span></td>
+                                    <td>8 Enero 2025</td>
+                                    <td>
+                                        <div class="actions">
+                                            <button class="action-btn action-edit" onclick="editPost(3)">Editar</button>
+                                            <button class="action-btn action-delete" onclick="deletePost(3)">Eliminar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- New/Edit Post View -->
+            <div id="new-post-view" class="view hidden">
+                <div class="content-header">
+                    <h1 class="page-title">Nuevo Post del Blog</h1>
+                    <p class="page-description">Crea contenido técnico profesional en español e inglés</p>
+                </div>
+
+                <div class="form-container">
+                    <form id="postForm" onsubmit="savePost(event)">
+                        <!-- Language Tabs -->
+                        <div class="language-tabs">
+                            <button type="button" class="lang-tab active" onclick="switchLanguage('es')">
+                                🇪🇸 Español
+                            </button>
+                            <button type="button" class="lang-tab" onclick="switchLanguage('en')">
+                                🇺🇸 English
+                            </button>
+                        </div>
+
+                        <!-- Spanish Content -->
+                        <div id="lang-es" class="lang-content active">
+                            <div class="form-group">
+                                <label class="form-label">Título (Español) <span class="required">*</span></label>
+                                <input type="text" class="form-input" id="title-es" required 
+                                       placeholder="Ej: Optimización de Aleaciones SAC305 en Procesos SMT">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Extracto (Español) <span class="required">*</span></label>
+                                <textarea class="form-textarea" id="excerpt-es" required 
+                                          placeholder="Breve descripción del contenido del post..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Contenido (Español) <span class="required">*</span></label>
+                                <div class="editor-container">
+                                    <div class="editor-toolbar">
+                                        <button type="button" class="editor-btn" onclick="formatText('bold')"><strong>B</strong></button>
+                                        <button type="button" class="editor-btn" onclick="formatText('italic')"><em>I</em></button>
+                                        <button type="button" class="editor-btn" onclick="formatText('underline')"><u>U</u></button>
+                                        <button type="button" class="editor-btn" onclick="insertLink()">🔗</button>
+                                        <button type="button" class="editor-btn" onclick="insertImage()">🖼️</button>
+                                    </div>
+                                    <div class="editor-content" id="content-es" contenteditable="true" 
+                                         placeholder="Escribe el contenido técnico aquí...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- English Content -->
+                        <div id="lang-en" class="lang-content">
+                            <div class="form-group">
+                                <label class="form-label">Title (English)</label>
+                                <input type="text" class="form-input" id="title-en" 
+                                       placeholder="Ex: SAC305 Alloy Optimization in SMT Processes">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Excerpt (English)</label>
+                                <textarea class="form-textarea" id="excerpt-en" 
+                                          placeholder="Brief description of the post content..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Content (English)</label>
+                                <div class="editor-container">
+                                    <div class="editor-toolbar">
+                                        <button type="button" class="editor-btn" onclick="formatText('bold')"><strong>B</strong></button>
+                                        <button type="button" class="editor-btn" onclick="formatText('italic')"><em>I</em></button>
+                                        <button type="button" class="editor-btn" onclick="formatText('underline')"><u>U</u></button>
+                                        <button type="button" class="editor-btn" onclick="insertLink()">🔗</button>
+                                        <button type="button" class="editor-btn" onclick="insertImage()">🖼️</button>
+                                    </div>
+                                    <div class="editor-content" id="content-en" contenteditable="true" 
+                                         placeholder="Write technical content here...">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Post Metadata -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Categoría <span class="required">*</span></label>
+                                <select class="form-select" id="category" required>
+                                    <option value="">Selecciona una categoría</option>
+                                    <option value="soldadura">Soldadura</option>
+                                    <option value="esd">ESD</option>
+                                    <option value="procesos">Procesos</option>
+                                    <option value="investigacion">Investigación</option>
+                                    <option value="casos-estudio">Casos de Estudio</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Estado <span class="required">*</span></label>
+                                <select class="form-select" id="status" required>
+                                    <option value="draft">Borrador</option>
+                                    <option value="published">Publicado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Tags (separados por comas)</label>
+                            <input type="text" class="form-input" id="tags" placeholder="SAC305, SMT, Optimización">
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" onclick="cancelForm()">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Categories View -->
+            <div id="categories-view" class="view hidden">
+                <div class="content-header">
+                    <h1 class="page-title">Categorías</h1>
+                    <p class="page-description">Gestiona las categorías del blog técnico</p>
+                </div>
+
+                <div class="action-bar">
+                    <input type="text" class="search-input" placeholder="Buscar categorías...">
+                    <button class="btn btn-primary" onclick="showCategoryModal()">
+                        ➕ Nueva Categoría
+                    </button>
+                </div>
+
+                <div id="categoriesList">
+                    <div class="category-item">
+                        <div class="category-info">
+                            <h4>Soldadura</h4>
+                            <p>Artículos sobre técnicas de soldadura, aleaciones y procesos SMT</p>
+                        </div>
+                        <div class="actions">
+                            <button class="action-btn action-edit" onclick="editCategory('soldadura')">Editar</button>
+                            <button class="action-btn action-delete" onclick="deleteCategory('soldadura')">Eliminar</button>
+                        </div>
+                    </div>
+
+                    <div class="category-item">
+                        <div class="category-info">
+                            <h4>ESD</h4>
+                            <p>Control de descarga electrostática y protección de componentes</p>
+                        </div>
+                        <div class="actions">
+                            <button class="action-btn action-edit
