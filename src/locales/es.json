@@ -390,6 +390,121 @@
         "title": "Síguenos"
       }
     },
+    "about": {
+      "breadcrumb": {
+        "home": "Inicio",
+        "about": "Nosotros"
+      },
+      "hero": {
+        "title": "Nosotros",
+        "subtitle": "We are the experts!",
+        "description": "Más de 20 años de experiencia combinada en la industria electrónica. Conocemos lo que necesita el mercado y sabemos cómo solucionar sus problemas."
+      },
+      "history": {
+        "title": "Nuestra Historia",
+        "paragraph1": "IPCSolder nace de la necesidad de ofrecer soluciones reales a la industria electrónica. Después de años trabajando en el sector, identificamos que muchas empresas envían vendedores sin experiencia técnica real.",
+        "paragraph2": "Nosotros somos diferentes. Cada miembro de nuestro equipo es un experto con más de 20 años de experiencia en su área específica. No somos solo vendedores, somos ingenieros que conocemos los procesos desde adentro.",
+        "paragraph3": "Nuestro enfoque es simple: entender tu problema y darte la solución correcta. No vendemos productos, vendemos soluciones que funcionan.",
+        "imageTitle": "Industria Electrónica",
+        "imageDescription": "Especializados en maquiladoras, fabricantes originales y manufactura de contratos electrónicos"
+      },
+      "stats": {
+        "experience": {
+          "number": "20+",
+          "label": "Años de Experiencia"
+        },
+        "divisions": {
+          "number": "6",
+          "label": "Divisiones Especializadas"
+        },
+        "experts": {
+          "number": "100%",
+          "label": "Expertos Certificados"
+        }
+      },
+      "mission": {
+        "sectionTitle": "Misión y Valores",
+        "sectionDescription": "Lo que nos motiva y guía en cada decisión que tomamos",
+        "mission": {
+          "title": "Nuestra Misión",
+          "description": "Brindar soluciones especializadas para el ensamble de electrónicos mediante productos de alta calidad, entregas a tiempo y servicio a maquiladoras, fabricantes originales y manufactura electrónica en general."
+        },
+        "vision": {
+          "title": "Nuestra Visión",
+          "description": "Ser reconocidos como los expertos en soluciones de ensamble electrónico en México, siendo la primera opción para empresas que buscan conocimiento técnico real y soluciones que funcionan."
+        },
+        "values": {
+          "title": "Nuestros Valores",
+          "experience": {
+            "title": "Experiencia Real",
+            "description": "Cada especialista conoce su área a profundidad."
+          },
+          "solutions": {
+            "title": "Soluciones Efectivas",
+            "description": "No vendemos productos, solucionamos problemas."
+          },
+          "commitment": {
+            "title": "Compromiso",
+            "description": "Nos involucramos en tu proceso hasta lograr resultados."
+          }
+        },
+        "differentiators": {
+          "title": "¿Qué nos hace diferentes?",
+          "description": "Mientras otros envían vendedores, nosotros enviamos ingenieros. Conocemos la industria electrónica desde adentro y sabemos exactamente qué necesitas para mejorar tu producción y reducir defectos."
+        }
+      },
+      "team": {
+        "sectionTitle": "Nuestro Equipo de Expertos",
+        "sectionDescription": "Cada especialista tiene más de 20 años de experiencia en su área específica. Son \"viejos lobos de mar\" que conocen exactamente lo que necesita la industria.",
+        "members": {
+          "member1": {
+            "initials": "JM",
+            "name": "Ing. José Martínez",
+            "role": "Especialista en SMT y Soldadura",
+            "experience": "25+ años",
+            "description": "Experto en procesos de soldadura y líneas SMT. Ha trabajado con las principales maquiladoras del país.",
+            "specialties": [
+              "Procesos de soldadura selectiva",
+              "Optimización de líneas SMT",
+              "Análisis de defectos de soldadura",
+              "Implementación de procesos"
+            ]
+          },
+          "member2": {
+            "initials": "AR",
+            "name": "Ing. Ana Rodríguez",
+            "role": "Especialista en ESD y Calidad",
+            "experience": "22+ años",
+            "description": "Experta en protección electrostática y sistemas de calidad para manufactura electrónica.",
+            "specialties": [
+              "Sistemas de protección ESD",
+              "Auditorías de calidad",
+              "Certificaciones industriales",
+              "Mejora continua"
+            ]
+          },
+          "member3": {
+            "initials": "CF",
+            "name": "Ing. Carlos Fernández",
+            "role": "Especialista en Equipos y Mantenimiento",
+            "experience": "28+ años",
+            "description": "Experto en mantenimiento de equipos SMT y optimización de procesos de manufactura.",
+            "specialties": [
+              "Mantenimiento preventivo",
+              "Reparación de equipos SMT",
+              "Optimización de procesos",
+              "Capacitación técnica"
+            ]
+          }
+        }
+      },
+      "cta": {
+        "title": "¿Listo para trabajar con verdaderos expertos?",
+        "description": "Contáctanos para una consulta gratuita. Te ayudamos a identificar oportunidades de mejora en tu proceso de manufactura electrónica.",
+        "primaryButton": "Solicitar Consulta Gratuita",
+        "secondaryButton": "Ver Nuestros Productos"
+      }
+    },
     "common": {
       "cta": {
         "viewAll": "Ver Todos los Productos",

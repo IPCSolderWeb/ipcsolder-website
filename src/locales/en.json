@@ -413,6 +413,121 @@
       "error": "Error",
       "success": "Success"
     },
+    "about": {
+      "breadcrumb": {
+        "home": "Home",
+        "about": "About Us"
+      },
+      "hero": {
+        "title": "About Us",
+        "subtitle": "We are the experts!",
+        "description": "Over 20 years of combined experience in the electronics industry. We know what the market needs and we know how to solve your problems."
+      },
+      "history": {
+        "title": "Our History",
+        "paragraph1": "IPCSolder was born from the need to offer real solutions to the electronics industry. After years working in the sector, we identified that many companies send salespeople without real technical experience.",
+        "paragraph2": "We are different. Each member of our team is an expert with over 20 years of experience in their specific area. We are not just salespeople, we are engineers who know the processes from the inside.",
+        "paragraph3": "Our approach is simple: understand your problem and give you the right solution. We don't sell products, we sell solutions that work.",
+        "imageTitle": "Electronics Industry",
+        "imageDescription": "Specialized in maquiladoras, original manufacturers and electronic contract manufacturing"
+      },
+      "stats": {
+        "experience": {
+          "number": "20+",
+          "label": "Years of Experience"
+        },
+        "divisions": {
+          "number": "6",
+          "label": "Specialized Divisions"
+        },
+        "experts": {
+          "number": "100%",
+          "label": "Certified Experts"
+        }
+      },
+      "mission": {
+        "sectionTitle": "Mission & Values",
+        "sectionDescription": "What motivates us and guides us in every decision we make",
+        "mission": {
+          "title": "Our Mission",
+          "description": "To provide specialized solutions for electronics assembly through high-quality products, on-time deliveries and service to maquiladoras, original manufacturers and electronic manufacturing in general."
+        },
+        "vision": {
+          "title": "Our Vision",
+          "description": "To be recognized as the experts in electronic assembly solutions in Mexico, being the first choice for companies seeking real technical knowledge and solutions that work."
+        },
+        "values": {
+          "title": "Our Values",
+          "experience": {
+            "title": "Real Experience",
+            "description": "Each specialist knows their area in depth."
+          },
+          "solutions": {
+            "title": "Effective Solutions",
+            "description": "We don't sell products, we solve problems."
+          },
+          "commitment": {
+            "title": "Commitment",
+            "description": "We get involved in your process until we achieve results."
+          }
+        },
+        "differentiators": {
+          "title": "What makes us different?",
+          "description": "While others send salespeople, we send engineers. We know the electronics industry from the inside and we know exactly what you need to improve your production and reduce defects."
+        }
+      },
+      "team": {
+        "sectionTitle": "Our Expert Team",
+        "sectionDescription": "Each specialist has over 20 years of experience in their specific area. They are \"old sea wolves\" who know exactly what the industry needs.",
+        "members": {
+          "member1": {
+            "initials": "JM",
+            "name": "Eng. José Martínez",
+            "role": "SMT and Soldering Specialist",
+            "experience": "25+ years",
+            "description": "Expert in soldering processes and SMT lines. Has worked with the main maquiladoras in the country.",
+            "specialties": [
+              "Selective soldering processes",
+              "SMT line optimization",
+              "Soldering defect analysis",
+              "Process implementation"
+            ]
+          },
+          "member2": {
+            "initials": "AR",
+            "name": "Eng. Ana Rodríguez",
+            "role": "ESD and Quality Specialist",
+            "experience": "22+ years",
+            "description": "Expert in electrostatic protection and quality systems for electronic manufacturing.",
+            "specialties": [
+              "ESD protection systems",
+              "Quality audits",
+              "Industrial certifications",
+              "Continuous improvement"
+            ]
+          },
+          "member3": {
+            "initials": "CF",
+            "name": "Eng. Carlos Fernández",
+            "role": "Equipment and Maintenance Specialist",
+            "experience": "28+ years",
+            "description": "Expert in SMT equipment maintenance and manufacturing process optimization.",
+            "specialties": [
+              "Preventive maintenance",
+              "SMT equipment repair",
+              "Process optimization",
+              "Technical training"
+            ]
+          }
+        }
+      },
+      "cta": {
+        "title": "Ready to work with real experts?",
+        "description": "Contact us for a free consultation. We help you identify improvement opportunities in your electronic manufacturing process.",
+        "primaryButton": "Request Free Consultation",
+        "secondaryButton": "View Our Products"
+      }
+    },
     "forms": {
       "contact": {
         "title": "Contact Form",
