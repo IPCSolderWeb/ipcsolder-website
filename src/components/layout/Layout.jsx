@@ -151,7 +151,6 @@ const Layout = ({ children, className = '' }) => {
       <Header
         currentLanguage={currentLanguage}
         onLanguageChange={handleLanguageChange}
-        onNavigate={handleNavigation}
         onMobileMenuToggle={handleMobileMenuToggle}
         isMobileMenuOpen={isMobileMenuOpen}
         isScrolled={isScrolled}
@@ -173,7 +172,6 @@ const Layout = ({ children, className = '' }) => {
         isOpen={isMobileMenuOpen}
         onClose={handleMobileMenuClose}
         currentLanguage={currentLanguage}
-        onNavigate={handleNavigation}
         onLanguageChange={handleLanguageChange}
       />
 

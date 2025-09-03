@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { HiMenu as Menu, HiX as X } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const Header = ({
   currentLanguage = 'es',
   onLanguageChange,
-  onNavigate,
   onMobileMenuToggle,
   isMobileMenuOpen = false
 }) => {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   // Sincronizar el idioma con i18n si es diferente
   useEffect(() => {
@@ -20,12 +21,10 @@ const Header = ({
   }, [currentLanguage, i18n]);
 
   const handleNavClick = (path, section) => {
-    console.log(`🧭 Header: Navegando a ${path} (${section})`);
-
-    if (onNavigate) {
-      onNavigate(path, section);
-    }
-
+    // Usar React Router para navegación
+    navigate(path);
+    
+    // Cerrar dropdown después de navegar
     setActiveDropdown(null);
   };
 
@@ -34,11 +33,9 @@ const Header = ({
     event.stopPropagation();
     const newState = activeDropdown === dropdown ? null : dropdown;
     setActiveDropdown(newState);
-    console.log(`📋 Header: Toggle dropdown ${dropdown} - Estado: ${newState}`);
   };
 
   const handleLanguageSwitch = (lang) => {
-    console.log(`🌐 Header: Cambiando idioma a ${lang}`);
     i18n.changeLanguage(lang);
     if (onLanguageChange) {
       onLanguageChange(lang);
@@ -46,7 +43,6 @@ const Header = ({
   };
 
   const handleMobileMenuClick = () => {
-    console.log(`📱 Header: Toggle menú móvil`);
     if (onMobileMenuToggle) {
       onMobileMenuToggle();
     }
@@ -67,11 +63,7 @@ const Header = ({
     }
   }, [activeDropdown]);
 
-  console.log('🔄 Header: Renderizando header exacto al mockup', {
-    currentLanguage: i18n.language,
-    activeDropdown,
-    isMobileMenuOpen
-  });
+  // Header is ready to render
 
   return (
     <header className="relative" style={{
@@ -250,7 +242,7 @@ const Header = ({
                     }}
                   >
                     <div style={{ padding: '20px 0' }}>
-                      <div style={{ marginBottom: '15px' }}>
+                      <div>
                         <div
                           style={{
                             color: '#1e3a8a',
@@ -265,13 +257,14 @@ const Header = ({
                         >
                           {t('header.dropdowns.about.title')}
                         </div>
+
                         {t('header.dropdowns.about.items', { returnObjects: true }).map((item) => (
                           <a
                             key={item.key}
                             href="#"
                             onClick={(e) => {
                               e.preventDefault();
-                              handleNavClick(`/about/${item.key}`, `about-${item.key}`);
+                              handleNavClick('/about', 'about-main');
                             }}
                             className="block text-gray-600 no-underline hover:bg-gray-100 hover:text-blue-800 transition-all duration-300"
                             style={{

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { HiX as X, HiChevronDown as ChevronDown, HiChevronRight as ChevronRight } from 'react-icons/hi';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const MobileMenu = ({ 
   isOpen = false,
   onClose,
   currentLanguage = 'es',
-  onNavigate,
   onLanguageChange
 }) => {
   const [expandedSubmenu, setExpandedSubmenu] = useState(null);
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
 
   // Sincronizar el idioma con i18n si es diferente
   useEffect(() => {
@@ -23,10 +24,8 @@ const MobileMenu = ({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      console.log('📱 MobileMenu: Scroll bloqueado');
     } else {
       document.body.style.overflow = 'unset';
-      console.log('📱 MobileMenu: Scroll desbloqueado');
     }
 
     return () => {
@@ -41,12 +40,9 @@ const MobileMenu = ({
     }
   }, [isOpen]);
 
-  const handleNavClick = (path, section) => {
-    console.log(`📱 MobileMenu: Navegando a ${path} (${section})`);
-    
-    if (onNavigate) {
-      onNavigate(path, section);
-    }
+  const handleNavClick = (path) => {
+    // Usar React Router para navegación
+    navigate(path);
     
     // Cerrar menú
     if (onClose) {
@@ -57,11 +53,9 @@ const MobileMenu = ({
   const handleSubmenuToggle = (submenu) => {
     const newState = expandedSubmenu === submenu ? null : submenu;
     setExpandedSubmenu(newState);
-    console.log(`📋 MobileMenu: Toggle submenu ${submenu} - Estado: ${newState}`);
   };
 
   const handleLanguageSwitch = (lang) => {
-    console.log(`🌐 MobileMenu: Cambiando idioma a ${lang} - Menú permanece abierto`);
     i18n.changeLanguage(lang);
     if (onLanguageChange) {
       onLanguageChange(lang);
@@ -70,17 +64,12 @@ const MobileMenu = ({
   };
 
   const handleClose = () => {
-    console.log('❌ MobileMenu: Cerrando menú móvil');
     if (onClose) {
       onClose();
     }
   };
 
-  console.log('🔄 MobileMenu: Renderizando menú móvil', {
-    isOpen,
-    currentLanguage: i18n.language,
-    expandedSubmenu
-  });
+  // Mobile menu is ready to render
 
   if (!isOpen) {
     return null;
@@ -116,7 +105,7 @@ const MobileMenu = ({
           <nav className="p-4 space-y-2">
             
             <button
-              onClick={() => handleNavClick('/', 'home')}
+              onClick={() => handleNavClick('/')}
               className="flex items-center w-full p-3 text-left text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200 font-medium"
             >
               {t('mobileMenu.nav.home')}
@@ -142,7 +131,7 @@ const MobileMenu = ({
                   {t('mobileMenu.submenus.about', { returnObjects: true }).map((item) => (
                     <button
                       key={item.key}
-                      onClick={() => handleNavClick(`/about/${item.key}`, `about-${item.key}`)}
+                      onClick={() => handleNavClick('/about')}
                       className="block w-full text-left py-2 px-3 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors duration-200 text-sm"
                     >
                       {item.label}
@@ -172,7 +161,7 @@ const MobileMenu = ({
                   {t('mobileMenu.submenus.products', { returnObjects: true }).map((item) => (
                     <button
                       key={item.key}
-                      onClick={() => handleNavClick(`/products/${item.key}`, `products-${item.key}`)}
+                      onClick={() => handleNavClick(`/products/${item.key}`)}
                       className="block w-full text-left py-2 px-3 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors duration-200 text-sm"
                     >
                       {item.label}
@@ -202,7 +191,7 @@ const MobileMenu = ({
                   {t('mobileMenu.submenus.services', { returnObjects: true }).map((item) => (
                     <button
                       key={item.key}
-                      onClick={() => handleNavClick(`/services/${item.key}`, `services-${item.key}`)}
+                      onClick={() => handleNavClick(`/services/${item.key}`)}
                       className="block w-full text-left py-2 px-3 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors duration-200 text-sm"
                     >
                       {item.label}
@@ -213,14 +202,14 @@ const MobileMenu = ({
             </div>
 
             <button
-              onClick={() => handleNavClick('/blog', 'blog')}
+              onClick={() => handleNavClick('/blog')}
               className="flex items-center w-full p-3 text-left text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all duration-200 font-medium"
             >
               {t('mobileMenu.nav.blog')}
             </button>
 
             <button
-              onClick={() => handleNavClick('/contact', 'contact')}
+              onClick={() => handleNavClick('/contact')}
               className="flex items-center w-full p-3 text-left bg-primary-600 text-white hover:bg-primary-700 rounded-lg transition-all duration-200 font-medium mt-4"
             >
               {t('mobileMenu.nav.contact')}
