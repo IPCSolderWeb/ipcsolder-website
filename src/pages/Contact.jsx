@@ -60,31 +60,61 @@ const Contact = ({ currentLanguage = 'es' }) => {
         };
     }, []);
 
-    // Función para detectar errores comunes en emails
-    const checkEmailTypos = (email) => {
-        const commonDomains = {
-            'ggmail.com': 'gmail.com',
-            'gmial.com': 'gmail.com',
-            'gmai.com': 'gmail.com',
-            'gmail.co': 'gmail.com',
-            'hotmial.com': 'hotmail.com',
-            'hotmai.com': 'hotmail.com',
-            'hotmail.co': 'hotmail.com',
-            'yahooo.com': 'yahoo.com',
-            'yahoo.co': 'yahoo.com',
-            'outlok.com': 'outlook.com',
-            'outlook.co': 'outlook.com',
-            'outlook..com': 'outlook.com'
-        };
-
-        const emailParts = email.split('@');
-        if (emailParts.length === 2) {
-            const domain = emailParts[1].toLowerCase();
-            if (commonDomains[domain]) {
-                return `${emailParts[0]}@${commonDomains[domain]}`;
+    // Función para calcular distancia entre strings (similitud)
+    const levenshteinDistance = (str1, str2) => {
+        const matrix = [];
+        for (let i = 0; i <= str2.length; i++) {
+            matrix[i] = [i];
+        }
+        for (let j = 0; j <= str1.length; j++) {
+            matrix[0][j] = j;
+        }
+        for (let i = 1; i <= str2.length; i++) {
+            for (let j = 1; j <= str1.length; j++) {
+                if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                    matrix[i][j] = matrix[i - 1][j - 1];
+                } else {
+                    matrix[i][j] = Math.min(
+                        matrix[i - 1][j - 1] + 1,
+                        matrix[i][j - 1] + 1,
+                        matrix[i - 1][j] + 1
+                    );
+                }
             }
         }
-        return null;
+        return matrix[str2.length][str1.length];
+    };
+
+    // Función inteligente para detectar errores en emails
+    const checkEmailTypos = (email) => {
+        const popularDomains = [
+            'gmail.com', 'hotmail.com', 'yahoo.com', 'outlook.com',
+            'live.com', 'icloud.com', 'aol.com', 'protonmail.com',
+            'zoho.com', 'yandex.com'
+        ];
+
+        const emailParts = email.split('@');
+        if (emailParts.length !== 2) return null;
+
+        const [username, domain] = emailParts;
+        const domainLower = domain.toLowerCase();
+
+        // Buscar el dominio más similar
+        let bestMatch = null;
+        let minDistance = Infinity;
+        const maxDistance = 2; // Máximo 2 caracteres de diferencia
+
+        for (const popularDomain of popularDomains) {
+            const distance = levenshteinDistance(domainLower, popularDomain);
+            
+            // Solo sugerir si hay diferencia pero es similar
+            if (distance > 0 && distance <= maxDistance && distance < minDistance) {
+                minDistance = distance;
+                bestMatch = popularDomain;
+            }
+        }
+
+        return bestMatch ? `${username}@${bestMatch}` : null;
     };
 
     const handleInputChange = (e) => {
@@ -97,6 +127,7 @@ const Contact = ({ currentLanguage = 'es' }) => {
         // Verificar errores de email en tiempo real
         if (name === 'email' && value) {
             const suggestion = checkEmailTypos(value);
+            console.log('📧 Email check:', value, '→ Suggestion:', suggestion);
             setEmailSuggestion(suggestion || '');
         }
 
