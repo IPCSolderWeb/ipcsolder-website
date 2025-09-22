@@ -13,33 +13,103 @@ export default async function handler(req, res) {
 
     // Validación básica
     if (!name || !email || !message) {
-      return res.status(400).json({ 
-        error: 'Name, email and message are required' 
+      return res.status(400).json({
+        error: 'Name, email and message are required'
       });
     }
 
     // Validar formato de email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({ 
-        error: 'Invalid email format' 
+      return res.status(400).json({
+        error: 'Invalid email format'
       });
     }
 
     // Crear el contenido del email
     const emailContent = `
-      <h2>Nuevo mensaje de contacto - IPC Solder</h2>
-      <p><strong>Nombre:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      ${phone ? `<p><strong>Teléfono:</strong> ${phone}</p>` : ''}
-      ${company ? `<p><strong>Empresa:</strong> ${company}</p>` : ''}
-      ${position ? `<p><strong>Posición:</strong> ${position}</p>` : ''}
-      ${industry ? `<p><strong>Industria:</strong> ${industry}</p>` : ''}
-      <p><strong>Mensaje:</strong></p>
-      <p>${message.replace(/\n/g, '<br>')}</p>
-      
-      <hr>
-      <p><small>Enviado desde el formulario de contacto de ipcsolder.com</small></p>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nuevo contacto - IPC Solder</title>
+      </head>
+      <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+          
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 30px 20px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPC Solder</h1>
+            <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 16px;">Nuevo mensaje de contacto</p>
+          </div>
+
+          <!-- Content -->
+          <div style="padding: 30px 20px;">
+            
+            <!-- Contact Info -->
+            <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+              <h3 style="color: #1e40af; margin: 0 0 15px 0; font-size: 18px;">Información de contacto</h3>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold; width: 120px;">Nombre:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${name}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Email:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${email}</td>
+                </tr>
+                ${phone ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Teléfono:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${phone}</td>
+                </tr>` : ''}
+              </table>
+            </div>
+
+            ${company || position || industry ? `
+            <!-- Company Info -->
+            <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+              <h3 style="color: #1e40af; margin: 0 0 15px 0; font-size: 18px;">Información empresarial</h3>
+              <table style="width: 100%; border-collapse: collapse;">
+                ${company ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold; width: 120px;">Empresa:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${company}</td>
+                </tr>` : ''}
+                ${position ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Posición:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${position}</td>
+                </tr>` : ''}
+                ${industry ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Industria:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${industry}</td>
+                </tr>` : ''}
+              </table>
+            </div>` : ''}
+
+            <!-- Message -->
+            <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px;">
+              <h3 style="color: #1e40af; margin: 0 0 15px 0; font-size: 18px;">Mensaje</h3>
+              <div style="background-color: #ffffff; border-radius: 6px; padding: 15px; color: #1e293b; line-height: 1.6;">
+                ${message.replace(/\n/g, '<br>')}
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Footer -->
+          <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <p style="color: #64748b; margin: 0; font-size: 14px;">
+              Enviado desde el formulario de contacto de <strong>ipcsolder.com</strong>
+            </p>
+          </div>
+
+        </div>
+      </body>
+      </html>
     `;
 
     // Enviar email con Resend
@@ -53,16 +123,16 @@ export default async function handler(req, res) {
 
     console.log('Email sent successfully:', data);
 
-    return res.status(200).json({ 
-      success: true, 
+    return res.status(200).json({
+      success: true,
       message: 'Email sent successfully',
-      id: data.id 
+      id: data.id
     });
 
   } catch (error) {
     console.error('Error sending email:', error);
-    
-    return res.status(500).json({ 
+
+    return res.status(500).json({
       error: 'Failed to send email',
       details: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
