@@ -11,6 +11,8 @@ export default async function handler(req, res) {
   try {
     const { name, email, phone, company, position, industry, message, language = 'es' } = req.body;
 
+    console.log('🌐 Idioma recibido en API:', language);
+
     // Validación básica
     if (!name || !email || !message) {
       return res.status(400).json({
