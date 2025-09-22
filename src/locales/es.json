@@ -505,6 +505,131 @@
         "secondaryButton": "Ver Nuestros Productos"
       }
     },
+    "contact": {
+      "breadcrumb": {
+        "home": "Inicio",
+        "contact": "Contacto"
+      },
+      "hero": {
+        "title": "Contacto",
+        "subtitle": "¿Cómo te podemos ayudar a solucionar tu problema?",
+        "description": "Contáctanos para un assessment gratuito de tu línea de producción. Nuestros expertos están listos para ayudarte a mejorar y optimizar tus procesos."
+      },
+      "info": {
+        "title": "¡Hablemos!",
+        "description": "Nuestros expertos están listos para revisar tu línea de producción y ofrecerte soluciones específicas. Preferimos un formulario completo para entender mejor tu situación y poder darte la respuesta más precisa.",
+        "methods": {
+          "email": {
+            "title": "Email Corporativo",
+            "value": "ventas@ipcsolder.com",
+            "description": "Respuesta en máximo 24 horas"
+          },
+          "phone": {
+            "title": "Teléfono",
+            "value": "+52 (33) 1234-5678",
+            "description": "Lunes a Viernes, 9:00 AM - 6:00 PM"
+          },
+          "whatsapp": {
+            "title": "WhatsApp",
+            "value": "+52 (33) 1234-5678",
+            "description": "Para consultas rápidas"
+          },
+          "location": {
+            "title": "Ubicación",
+            "value": "Guadalajara, Jalisco, México",
+            "description": "Servicio en toda la República"
+          }
+        },
+        "map": {
+          "title": "Nuestra Ubicación",
+          "description": "📍 Guadalajara, Jalisco - Brindamos servicio en toda la República Mexicana"
+        }
+      },
+      "form": {
+        "title": "Formulario de Contacto",
+        "subtitle": "Llena este formulario con información completa para que podamos entender tu situación y ofrecerte la mejor solución técnica.",
+        "fields": {
+          "name": {
+            "label": "Nombre Completo",
+            "placeholder": "Tu nombre completo"
+          },
+          "email": {
+            "label": "Email Corporativo",
+            "placeholder": "tu@empresa.com"
+          },
+          "phone": {
+            "label": "Teléfono",
+            "placeholder": "+52 (33) 1234-5678"
+          },
+          "company": {
+            "label": "Empresa",
+            "placeholder": "Nombre de tu empresa"
+          },
+          "position": {
+            "label": "Puesto",
+            "placeholder": "Tu puesto en la empresa"
+          },
+          "industry": {
+            "label": "Industria",
+            "placeholder": "Selecciona tu industria",
+            "options": [
+              { "value": "", "label": "Selecciona tu industria" },
+              { "value": "electronica", "label": "Electrónica de Consumo" },
+              { "value": "automotriz", "label": "Automotriz" },
+              { "value": "maquiladoras", "label": "Maquiladoras" },
+              { "value": "comunicaciones", "label": "Comunicaciones" },
+              { "value": "oem", "label": "Fabricantes OEM" },
+              { "value": "otra", "label": "Otra" }
+            ]
+          },
+          "message": {
+            "label": "¿En qué podemos ayudarte?",
+            "placeholder": "Describe tu necesidad o proyecto. Incluye detalles sobre tu línea de producción, problemas específicos, o qué tipo de assessment necesitas..."
+          }
+        },
+        "terms": {
+          "label": "Acepto los términos y condiciones y autorizo el tratamiento de mis datos personales para fines comerciales.",
+          "required": "Debes aceptar los términos y condiciones"
+        },
+        "validation": {
+          "required": "Este campo es obligatorio",
+          "email": "Email inválido",
+          "phone": "Teléfono inválido",
+          "minLength": "El mensaje debe tener al menos 10 caracteres",
+          "name": "El nombre es obligatorio",
+          "company": "La empresa es obligatoria",
+          "message": "El mensaje es obligatorio"
+        },
+        "buttons": {
+          "submit": "Enviar Consulta",
+          "sending": "Enviando..."
+        },
+        "success": {
+          "message": "¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto."
+        }
+      },
+      "alternative": {
+        "title": "Otras Formas de Contactarnos",
+        "subtitle": "Elige el método que más te convenga. Estamos aquí para ayudarte.",
+        "methods": {
+          "email": {
+            "title": "Email Directo",
+            "description": "Para consultas detalladas y documentación técnica",
+            "button": "Enviar Email"
+          },
+          "phone": {
+            "title": "Llamada Directa",
+            "description": "Para consultas urgentes y soporte inmediato",
+            "button": "Llamar Ahora"
+          },
+          "whatsapp": {
+            "title": "WhatsApp",
+            "description": "Para consultas rápidas y comunicación instantánea",
+            "button": "Abrir WhatsApp"
+          }
+        }
+      }
+    },
     "common": {
       "cta": {
         "viewAll": "Ver Todos los Productos",

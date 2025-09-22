@@ -390,6 +390,131 @@
         "title": "Follow Us"
       }
     },
+    "contact": {
+      "breadcrumb": {
+        "home": "Home",
+        "contact": "Contact"
+      },
+      "hero": {
+        "title": "Contact",
+        "subtitle": "How can we help you solve your problem?",
+        "description": "Contact us for a free assessment of your production line. Our experts are ready to help you improve and optimize your processes."
+      },
+      "info": {
+        "title": "Let's Talk!",
+        "description": "Our experts are ready to review your production line and offer you specific solutions. We prefer a complete form to better understand your situation and provide you with the most accurate response.",
+        "methods": {
+          "email": {
+            "title": "Corporate Email",
+            "value": "sales@ipcsolder.com",
+            "description": "Response within 24 hours maximum"
+          },
+          "phone": {
+            "title": "Phone",
+            "value": "+52 (33) 1234-5678",
+            "description": "Monday to Friday, 9:00 AM - 6:00 PM"
+          },
+          "whatsapp": {
+            "title": "WhatsApp",
+            "value": "+52 (33) 1234-5678",
+            "description": "For quick inquiries"
+          },
+          "location": {
+            "title": "Location",
+            "value": "Guadalajara, Jalisco, Mexico",
+            "description": "Service throughout Mexico"
+          }
+        },
+        "map": {
+          "title": "Our Location",
+          "description": "📍 Guadalajara, Jalisco - We provide service throughout Mexico"
+        }
+      },
+      "form": {
+        "title": "Contact Form",
+        "subtitle": "Fill out this form with complete information so we can understand your situation and offer you the best technical solution.",
+        "fields": {
+          "name": {
+            "label": "Full Name",
+            "placeholder": "Your full name"
+          },
+          "email": {
+            "label": "Corporate Email",
+            "placeholder": "you@company.com"
+          },
+          "phone": {
+            "label": "Phone",
+            "placeholder": "+52 (33) 1234-5678"
+          },
+          "company": {
+            "label": "Company",
+            "placeholder": "Your company name"
+          },
+          "position": {
+            "label": "Position",
+            "placeholder": "Your position at the company"
+          },
+          "industry": {
+            "label": "Industry",
+            "placeholder": "Select your industry",
+            "options": [
+              { "value": "", "label": "Select your industry" },
+              { "value": "electronica", "label": "Consumer Electronics" },
+              { "value": "automotriz", "label": "Automotive" },
+              { "value": "maquiladoras", "label": "Maquiladoras" },
+              { "value": "comunicaciones", "label": "Communications" },
+              { "value": "oem", "label": "OEM Manufacturers" },
+              { "value": "otra", "label": "Other" }
+            ]
+          },
+          "message": {
+            "label": "How can we help you?",
+            "placeholder": "Describe your need or project. Include details about your production line, specific problems, or what type of assessment you need..."
+          }
+        },
+        "terms": {
+          "label": "I accept the terms and conditions and authorize the processing of my personal data for commercial purposes.",
+          "required": "You must accept the terms and conditions"
+        },
+        "validation": {
+          "required": "This field is required",
+          "email": "Invalid email",
+          "phone": "Invalid phone",
+          "minLength": "Message must be at least 10 characters",
+          "name": "Name is required",
+          "company": "Company is required",
+          "message": "Message is required"
+        },
+        "buttons": {
+          "submit": "Send Inquiry",
+          "sending": "Sending..."
+        },
+        "success": {
+          "message": "Message sent successfully! We will contact you soon."
+        }
+      },
+      "alternative": {
+        "title": "Other Ways to Contact Us",
+        "subtitle": "Choose the method that works best for you. We're here to help.",
+        "methods": {
+          "email": {
+            "title": "Direct Email",
+            "description": "For detailed inquiries and technical documentation",
+            "button": "Send Email"
+          },
+          "phone": {
+            "title": "Direct Call",
+            "description": "For urgent inquiries and immediate support",
+            "button": "Call Now"
+          },
+          "whatsapp": {
+            "title": "WhatsApp",
+            "description": "For quick inquiries and instant communication",
+            "button": "Open WhatsApp"
+          }
+        }
+      }
+    },
     "common": {
       "cta": {
         "viewAll": "View All Products",
