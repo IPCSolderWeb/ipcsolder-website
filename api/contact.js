@@ -28,14 +28,104 @@ export default async function handler(req, res) {
       });
     }
 
-    // Crear el contenido del email
-    const emailContent = `
+    // Template interno para ventas (en el idioma del cliente)
+    const emailContent = language === 'en' ? `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nuevo contacto - IPC Solder</title>
+        <title>New contact message - IPC Solder</title>
+      </head>
+      <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+          
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 30px 20px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPC Solder</h1>
+            <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 16px;">New contact message</p>
+          </div>
+
+          <!-- Language Notice -->
+          <div style="background-color: #dbeafe; border-left: 4px solid #3b82f6; padding: 15px 20px; margin: 0;">
+            <p style="color: #1e40af; margin: 0; font-weight: bold; font-size: 14px;">
+              📧 Client prefers communication in: <strong>English</strong>
+            </p>
+          </div>
+
+          <!-- Content -->
+          <div style="padding: 30px 20px;">
+            
+            <!-- Contact Info -->
+            <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+              <h3 style="color: #1e40af; margin: 0 0 15px 0; font-size: 18px;">Contact Information</h3>
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold; width: 120px;">Name:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${name}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Email:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${email}</td>
+                </tr>
+                ${phone ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Phone:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${phone}</td>
+                </tr>` : ''}
+              </table>
+            </div>
+
+            ${company || position || industry ? `
+            <!-- Company Info -->
+            <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; margin-bottom: 20px;">
+              <h3 style="color: #1e40af; margin: 0 0 15px 0; font-size: 18px;">Company Information</h3>
+              <table style="width: 100%; border-collapse: collapse;">
+                ${company ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold; width: 120px;">Company:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${company}</td>
+                </tr>` : ''}
+                ${position ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Position:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${position}</td>
+                </tr>` : ''}
+                ${industry ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Industry:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${industry}</td>
+                </tr>` : ''}
+              </table>
+            </div>` : ''}
+
+            <!-- Message -->
+            <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px;">
+              <h3 style="color: #1e40af; margin: 0 0 15px 0; font-size: 18px;">Message</h3>
+              <div style="background-color: #ffffff; border-radius: 6px; padding: 15px; color: #1e293b; line-height: 1.6;">
+                ${message.replace(/\n/g, '<br>')}
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Footer -->
+          <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <p style="color: #64748b; margin: 0; font-size: 14px;">
+              Sent from the contact form at <strong>ipcsolder.com</strong>
+            </p>
+          </div>
+
+        </div>
+      </body>
+      </html>
+    ` : `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nuevo mensaje de contacto - IPC Solder</title>
       </head>
       <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
@@ -44,6 +134,13 @@ export default async function handler(req, res) {
           <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 30px 20px; text-align: center;">
             <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPC Solder</h1>
             <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 16px;">Nuevo mensaje de contacto</p>
+          </div>
+
+          <!-- Language Notice -->
+          <div style="background-color: #dbeafe; border-left: 4px solid #3b82f6; padding: 15px 20px; margin: 0;">
+            <p style="color: #1e40af; margin: 0; font-weight: bold; font-size: 14px;">
+              📧 Cliente prefiere comunicación en: <strong>Español</strong>
+            </p>
           </div>
 
           <!-- Content -->
@@ -213,7 +310,9 @@ export default async function handler(req, res) {
     const internalEmail = await resend.emails.send({
       from: 'contacto@ipcsolder.com',
       to: ['ventas@ipcsolder.com'],
-      subject: `Nuevo contacto: ${name} - ${company || 'Sin empresa'}`,
+      subject: language === 'en'
+        ? `New contact: ${name} - ${company || 'No company'}`
+        : `Nuevo contacto: ${name} - ${company || 'Sin empresa'}`,
       html: emailContent,
       replyTo: email,
     });
