@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, phone, company, position, industry, message } = req.body;
+    const { name, email, phone, company, position, industry, message, language = 'es' } = req.body;
 
     // Validación básica
     if (!name || !email || !message) {
@@ -112,21 +112,124 @@ export default async function handler(req, res) {
       </html>
     `;
 
-    // Enviar email con Resend
-    const data = await resend.emails.send({
-      from: 'contacto@ipcsolder.com', // Debe ser tu dominio verificado
+    // Template de confirmación para el cliente
+    const clientEmailContent = language === 'en' ? `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Thank you for contacting us - IPC Solder</title>
+      </head>
+      <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+          
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 30px 20px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPC Solder</h1>
+            <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 16px;">Thank you for contacting us</p>
+          </div>
+
+          <!-- Content -->
+          <div style="padding: 30px 20px;">
+            <h2 style="color: #1e40af; margin: 0 0 20px 0; font-size: 22px;">Hello ${name},</h2>
+            
+            <p style="color: #1e293b; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">
+              Thank you for reaching out to us. We have received your message and our team will contact you soon.
+            </p>
+            
+            <p style="color: #1e293b; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">
+              We appreciate your interest in IPC Solder and look forward to assisting you.
+            </p>
+
+            <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; text-align: center;">
+              <p style="color: #475569; margin: 0; font-size: 14px;">
+                <strong>We will respond within 24-48 hours</strong>
+              </p>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <p style="color: #64748b; margin: 0; font-size: 14px;">
+              <strong>ipcsolder.com</strong>
+            </p>
+          </div>
+
+        </div>
+      </body>
+      </html>
+    ` : `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Gracias por contactarnos - IPC Solder</title>
+      </head>
+      <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+        <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+          
+          <!-- Header -->
+          <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 30px 20px; text-align: center;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPC Solder</h1>
+            <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 16px;">Gracias por contactarnos</p>
+          </div>
+
+          <!-- Content -->
+          <div style="padding: 30px 20px;">
+            <h2 style="color: #1e40af; margin: 0 0 20px 0; font-size: 22px;">Hola ${name},</h2>
+            
+            <p style="color: #1e293b; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">
+              Gracias por contactarnos. Hemos recibido tu mensaje y nuestro equipo se pondrá en contacto contigo pronto.
+            </p>
+            
+            <p style="color: #1e293b; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">
+              Agradecemos tu interés en IPC Solder y esperamos poder ayudarte.
+            </p>
+
+            <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; text-align: center;">
+              <p style="color: #475569; margin: 0; font-size: 14px;">
+                <strong>Responderemos en las próximas 24-48 horas</strong>
+              </p>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <p style="color: #64748b; margin: 0; font-size: 14px;">
+              <strong>ipcsolder.com</strong>
+            </p>
+          </div>
+
+        </div>
+      </body>
+      </html>
+    `;
+
+    // 1. Enviar email interno a ventas
+    const internalEmail = await resend.emails.send({
+      from: 'contacto@ipcsolder.com',
       to: ['ventas@ipcsolder.com'],
       subject: `Nuevo contacto: ${name} - ${company || 'Sin empresa'}`,
       html: emailContent,
-      replyTo: email, // Para que puedan responder directamente
+      replyTo: email,
     });
 
-    console.log('Email sent successfully:', data);
+    // 2. Enviar email de confirmación al cliente
+    const clientEmail = await resend.emails.send({
+      from: 'contacto@ipcsolder.com',
+      to: [email],
+      subject: language === 'en' ? 'Thank you for contacting us - IPC Solder' : 'Gracias por contactarnos - IPC Solder',
+      html: clientEmailContent,
+    });
+
+    console.log('Emails sent successfully:', { internal: internalEmail.id, client: clientEmail.id });
 
     return res.status(200).json({
       success: true,
-      message: 'Email sent successfully',
-      id: data.id
+      message: 'Emails sent successfully',
+      ids: { internal: internalEmail.id, client: clientEmail.id }
     });
 
   } catch (error) {
