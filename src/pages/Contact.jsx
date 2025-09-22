@@ -25,6 +25,7 @@ const Contact = ({ currentLanguage = 'es' }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
     const [submitError, setSubmitError] = useState(false);
+    const [emailSuggestion, setEmailSuggestion] = useState('');
     const [isVisible, setIsVisible] = useState({});
 
     // Animation on scroll
@@ -59,12 +60,45 @@ const Contact = ({ currentLanguage = 'es' }) => {
         };
     }, []);
 
+    // Función para detectar errores comunes en emails
+    const checkEmailTypos = (email) => {
+        const commonDomains = {
+            'ggmail.com': 'gmail.com',
+            'gmial.com': 'gmail.com',
+            'gmai.com': 'gmail.com',
+            'gmail.co': 'gmail.com',
+            'hotmial.com': 'hotmail.com',
+            'hotmai.com': 'hotmail.com',
+            'hotmail.co': 'hotmail.com',
+            'yahooo.com': 'yahoo.com',
+            'yahoo.co': 'yahoo.com',
+            'outlok.com': 'outlook.com',
+            'outlook.co': 'outlook.com',
+            'outlook..com': 'outlook.com'
+        };
+
+        const emailParts = email.split('@');
+        if (emailParts.length === 2) {
+            const domain = emailParts[1].toLowerCase();
+            if (commonDomains[domain]) {
+                return `${emailParts[0]}@${commonDomains[domain]}`;
+            }
+        }
+        return null;
+    };
+
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: type === 'checkbox' ? checked : value
         }));
+
+        // Verificar errores de email en tiempo real
+        if (name === 'email' && value) {
+            const suggestion = checkEmailTypos(value);
+            setEmailSuggestion(suggestion || '');
+        }
 
         // Clear error when user starts typing
         if (formErrors[name]) {
@@ -73,6 +107,14 @@ const Contact = ({ currentLanguage = 'es' }) => {
                 [name]: ''
             }));
         }
+    };
+
+    const acceptEmailSuggestion = () => {
+        setFormData(prev => ({
+            ...prev,
+            email: emailSuggestion
+        }));
+        setEmailSuggestion('');
     };
 
     const validateForm = () => {
@@ -367,7 +409,7 @@ const Contact = ({ currentLanguage = 'es' }) => {
                             {submitSuccess && (
                                 <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex items-center">
                                     <CheckCircle size={20} className="mr-2" />
-                                    <span>¡Mensaje enviado correctamente! Te contactaremos pronto.</span>
+                                    <span>{t('contact.form.success.message')}</span>
                                 </div>
                             )}
 
@@ -376,7 +418,7 @@ const Contact = ({ currentLanguage = 'es' }) => {
                                     <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                         <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                                     </svg>
-                                    <span>Error al enviar el mensaje. Por favor intenta nuevamente.</span>
+                                    <span>{t('contact.form.error.message')}</span>
                                 </div>
                             )}
 
@@ -419,6 +461,21 @@ const Contact = ({ currentLanguage = 'es' }) => {
                                         />
                                         {formErrors.email && (
                                             <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+                                        )}
+                                        {emailSuggestion && (
+                                            <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                                                <p className="text-blue-800 text-sm">
+                                                    {t('contact.form.emailSuggestion.text')}{' '}
+                                                    <button
+                                                        type="button"
+                                                        onClick={acceptEmailSuggestion}
+                                                        className="font-semibold text-blue-600 hover:text-blue-800 underline"
+                                                    >
+                                                        {emailSuggestion}
+                                                    </button>
+                                                    ?
+                                                </p>
+                                            </div>
                                         )}
                                     </div>
 
@@ -552,7 +609,7 @@ const Contact = ({ currentLanguage = 'es' }) => {
                                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                             </svg>
-                                            Enviando mensaje...
+                                            {t('contact.form.sending')}
                                         </span>
                                     ) : (
                                         t('contact.form.buttons.submit')

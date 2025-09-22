@@ -605,7 +605,14 @@
           "sending": "Enviando..."
         },
         "success": {
-          "message": "¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto."
+          "message": "¡Mensaje enviado correctamente! Te contactaremos pronto."
+        },
+        "error": {
+          "message": "Error al enviar el mensaje. Por favor intenta nuevamente."
+        },
+        "sending": "Enviando mensaje...",
+        "emailSuggestion": {
+          "text": "¿Quisiste decir"
         }
       },
       "alternative": {
