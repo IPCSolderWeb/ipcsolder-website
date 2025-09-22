@@ -491,6 +491,13 @@
         },
         "success": {
           "message": "Message sent successfully! We will contact you soon."
+        },
+        "error": {
+          "message": "Error sending message. Please try again."
+        },
+        "sending": "Sending message...",
+        "emailSuggestion": {
+          "text": "Did you mean"
         }
       },
       "alternative": {
