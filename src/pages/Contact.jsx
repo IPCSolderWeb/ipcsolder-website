@@ -135,7 +135,8 @@ const Contact = ({ currentLanguage = 'es' }) => {
                     company: formData.company,
                     position: formData.position,
                     industry: formData.industry,
-                    message: formData.message
+                    message: formData.message,
+                    language: currentLanguage
                 }),
             });
 
