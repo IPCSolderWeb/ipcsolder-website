@@ -122,6 +122,8 @@ const Contact = ({ currentLanguage = 'es' }) => {
         setSubmitError(false);
         setSubmitSuccess(false);
 
+        console.log('🌐 Enviando formulario con idioma:', currentLanguage);
+
         try {
             const response = await fetch('/api/contact', {
                 method: 'POST',
