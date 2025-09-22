@@ -9,7 +9,7 @@ import {
 } from 'react-icons/hi';
 
 const Contact = ({ currentLanguage = 'es' }) => {
-    const { t, ready } = useTranslation();
+    const { t, ready, i18n } = useTranslation();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -122,7 +122,7 @@ const Contact = ({ currentLanguage = 'es' }) => {
         setSubmitError(false);
         setSubmitSuccess(false);
 
-        console.log('🌐 Enviando formulario con idioma:', currentLanguage);
+        console.log('🌐 Enviando formulario con idioma:', i18n.language);
 
         try {
             const response = await fetch('/api/contact', {
@@ -138,7 +138,7 @@ const Contact = ({ currentLanguage = 'es' }) => {
                     position: formData.position,
                     industry: formData.industry,
                     message: formData.message,
-                    language: currentLanguage
+                    language: i18n.language
                 }),
             });
 
