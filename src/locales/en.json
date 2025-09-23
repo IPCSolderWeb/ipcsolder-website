@@ -543,7 +543,8 @@
       },
       "loading": "Loading...",
       "error": "Error",
-      "success": "Success"
+      "success": "Success",
+      "all": "All"
     },
     "about": {
       "breadcrumb": {
@@ -721,6 +722,348 @@
           "title": "Error sending",
           "description": "Please try again or contact us directly."
         }
+      }
+    },
+    "products": {
+      "breadcrumb": {
+        "home": "Home",
+        "products": "Products"
+      },
+      "hero": {
+        "title": "Our Products",
+        "subtitle": "Electronics Assembly Solutions",
+        "description": "Six specialized divisions with high-quality products for all electronic industry needs. Each category has dedicated experts."
+      },
+      "categories": {
+        "mro": {
+          "title": "MRO",
+          "description": "Maintenance, Repair and Operations. Essential products for optimal operation of SMT lines and electronic manufacturing equipment."
+        },
+        "esd": {
+          "title": "ESD",
+          "description": "Electrostatic Protection. Specialized products to prevent electrostatic discharge damage to sensitive components."
+        },
+        "solder": {
+          "title": "SOLDER PRODUCTS",
+          "description": "High-quality soldering products including bars, wires, liquid flux and preforms for all electronic manufacturing applications."
+        },
+        "machines": {
+          "title": "MACHINES",
+          "description": "Specialized services for SMT equipment including spare parts, preventive maintenance, repairs and specialized technical support."
+        },
+        "laser": {
+          "title": "LASER",
+          "description": "Specialized precision laser cutting, laser engraving and inspection template services for industrial and electronic applications."
+        },
+        "tooling": {
+          "title": "TOOLING",
+          "description": "Specialized tools including squeegees, PCB holders, router plates, pallets and custom fixtures for SMT lines."
+        }
+      },
+      "mro": {
+        "thermocouples": {
+          "title": "Type K Thermocouples",
+          "subtitle": "Precision temperature measurement",
+          "description": "High-precision thermocouples available in different lengths with PFA insulation and glass braid for temperatures up to 480°C.",
+          "features": [
+            "Available in 1, 2 and 3 meters",
+            "Maximum connector temperature: 220°C",
+            "PFA insulated up to 260°C",
+            "Glass braid up to 480°C",
+            "OMEGA brand"
+          ]
+        },
+        "pallets": {
+          "title": "Pallets",
+          "subtitle": "PCB transport",
+          "description": "Specialized pallets for safe transport of PCBs through production lines with precise positioning.",
+          "features": [
+            "Precise positioning",
+            "Safe transport",
+            "Multiple configurations",
+            "Conveyor compatible",
+            "Resistant materials"
+          ]
+        },
+        "fixtures": {
+          "title": "Specialized Fixtures",
+          "subtitle": "Custom solutions",
+          "description": "Specialized fixtures and bases for specific applications including rotary bases, screwing systems and custom configurations.",
+          "features": [
+            "Rotary bases",
+            "Screwing systems",
+            "Custom configurations",
+            "Unique mechanical solutions",
+            "In-house manufacturing"
+          ]
+        },
+        "redGlue": {
+          "title": "NE8800T Red Glue",
+          "subtitle": "Chip Bonder adhesive",
+          "description": "Specialized adhesive for SMD component fixation before soldering process. Excellent adhesion and thermal resistance.",
+          "features": [
+            "Temporary component fixation",
+            "High temperature resistant",
+            "Easy application",
+            "SMT process compatible"
+          ]
+        },
+        "ipa": {
+          "title": "Isopropyl Alcohol (IPA)",
+          "subtitle": "PCB and component cleaning",
+          "description": "High purity isopropyl alcohol for cleaning PCBs, electronic components and manufacturing equipment.",
+          "features": [
+            "High purity 99.9%",
+            "Fast evaporation",
+            "No residue left",
+            "Safe for components"
+          ]
+        },
+        "nozzleCleaner": {
+          "title": "F37 Gel Nozzle Cleaner",
+          "subtitle": "Gel nozzle cleaner",
+          "description": "Specialized gel cleaner for dispensing nozzles and solder paste application. Non-aggressive formula.",
+          "features": [
+            "Adherent gel formula",
+            "Deep nozzle cleaning",
+            "Does not damage metal components",
+            "Easy application"
+          ]
+        },
+        "routerBits": {
+          "title": "Router Bits",
+          "subtitle": "Specialized PCB bits",
+          "description": "High precision bits for PCB cutting and drilling. Available in different diameters and geometries.",
+          "features": [
+            "Multiple diameters available",
+            "Clean and precise cutting",
+            "Long service life",
+            "CNC router compatible"
+          ]
+        }
+      },
+      "esd": {
+        "traysAndBins": {
+          "title": "Trays and Bins ESD Safe",
+          "subtitle": "Antistatic trays and containers",
+          "description": "Trays and containers specifically designed for safe handling of electrostatic discharge sensitive components.",
+          "features": [
+            "Controlled conductive material",
+            "Different sizes available",
+            "Reusable and durable",
+            "Meets ESD standards"
+          ]
+        },
+        "evaSheets": {
+          "title": "Conductive EVA Sheets",
+          "subtitle": "Conductive EVA sheets",
+          "description": "Conductive EVA sheets to create antistatic work surfaces and protect sensitive components during handling.",
+          "features": [
+            "Conductive EVA material",
+            "Easy to cut and adapt",
+            "Non-slip surface",
+            "Chemical resistant"
+          ]
+        }
+      },
+      "solder": {
+        "solderBars": {
+          "title": "Solder Bars",
+          "subtitle": "High-quality alloys",
+          "description": "Solder bars in SAC305, SAC387 and other specialized alloy formulations for electronic manufacturing applications.",
+          "features": [
+            "SAC305 and SAC387 alloys",
+            "Controlled composition",
+            "Excellent fluidity",
+            "Low dross formation",
+            "IPC certifications"
+          ]
+        },
+        "solderWire": {
+          "title": "Solder Wire",
+          "subtitle": "For manual and automatic soldering",
+          "description": "Solder wire with incorporated flux in different diameters and alloys for manual soldering and automated processes.",
+          "features": [
+            "Incorporated flux",
+            "Multiple diameters",
+            "Lead-free alloys",
+            "Excellent wettability",
+            "Reduced smoke"
+          ]
+        },
+        "liquidFlux": {
+          "title": "Liquid Flux",
+          "subtitle": "Soldering activators",
+          "description": "Liquid flux of different activities (RMA, RA, OA) to improve wettability and reduce defects in soldering processes.",
+          "features": [
+            "Different activity levels",
+            "Excellent wettability",
+            "Minimal residues",
+            "Cleaning compatible",
+            "Spray or brush application"
+          ]
+        },
+        "preforms": {
+          "title": "Solder Preforms",
+          "subtitle": "Predefined shapes",
+          "description": "Solder preforms in different geometries and alloys for specific electronic assembly applications.",
+          "features": [
+            "Custom geometries",
+            "Precise dosing",
+            "Specialized alloys",
+            "Process repeatability",
+            "Waste reduction"
+          ]
+        }
+      },
+      "machines": {
+        "spareParts": {
+          "title": "SMT Spare Parts",
+          "subtitle": "Original and compatible parts",
+          "description": "Original and compatible spare parts for SMT equipment from major brands including Panasonic, Fuji, Yamaha and JUKI.",
+          "features": [
+            "Certified original parts",
+            "High-quality compatibles",
+            "Extensive inventory",
+            "Fast delivery",
+            "Specialized technical support"
+          ]
+        },
+        "maintenance": {
+          "title": "Preventive Maintenance",
+          "subtitle": "Maintenance programs",
+          "description": "Preventive maintenance programs designed to maximize uptime and extend the life of SMT equipment.",
+          "features": [
+            "Customized programs",
+            "Certified technicians",
+            "Detailed reports",
+            "Failure prediction",
+            "Performance optimization"
+          ]
+        },
+        "repair": {
+          "title": "Repair Service",
+          "subtitle": "Specialized repairs",
+          "description": "Specialized repair service for SMT equipment with advanced diagnostics and on-site or workshop repairs.",
+          "features": [
+            "Advanced diagnostics",
+            "On-site repair",
+            "Specialized workshop",
+            "Service warranty",
+            "Fast response"
+          ]
+        },
+        "support": {
+          "title": "Technical Support",
+          "subtitle": "Specialized assistance",
+          "description": "Specialized technical support for process optimization, problem solving and personnel training.",
+          "features": [
+            "Specialized engineers",
+            "Remote support",
+            "Technical training",
+            "Process optimization",
+            "Technical documentation"
+          ]
+        }
+      },
+      "laser": {
+        "precisionCutting": {
+          "title": "Precision Cutting",
+          "subtitle": "Specialized laser cutting",
+          "description": "High-precision laser cutting services for electronic materials, solder stencils and specialized components.",
+          "features": [
+            "Micrometric precision",
+            "Multiple materials",
+            "Complex cuts",
+            "Quality finish",
+            "Fast delivery times"
+          ]
+        },
+        "laserEngraving": {
+          "title": "Laser Engraving",
+          "subtitle": "Marking and engraving",
+          "description": "Laser engraving services for component marking, traceability and customization of electronic products.",
+          "features": [
+            "Permanent marking",
+            "Barcodes and QR codes",
+            "Complete traceability",
+            "Multiple materials",
+            "High resolution"
+          ]
+        },
+        "inspectionTemplates": {
+          "title": "Inspection Templates",
+          "subtitle": "Specialized templates",
+          "description": "Laser-cut inspection templates for quality control and component verification on SMT lines.",
+          "features": [
+            "Custom design",
+            "Specialized materials",
+            "Precise tolerances",
+            "High durability",
+            "AOI equipment compatibility"
+          ]
+        }
+      },
+      "tooling": {
+        "squeegees": {
+          "title": "Squeegees",
+          "subtitle": "Application tools",
+          "description": "Squeegees of different materials and hardnesses for optimal solder paste application in screen printing processes.",
+          "features": [
+            "Multiple hardnesses",
+            "Specialized materials",
+            "Custom profiles",
+            "Long service life",
+            "Uniform application"
+          ]
+        },
+        "cardHolders": {
+          "title": "Card Holders",
+          "subtitle": "PCB support",
+          "description": "Specialized clamping systems for PCBs during manufacturing, inspection and repair processes.",
+          "features": [
+            "Secure clamping",
+            "Multiple configurations",
+            "Complete PCB access",
+            "Antistatic materials",
+            "Quick adjustment"
+          ]
+        },
+        "routerPlates": {
+          "title": "Router Plates",
+          "subtitle": "Specialized cutting bases",
+          "description": "Specialized plates for CNC routers with clamping and positioning systems for precise PCB cutting.",
+          "features": [
+            "Precise positioning",
+            "Vacuum systems",
+            "Resistant materials",
+            "Multiple configurations",
+            "CNC compatibility"
+          ]
+        },
+        "palletsFixtures": {
+          "title": "Pallets and Fixtures",
+          "subtitle": "Custom solutions",
+          "description": "Custom pallets and fixtures for specific electronic manufacturing applications and automated processes.",
+          "features": [
+            "Custom design",
+            "In-house manufacturing",
+            "Specialized materials",
+            "Dimensional precision",
+            "SMT line integration"
+          ]
+        }
+      },
+      "actions": {
+        "quote": "Request Quote",
+        "datasheet": "Datasheet"
+      },
+      "comingSoon": "More categories coming soon",
+      "cta": {
+        "title": "Need a specific solution?",
+        "description": "Our team of experts is ready to help you find the perfect product for your application. Contact us for a personalized consultation.",
+        "primaryButton": "Request Free Consultation",
+        "secondaryButton": "View Complete Catalog"
       }
     }
   }

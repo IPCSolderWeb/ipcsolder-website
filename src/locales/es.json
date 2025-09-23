@@ -658,7 +658,8 @@
       },
       "loading": "Cargando...",
       "error": "Error",
-      "success": "Éxito"
+      "success": "Éxito",
+      "all": "Todos"
     },
     "forms": {
       "contact": {
@@ -721,6 +722,348 @@
           "title": "Error al enviar",
           "description": "Por favor intenta de nuevo o contáctanos directamente."
         }
+      }
+    },
+    "products": {
+      "breadcrumb": {
+        "home": "Inicio",
+        "products": "Productos"
+      },
+      "hero": {
+        "title": "Nuestros Productos",
+        "subtitle": "Electronics Assembly Solutions",
+        "description": "Seis divisiones especializadas con productos de alta calidad para todas las necesidades de la industria electrónica. Cada categoría cuenta con expertos dedicados."
+      },
+      "categories": {
+        "mro": {
+          "title": "MRO",
+          "description": "Mantenimiento, Reparación y Operaciones. Productos esenciales para el funcionamiento óptimo de líneas SMT y equipos de manufactura electrónica."
+        },
+        "esd": {
+          "title": "ESD",
+          "description": "Protección Electrostática. Productos especializados para prevenir daños por descargas electrostáticas en componentes sensibles."
+        },
+        "solder": {
+          "title": "SOLDER PRODUCTS",
+          "description": "Productos de soldadura de alta calidad incluyendo barras, alambres, flux líquido y preformas para todas las aplicaciones de manufactura electrónica."
+        },
+        "machines": {
+          "title": "MACHINES",
+          "description": "Servicios especializados para equipos SMT incluyendo refacciones, mantenimiento preventivo, reparaciones y soporte técnico especializado."
+        },
+        "laser": {
+          "title": "LASER",
+          "description": "Servicios especializados de corte láser de precisión, grabado láser y plantillas de inspección para aplicaciones industriales y electrónicas."
+        },
+        "tooling": {
+          "title": "TOOLING",
+          "description": "Herramientas especializadas incluyendo squeegees, soportes para PCBs, placas de router, pallets y fixtures personalizados para líneas SMT."
+        }
+      },
+      "mro": {
+        "thermocouples": {
+          "title": "Termopares Tipo K",
+          "subtitle": "Medición de temperatura de precisión",
+          "description": "Termopares de alta precisión disponibles en diferentes longitudes con aislamiento PFA y trenza de vidrio para temperaturas hasta 480°C.",
+          "features": [
+            "Disponibles en 1, 2 y 3 metros",
+            "Temperatura máxima conector: 220°C",
+            "PFA aislado hasta 260°C",
+            "Trenza de vidrio hasta 480°C",
+            "Marca OMEGA"
+          ]
+        },
+        "pallets": {
+          "title": "Pallets",
+          "subtitle": "Transporte de PCBs",
+          "description": "Pallets especializados para transporte seguro de PCBs a través de líneas de producción con posicionamiento preciso.",
+          "features": [
+            "Posicionamiento preciso",
+            "Transporte seguro",
+            "Múltiples configuraciones",
+            "Compatible con conveyor",
+            "Materiales resistentes"
+          ]
+        },
+        "fixtures": {
+          "title": "Fixtures Especializados",
+          "subtitle": "Soluciones a medida",
+          "description": "Fixtures y bases especializadas para aplicaciones específicas incluyendo bases rotatorias, de atornillado y configuraciones personalizadas.",
+          "features": [
+            "Bases rotatorias",
+            "Sistemas de atornillado",
+            "Configuraciones personalizadas",
+            "Soluciones mecánicas únicas",
+            "Fabricación en taller propio"
+          ]
+        },
+        "redGlue": {
+          "title": "NE8800T Red Glue",
+          "subtitle": "Chip Bonder adhesivo",
+          "description": "Adhesivo especializado para fijación de componentes SMD antes del proceso de soldadura. Excelente adherencia y resistencia térmica.",
+          "features": [
+            "Fijación temporal de componentes",
+            "Resistente a altas temperaturas",
+            "Fácil aplicación",
+            "Compatible con procesos SMT"
+          ]
+        },
+        "ipa": {
+          "title": "Alcohol Isopropílico (IPA)",
+          "subtitle": "Limpieza de PCBs y componentes",
+          "description": "Alcohol isopropílico de alta pureza para limpieza de PCBs, componentes electrónicos y equipos de manufactura.",
+          "features": [
+            "Alta pureza 99.9%",
+            "Evaporación rápida",
+            "No deja residuos",
+            "Seguro para componentes"
+          ]
+        },
+        "nozzleCleaner": {
+          "title": "F37 Gel Nozzle Cleaner",
+          "subtitle": "Limpiador de boquillas en gel",
+          "description": "Limpiador especializado en gel para boquillas de dispensado y aplicación de pasta de soldadura. Fórmula no agresiva.",
+          "features": [
+            "Fórmula en gel adherente",
+            "Limpieza profunda de boquillas",
+            "No daña componentes metálicos",
+            "Fácil aplicación"
+          ]
+        },
+        "routerBits": {
+          "title": "Router Bits",
+          "subtitle": "Brocas especializadas para PCB",
+          "description": "Brocas de alta precisión para corte y perforación de PCBs. Disponibles en diferentes diámetros y geometrías.",
+          "features": [
+            "Múltiples diámetros disponibles",
+            "Corte limpio y preciso",
+            "Larga vida útil",
+            "Compatible con routers CNC"
+          ]
+        }
+      },
+      "esd": {
+        "traysAndBins": {
+          "title": "Trays and Bins ESD Safe",
+          "subtitle": "Bandejas y contenedores antiestáticos",
+          "description": "Bandejas y contenedores diseñados específicamente para el manejo seguro de componentes sensibles a descargas electrostáticas.",
+          "features": [
+            "Material conductivo controlado",
+            "Diferentes tamaños disponibles",
+            "Reutilizables y duraderos",
+            "Cumple estándares ESD"
+          ]
+        },
+        "evaSheets": {
+          "title": "Conductive EVA Sheets",
+          "subtitle": "Láminas conductivas EVA",
+          "description": "Láminas de EVA conductivo para crear superficies de trabajo antiestáticas y proteger componentes sensibles durante el manejo.",
+          "features": [
+            "Material EVA conductivo",
+            "Fácil de cortar y adaptar",
+            "Superficie antideslizante",
+            "Resistente a químicos"
+          ]
+        }
+      },
+      "solder": {
+        "solderBars": {
+          "title": "Barras de Soldadura",
+          "subtitle": "Aleaciones de alta calidad",
+          "description": "Barras de soldadura de aleaciones SAC305, SAC387 y otras formulaciones especializadas para aplicaciones de manufactura electrónica.",
+          "features": [
+            "Aleaciones SAC305 y SAC387",
+            "Composición controlada",
+            "Excelente fluidez",
+            "Baja formación de dross",
+            "Certificaciones IPC"
+          ]
+        },
+        "solderWire": {
+          "title": "Alambre de Soldadura",
+          "subtitle": "Para soldadura manual y automática",
+          "description": "Alambre de soldadura con flux incorporado en diferentes diámetros y aleaciones para soldadura manual y procesos automatizados.",
+          "features": [
+            "Flux incorporado",
+            "Múltiples diámetros",
+            "Aleaciones sin plomo",
+            "Excelente mojabilidad",
+            "Humo reducido"
+          ]
+        },
+        "liquidFlux": {
+          "title": "Flux Líquido",
+          "subtitle": "Activadores de soldadura",
+          "description": "Flux líquido de diferentes actividades (RMA, RA, OA) para mejorar la mojabilidad y reducir defectos en procesos de soldadura.",
+          "features": [
+            "Diferentes niveles de actividad",
+            "Excelente mojabilidad",
+            "Residuos mínimos",
+            "Compatible con limpieza",
+            "Aplicación por spray o pincel"
+          ]
+        },
+        "preforms": {
+          "title": "Preformas de Soldadura",
+          "subtitle": "Formas predefinidas",
+          "description": "Preformas de soldadura en diferentes geometrías y aleaciones para aplicaciones específicas de ensamble electrónico.",
+          "features": [
+            "Geometrías personalizadas",
+            "Dosificación precisa",
+            "Aleaciones especializadas",
+            "Repetibilidad de proceso",
+            "Reducción de desperdicio"
+          ]
+        }
+      },
+      "machines": {
+        "spareParts": {
+          "title": "Refacciones SMT",
+          "subtitle": "Partes originales y compatibles",
+          "description": "Refacciones originales y compatibles para equipos SMT de las principales marcas incluyendo Panasonic, Fuji, Yamaha y JUKI.",
+          "features": [
+            "Partes originales certificadas",
+            "Compatibles de alta calidad",
+            "Inventario amplio",
+            "Entrega rápida",
+            "Soporte técnico especializado"
+          ]
+        },
+        "maintenance": {
+          "title": "Mantenimiento Preventivo",
+          "subtitle": "Programas de mantenimiento",
+          "description": "Programas de mantenimiento preventivo diseñados para maximizar el uptime y extender la vida útil de equipos SMT.",
+          "features": [
+            "Programas personalizados",
+            "Técnicos certificados",
+            "Reportes detallados",
+            "Predicción de fallas",
+            "Optimización de rendimiento"
+          ]
+        },
+        "repair": {
+          "title": "Servicio de Reparación",
+          "subtitle": "Reparaciones especializadas",
+          "description": "Servicio de reparación especializado para equipos SMT con diagnóstico avanzado y reparaciones en sitio o en taller.",
+          "features": [
+            "Diagnóstico avanzado",
+            "Reparación en sitio",
+            "Taller especializado",
+            "Garantía de servicio",
+            "Respuesta rápida"
+          ]
+        },
+        "support": {
+          "title": "Soporte Técnico",
+          "subtitle": "Asistencia especializada",
+          "description": "Soporte técnico especializado para optimización de procesos, resolución de problemas y capacitación de personal.",
+          "features": [
+            "Ingenieros especializados",
+            "Soporte remoto",
+            "Capacitación técnica",
+            "Optimización de procesos",
+            "Documentación técnica"
+          ]
+        }
+      },
+      "laser": {
+        "precisionCutting": {
+          "title": "Corte de Precisión",
+          "subtitle": "Corte láser especializado",
+          "description": "Servicios de corte láser de alta precisión para materiales electrónicos, plantillas de soldadura y componentes especializados.",
+          "features": [
+            "Precisión micrométrica",
+            "Múltiples materiales",
+            "Cortes complejos",
+            "Acabado de calidad",
+            "Tiempos de entrega rápidos"
+          ]
+        },
+        "laserEngraving": {
+          "title": "Grabado Láser",
+          "subtitle": "Marcado y grabado",
+          "description": "Servicios de grabado láser para marcado de componentes, trazabilidad y personalización de productos electrónicos.",
+          "features": [
+            "Marcado permanente",
+            "Códigos de barras y QR",
+            "Trazabilidad completa",
+            "Múltiples materiales",
+            "Resolución alta"
+          ]
+        },
+        "inspectionTemplates": {
+          "title": "Plantillas de Inspección",
+          "subtitle": "Templates especializados",
+          "description": "Plantillas de inspección cortadas por láser para control de calidad y verificación de componentes en líneas SMT.",
+          "features": [
+            "Diseño personalizado",
+            "Materiales especializados",
+            "Tolerancias precisas",
+            "Durabilidad alta",
+            "Compatibilidad con equipos AOI"
+          ]
+        }
+      },
+      "tooling": {
+        "squeegees": {
+          "title": "Squeegees",
+          "subtitle": "Herramientas de aplicación",
+          "description": "Squeegees de diferentes materiales y durezas para aplicación óptima de pasta de soldadura en procesos de screen printing.",
+          "features": [
+            "Múltiples durezas",
+            "Materiales especializados",
+            "Perfiles personalizados",
+            "Larga vida útil",
+            "Aplicación uniforme"
+          ]
+        },
+        "cardHolders": {
+          "title": "Sujetadores de Tarjetas",
+          "subtitle": "Soporte para PCBs",
+          "description": "Sistemas de sujeción especializados para PCBs durante procesos de manufactura, inspección y reparación.",
+          "features": [
+            "Sujeción segura",
+            "Múltiples configuraciones",
+            "Acceso completo a PCB",
+            "Materiales antiestáticos",
+            "Ajuste rápido"
+          ]
+        },
+        "routerPlates": {
+          "title": "Placas Router",
+          "subtitle": "Bases de corte especializadas",
+          "description": "Placas especializadas para routers CNC con sistemas de sujeción y posicionamiento para corte preciso de PCBs.",
+          "features": [
+            "Posicionamiento preciso",
+            "Sistemas de vacío",
+            "Materiales resistentes",
+            "Configuraciones múltiples",
+            "Compatibilidad CNC"
+          ]
+        },
+        "palletsFixtures": {
+          "title": "Pallets y Fixtures",
+          "subtitle": "Soluciones personalizadas",
+          "description": "Pallets y fixtures personalizados para aplicaciones específicas de manufactura electrónica y procesos automatizados.",
+          "features": [
+            "Diseño personalizado",
+            "Fabricación en taller propio",
+            "Materiales especializados",
+            "Precisión dimensional",
+            "Integración con líneas SMT"
+          ]
+        }
+      },
+      "actions": {
+        "quote": "Solicitar Cotización",
+        "datasheet": "Ficha Técnica"
+      },
+      "comingSoon": "Próximamente más categorías",
+      "cta": {
+        "title": "¿Necesitas una solución específica?",
+        "description": "Nuestro equipo de expertos está listo para ayudarte a encontrar el producto perfecto para tu aplicación. Contáctanos para una consulta personalizada.",
+        "primaryButton": "Solicitar Consulta Gratuita",
+        "secondaryButton": "Ver Catálogo Completo"
       }
     }
 }

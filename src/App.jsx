@@ -4,6 +4,7 @@ import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import ProductsIndex from './pages/Products/ProductsIndex';
 import MaintenanceChecker from './components/MaintenanceChecker';
 
 // Importar estilos (si no están en main.jsx)
@@ -163,18 +164,6 @@ const App = () => {
   );
 
   // Placeholder components para rutas que aún no existen
-  const ProductsPlaceholder = () => (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          {currentLanguage === 'es' ? 'Productos' : 'Products'}
-        </h1>
-        <p className="text-gray-600">
-          {currentLanguage === 'es' ? 'Página en desarrollo' : 'Page under development'}
-        </p>
-      </div>
-    </div>
-  );
 
   const BlogPlaceholder = () => (
     <div className="min-h-screen flex items-center justify-center">
@@ -263,25 +252,41 @@ const App = () => {
               } 
             />
 
-            {/* Rutas placeholder para desarrollo */}
+            {/* Rutas de productos */}
             <Route 
               path="/products" 
-              element={<ProductsPlaceholder />} 
+              element={
+                <ProductsIndex 
+                  currentLanguage={currentLanguage} 
+                />
+              } 
             />
             
             <Route 
               path="/productos" 
-              element={<ProductsPlaceholder />} 
+              element={
+                <ProductsIndex 
+                  currentLanguage={currentLanguage} 
+                />
+              } 
             />
             
             <Route 
               path="/products/:category" 
-              element={<ProductsPlaceholder />} 
+              element={
+                <ProductsIndex 
+                  currentLanguage={currentLanguage} 
+                />
+              } 
             />
             
             <Route 
               path="/productos/:category" 
-              element={<ProductsPlaceholder />} 
+              element={
+                <ProductsIndex 
+                  currentLanguage={currentLanguage} 
+                />
+              } 
             />
             
             <Route 
