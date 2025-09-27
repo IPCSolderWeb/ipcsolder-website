@@ -1,17 +1,37 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import {
   HiArrowRight as ArrowRight,
   HiCheckCircle as CheckCircle
 } from 'react-icons/hi';
+import '../styles/video-hero.css';
 
 const Home = ({ currentLanguage = 'es' }) => {
   const { t, ready } = useTranslation();
+  const navigate = useNavigate();
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  // Detectar preferencia de movimiento reducido para accesibilidad
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    const handleChange = (e) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
   // Debug: Verificar si las traducciones están listas
   console.log('🔍 Home Debug:', {
     ready,
     currentLanguage,
+    prefersReducedMotion,
+    videoLoaded,
+    videoError,
     heroTitle: ready ? t('home.hero.title') : 'Loading...',
     heroSubtitle: ready ? t('home.hero.subtitle') : 'Loading...'
   });
@@ -30,6 +50,30 @@ const Home = ({ currentLanguage = 'es' }) => {
 
   const handleCTA = (action) => {
     console.log(`📞 Home: CTA clicked - ${action}`);
+
+    switch (action) {
+      case 'hero-primary':
+        // "¿Cómo podemos ayudarte a mejorar?" -> Contacto
+        navigate('/contacto');
+        window.scrollTo(0, 0);
+        break;
+      case 'hero-secondary':
+        // "Ver Productos" -> Productos
+        navigate('/productos');
+        window.scrollTo(0, 0);
+        break;
+      case 'cta-primary':
+        // "Solicitar Assessment Gratuito" -> Contacto
+        navigate('/contacto');
+        window.scrollTo(0, 0);
+        break;
+      case 'cta-secondary':
+        // "Ver Fichas Técnicas" -> Se queda como está por ahora
+        console.log('Ver Fichas Técnicas - Por implementar');
+        break;
+      default:
+        console.log(`Acción no definida: ${action}`);
+    }
   };
 
   return (
@@ -37,37 +81,69 @@ const Home = ({ currentLanguage = 'es' }) => {
 
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 text-white py-24 overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 100' fill='%23ffffff'%3E%3Cpath d='M0,20 Q250,80 500,20 T1000,20 L1000,100 L0,100 Z'/%3E%3C/svg%3E")`,
-            backgroundRepeat: 'repeat-x',
-            backgroundSize: '100% 100px'
-          }} />
+      <section className="relative text-white py-24 overflow-hidden min-h-screen flex items-center">
+        {/* Video Background */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          {!prefersReducedMotion ? (
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-cover"
+              poster="/videos/hero-background-poster.jpg"
+              onLoadStart={() => console.log('🎥 Video loading started')}
+              onLoadedData={() => console.log('🎥 Video loaded data')}
+              onCanPlay={() => {
+                console.log('🎥 Video can play');
+                setVideoLoaded(true);
+              }}
+              onPlay={() => console.log('🎥 Video started playing')}
+              onError={(e) => {
+                console.log('🎥 Video error:', e);
+                setVideoError(true);
+              }}
+            >
+              <source src="/videos/hero-background.webm" type="video/webm" />
+              <source src="/videos/hero-background.mp4" type="video/mp4" />
+            </video>
+          ) : (
+            // Imagen estática para usuarios que prefieren movimiento reducido
+            <div
+              className="w-full h-full bg-cover bg-center bg-no-repeat"
+              style={{ backgroundImage: 'url(/videos/hero-background-poster.jpg)' }}
+            />
+          )}
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+        {/* Fallback background for browsers that don't support video or video error */}
+        <div className={`absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 transition-opacity duration-1000 z-5 ${videoError || (!videoLoaded && !prefersReducedMotion) ? 'opacity-100' : 'opacity-20'
+          }`}></div>
+
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black bg-opacity-40 z-10"></div>
+
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl lg:text-7xl font-bold mb-6 leading-tight text-white hero-text-shadow">
             {t('home.hero.title')}
           </h1>
-          <div className="text-2xl lg:text-3xl text-blue-300 font-medium mb-4">
+          <div className="text-2xl lg:text-3xl text-blue-300 font-medium mb-4 hero-text-shadow">
             {t('home.hero.subtitle')}
           </div>
-          <p className="text-lg lg:text-xl text-slate-300 mb-10 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg lg:text-xl text-gray-100 mb-10 max-w-4xl mx-auto leading-relaxed hero-text-shadow">
             {t('home.hero.description')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
               onClick={() => handleCTA('hero-primary')}
-              className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 flex items-center space-x-2 group shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+              className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 flex items-center space-x-2 group shadow-2xl hover:shadow-3xl transform hover:-translate-y-1 backdrop-blur-sm"
             >
               <span>{t('home.hero.primaryCta')}</span>
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" />
             </button>
             <button
               onClick={() => handleCTA('hero-secondary')}
-              className="bg-transparent border-2 border-slate-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-slate-600 transition-all duration-300"
+              className="glass-button text-white px-8 py-4 rounded-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl"
             >
               {t('home.hero.secondaryCta')}
             </button>
@@ -87,7 +163,14 @@ const Home = ({ currentLanguage = 'es' }) => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {['mro', 'esd', 'solder', 'machines', 'laser', 'tooling'].map((key, index) => (
-              <div key={key} className="group cursor-pointer">
+              <div
+                key={key}
+                className="group cursor-pointer"
+                onClick={() => {
+                  navigate('/productos');
+                  window.scrollTo(0, 0);
+                }}
+              >
                 <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-100 hover:-translate-y-2">
                   <div className="w-15 h-15 bg-gradient-to-br from-blue-600 to-blue-900 rounded-xl flex items-center justify-center mb-6 text-white">
                     <CheckCircle size={32} />

@@ -583,26 +583,36 @@
         "sectionDescription": "What motivates us and guides us in every decision we make",
         "mission": {
           "title": "Our Mission",
-          "description": "To provide specialized solutions for electronics assembly through high-quality products, on-time deliveries and service to maquiladoras, original manufacturers and electronic manufacturing in general."
-        },
-        "vision": {
-          "title": "Our Vision",
-          "description": "To be recognized as the experts in electronic assembly solutions in Mexico, being the first choice for companies seeking real technical knowledge and solutions that work."
-        },
-        "values": {
-          "title": "Our Values",
-          "experience": {
-            "title": "Real Experience",
-            "description": "Each specialist knows their area in depth."
+          "description": "To be a strategic and reliable partner for the electronics industry, offering innovative solutions in soldering and manufacturing supplies, with a focus on the customer, quality, efficiency, and continuous staff training."
           },
-          "solutions": {
-            "title": "Effective Solutions",
-            "description": "We don't sell products, we solve problems."
+          "vision": {
+            "title": "Our Vision",
+            "description": "To consolidate ourselves as the most advanced and reliable partner for electronic manufacturing solutions, recognized for our ability to offer high-value comprehensive services, with innovation, technical support, and excellence in every project. We adapt to the changing needs of the market, driving the growth and competitiveness of our clients."
           },
-          "commitment": {
-            "title": "Commitment",
-            "description": "We get involved in your process until we achieve results."
-          }
+          "values": {
+            "title": "Our Values",
+            "description": "We are guided by solid principles that are part of our business culture:",
+            "experience": {
+              "title": "Integrity",
+              "description": "we act with transparency in every project."
+            },
+            "solutions": {
+              "title": "Customer Commitment",
+              "description": "we work to exceed their expectations."
+            },
+            "commitment": {
+              "title": "Honesty",
+              "description": "we build relationships based on trust."
+            },
+            "working": {
+              "title": "Teamwork",
+              "description": "we collaborate to achieve the best results."
+            },
+            "responsibility": {
+              "title": "Responsibility",
+              "description": "we take on every challenge with discipline, ethics, and professionalism."
+            }
+          
         },
         "differentiators": {
           "title": "What makes us different?",

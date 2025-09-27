@@ -427,25 +427,34 @@
         "sectionDescription": "Lo que nos motiva y guía en cada decisión que tomamos",
         "mission": {
           "title": "Nuestra Misión",
-          "description": "Brindar soluciones especializadas para el ensamble de electrónicos mediante productos de alta calidad, entregas a tiempo y servicio a maquiladoras, fabricantes originales y manufactura electrónica en general."
+          "description": "Ser un socio estratégico y confiable para la industria electrónica, ofreciendo soluciones innovadoras en soldadura e insumos para la manufactura, con un enfoque al cliente, la calidad, la eficiencia y la capacitación continua del personal."
         },
         "vision": {
           "title": "Nuestra Visión",
-          "description": "Ser reconocidos como los expertos en soluciones de ensamble electrónico en México, siendo la primera opción para empresas que buscan conocimiento técnico real y soluciones que funcionan."
+          "description": "Consolidarnos como el socio de soluciones de fabricación electrónica más avanzado y confiable, reconocido por nuestra capacidad de ofrecer servicios integrales de alto valor, con innovación, soporte técnico y excelencia en cada proyecto. Nos adaptamos a las necesidades cambiantes del mercado, impulsando el crecimiento y la competitividad de nuestros clientes."
         },
         "values": {
           "title": "Nuestros Valores",
+          "description": "Nos guiamos por principios sólidos que forman parte de nuestra cultura empresarial:",
           "experience": {
-            "title": "Experiencia Real",
-            "description": "Cada especialista conoce su área a profundidad."
+            "title": "Integridad",
+            "description": "actuamos con transparencia en cada proyecto."
           },
           "solutions": {
-            "title": "Soluciones Efectivas",
-            "description": "No vendemos productos, solucionamos problemas."
+            "title": "Compromiso con el cliente",
+            "description": "trabajamos para superar sus expectativas."
           },
           "commitment": {
-            "title": "Compromiso",
-            "description": "Nos involucramos en tu proceso hasta lograr resultados."
+            "title": "Honestidad",
+            "description": "construimos relaciones basadas en la confianza."
+          },
+          "working": {
+            "title": "Trabajo en equipo",
+            "description": "colaboramos para lograr los mejores resultados."
+          },
+          "responsibility": {
+            "title": "Responsabilidad",
+            "description": "asumimos cada reto con disciplina, ética y profesionalismo."
           }
         },
         "differentiators": {

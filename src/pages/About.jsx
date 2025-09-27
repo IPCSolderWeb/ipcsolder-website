@@ -255,10 +255,15 @@ const About = ({ currentLanguage = 'es' }) => {
                                 ⭐
                             </div>
                             <h3 className="text-2xl font-bold text-blue-900 mb-4">{t('about.mission.values.title')}</h3>
+                            
+
                             <div className="text-gray-600 leading-relaxed space-y-3">
+                                <p className="text-gray-600 leading-relaxed">{t('about.mission.values.description')}</p>
                                 <p><strong className="text-blue-900">{t('about.mission.values.experience.title')}:</strong> {t('about.mission.values.experience.description')}</p>
                                 <p><strong className="text-blue-900">{t('about.mission.values.solutions.title')}:</strong> {t('about.mission.values.solutions.description')}</p>
                                 <p><strong className="text-blue-900">{t('about.mission.values.commitment.title')}:</strong> {t('about.mission.values.commitment.description')}</p>
+                                <p><strong className="text-blue-900">{t('about.mission.values.working.title')}:</strong> {t('about.mission.values.working.description')}</p>
+                                <p><strong className="text-blue-900">{t('about.mission.values.responsibility.title')}:</strong> {t('about.mission.values.responsibility.description')}</p>
                             </div>
                         </div>
 
@@ -282,7 +287,7 @@ const About = ({ currentLanguage = 'es' }) => {
                 </div>
             </section>
 
-            {/* Team Section */}
+            {/* Team Section 
             <section className="py-20 bg-white" id="equipo">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div
@@ -301,8 +306,8 @@ const About = ({ currentLanguage = 'es' }) => {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                        {/* Team Member 1 */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"> */}
+                        {/* Team Member 1 
                         <div
                             id="member-1"
                             data-animate
@@ -326,9 +331,9 @@ const About = ({ currentLanguage = 'es' }) => {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </div>*/}
 
-                        {/* Team Member 2 */}
+                        {/* Team Member 2 
                         <div
                             id="member-2"
                             data-animate
@@ -353,9 +358,9 @@ const About = ({ currentLanguage = 'es' }) => {
                                     </li>
                                 ))}
                             </ul>
-                        </div>
+                        </div>*/}
 
-                        {/* Team Member 3 */}
+                        {/* Team Member 3 
                         <div
                             id="member-3"
                             data-animate
@@ -383,7 +388,7 @@ const About = ({ currentLanguage = 'es' }) => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section>*/}
 
             {/* CTA Section */}
             <section className="py-20 bg-gradient-to-br from-blue-900 to-blue-600 text-white">
