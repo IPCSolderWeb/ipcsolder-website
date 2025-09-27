@@ -437,7 +437,7 @@ const Header = ({
                               href="#"
                               onClick={(e) => {
                                 e.preventDefault();
-                                handleNavClick(`/services/${item.key}`, `services-${item.key}`);
+                                handleNavClick('/servicios');
                               }}
                               className="block text-gray-600 no-underline hover:bg-gray-100 hover:text-blue-800 transition-all duration-300"
                               style={{

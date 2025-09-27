@@ -4,6 +4,7 @@ import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Services from './pages/Services';
 import ProductsIndex from './pages/Products/ProductsIndex';
 import MaintenanceChecker from './components/MaintenanceChecker';
 
@@ -247,6 +248,25 @@ const App = () => {
               path="/contacto" 
               element={
                 <Contact 
+                  currentLanguage={currentLanguage} 
+                />
+              } 
+            />
+
+            {/* Rutas de servicios */}
+            <Route 
+              path="/services" 
+              element={
+                <Services 
+                  currentLanguage={currentLanguage} 
+                />
+              } 
+            />
+            
+            <Route 
+              path="/servicios" 
+              element={
+                <Services 
                   currentLanguage={currentLanguage} 
                 />
               } 

@@ -1,0 +1,79 @@
+/* Estilos específicos para el video hero */
+
+/* Video hero styles - usando solo Tailwind classes */
+
+/* Mejorar la legibilidad del texto sobre video */
+.hero-text-shadow {
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 4px 8px rgba(0, 0, 0, 0.6),
+    0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* Efectos de glassmorphism para botones */
+.glass-button {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Animación suave para la carga del video */
+.video-fade-in {
+  animation: videoFadeIn 2s ease-in-out;
+}
+
+@keyframes videoFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Respeto a las preferencias de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .video-fade-in {
+    animation: none;
+  }
+  
+  .hero-video {
+    animation: none;
+  }
+}
+
+/* Optimización para dispositivos móviles */
+@media (max-width: 768px) {
+  .hero-video {
+    object-position: center center;
+  }
+}
+
+/* Mejoras de rendimiento */
+.hero-video {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Z-index layers para el hero */
+.z-0 {
+  z-index: 0;
+}
+
+.z-1 {
+  z-index: 1;
+}
+
+.z-2 {
+  z-index: 2;
+}
+
+.z-10 {
+  z-index: 10;
+}
