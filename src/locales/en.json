@@ -1,211 +1,22 @@
 {
-    "header": {
-      "contact": {
-        "email": "📧 ventas@ipcsolder.com",
-        "phone": "📞 +52 (33) 4514 2400",
-        "location": "📍 Guadalajara, Jalisco"
-      },
-      "nav": {
-        "home": "Home",
-        "about": "About Us",
-        "products": "Products",
-        "services": "Services",
-        "blog": "Blog",
-        "contact": "Contact"
-      },
-      "dropdowns": {
-        "about": {
-          "title": "Company",
-          "items": [
-            { "key": "history", "label": "History" },
-            { "key": "mission", "label": "Mission & Values" },
-            { "key": "team", "label": "Expert Team" }
-          ]
-        },
-        "products": {
-          "sections": [
-            {
-              "title": "Main Categories",
-              "items": [
-                { "key": "mro", "label": "MRO - Maintenance & Operations" },
-                { "key": "esd", "label": "ESD - Electrostatic Protection" },
-                { "key": "solder", "label": "Solder - Soldering Products" }
-              ]
-            },
-            {
-              "title": "Specialized Services",
-              "items": [
-                { "key": "machines", "label": "Machines - Maintenance & Repair" },
-                { "key": "laser", "label": "Laser - Precision Cutting & Engraving" },
-                { "key": "tooling", "label": "Tooling - Specialized Tools" }
-              ]
-            }
-          ]
-        },
-        "services": {
-          "sections": [
-            {
-              "title": "Technical Support",
-              "items": [
-                { "key": "assessment", "label": "Line Assessment" },
-                { "key": "consulting", "label": "Process Consulting" },
-                { "key": "support", "label": "Post-Sale Support" }
-              ]
-            },
-            {
-              "title": "Resources",
-              "items": [
-                { "key": "technical", "label": "Technical Sheets" },
-                { "key": "documentation", "label": "Documentation" }
-              ]
-            }
-          ]
-        }
-      }
+  "header": {
+    "contact": {
+      "email": "📧 ventas@ipcsolder.com",
+      "phone": "📞 +52 (33) 4514 2400",
+      "location": "📍 Guadalajara, Jalisco"
     },
-    "home": {
-      "hero": {
-        "title": "Electronics Assembly Solutions",
-        "subtitle": "We are the experts!",
-        "description": "Specialized solutions for the electronics industry with over 20 years of experience. We know what the industry needs and we know how to solve your problems.",
-        "primaryCta": "How can we help you improve?",
-        "secondaryCta": "View Products"
-      },
-
-      "products": {
-        "title": "Our Specialties",
-        "subtitle": "Six specialized divisions with dedicated experts in each area of the electronics industry",
-        "viewMore": "View products",
-        "categories": {
-          "mro": {
-            "title": "MRO",
-            "description": "Maintenance, Repair and Operations for SMT lines",
-            "icon": "clipboard",
-            "items": [
-              "Type K Thermocouples",
-              "Chip Bonder",
-              "Isopropyl Alcohol",
-              "Nozzle Cleaner",
-              "Router Bits"
-            ]
-          },
-          "esd": {
-            "title": "ESD",
-            "description": "Electrostatic protection for PCB and electronic components",
-            "icon": "shield",
-            "items": [
-              "EVA Trays",
-              "Thermoformed Trays",
-              "Plastic Containers",
-              "Fiberglass Trays",
-              "EVA Mats"
-            ]
-          },
-          "solder": {
-            "title": "SOLDER",
-            "description": "Specialized soldering products for electronics",
-            "icon": "wrench",
-            "items": [
-              "Solder Bars",
-              "Solder Wire",
-              "Liquid Flux",
-              "Solder Preforms"
-            ]
-          },
-          "machines": {
-            "title": "MACHINES",
-            "description": "SMT equipment maintenance and repair",
-            "icon": "cog",
-            "items": [
-              "Spare Parts",
-              "Preventive Maintenance",
-              "Repair Service",
-              "Technical Support"
-            ]
-          },
-          "laser": {
-            "title": "LASER",
-            "description": "Precision laser cutting and engraving services",
-            "icon": "lightning",
-            "items": [
-              "Precision Cutting",
-              "Laser Engraving",
-              "Inspection Templates"
-            ]
-          },
-          "tooling": {
-            "title": "TOOLING",
-            "description": "Specialized tools for production lines",
-            "icon": "desktop",
-            "items": [
-              "Squeegees",
-              "Card Holders",
-              "Router Plates",
-              "Pallets and Fixtures"
-            ]
-          }
-        }
-      },
-      "services": {
-        "title": "Why are we different?",
-        "subtitle": "Our team of experts with over 20 years of experience knows exactly what the industry needs",
-        "list": [
-          {
-            "title": "Line Assessment",
-            "description": "We review your production line at no cost and tell you where you are failing and how to improve it",
-            "icon": "target"
-          },
-          {
-            "title": "Fast Response",
-            "description": "We understand that time is critical. Immediate response with real technical solutions",
-            "icon": "lightning"
-          },
-          {
-            "title": "Expert Team",
-            "description": "Each specialist has over 30 years of experience in their specific area",
-            "icon": "users"
-          }
-        ]
-      },
-      "cta": {
-        "title": "How can we help you improve your production?",
-        "description": "Contact us for a free assessment of your production line. We help you increase your yield and reduce defects.",
-        "primaryCta": "Request Free Assessment",
-        "secondaryCta": "View Technical Sheets"
-      },
-      "contact": {
-        "title": "Contact Our Experts",
-        "subtitle": "We are ready to help you find the perfect solution",
-        "description": "Our team of specialists is available to analyze your specific needs and provide you with the best technical recommendations.",
-        "contactInfo": "Contact Information",
-        "labels": {
-          "phone": "Call now",
-          "email": "Send email",
-          "address": "Our location",
-          "hours": "Business hours"
-        },
-        "info": {
-          "phone": "+52 (33) 1234-5678",
-          "email": "sales@ipcsolder.com",
-          "address": "Guadalajara, Jalisco, Mexico",
-          "hours": "Mon - Fri: 8:00 AM - 6:00 PM"
-        },
-        "cta": "Request Quote"
-      }
+    "nav": {
+      "home": "Home",
+      "about": "About Us",
+      "products": "Products",
+      "services": "Services",
+      "blog": "Blog",
+      "contact": "Contact"
     },
-    "mobileMenu": {
-      "title": "IPCSolder",
-      "language": "Language",
-      "nav": {
-        "home": "Home",
-        "about": "About Us",
-        "products": "Products",
-        "services": "Services",
-        "blog": "Blog",
-        "contact": "Contact"
-      },
-      "submenus": {
-        "about": [
+    "dropdowns": {
+      "about": {
+        "title": "Company",
+        "items": [
           {
             "key": "history",
             "label": "History"
@@ -218,863 +29,1349 @@
             "key": "team",
             "label": "Expert Team"
           }
-        ],
-        "products": [
+        ]
+      },
+      "products": {
+        "sections": [
           {
-            "key": "mro",
-            "label": "MRO"
+            "title": "Main Categories",
+            "items": [
+              {
+                "key": "mro",
+                "label": "MRO - Maintenance & Operations"
+              },
+              {
+                "key": "esd",
+                "label": "ESD - Electrostatic Protection"
+              },
+              {
+                "key": "solder",
+                "label": "Solder - Soldering Products"
+              }
+            ]
           },
           {
-            "key": "esd",
-            "label": "ESD"
-          },
-          {
-            "key": "solder",
-            "label": "Solder"
-          },
-          {
-            "key": "machines",
-            "label": "Machines"
-          },
-          {
-            "key": "laser",
-            "label": "Laser"
-          },
-          {
-            "key": "tooling",
-            "label": "Tooling"
-          }
-        ],
-        "services": [
-          {
-            "key": "assessment",
-            "label": "Line Assessment"
-          },
-          {
-            "key": "consulting",
-            "label": "Process Consulting"
-          },
-          {
-            "key": "support",
-            "label": "Technical Support"
-          },
-          {
-            "key": "technical",
-            "label": "Technical Sheets"
+            "title": "Specialized Services",
+            "items": [
+              {
+                "key": "machines",
+                "label": "Machines - Maintenance & Repair"
+              },
+              {
+                "key": "laser",
+                "label": "Laser - Precision Cutting & Engraving"
+              },
+              {
+                "key": "tooling",
+                "label": "Tooling - Specialized Tools"
+              }
+            ]
           }
         ]
       },
-      "languageButtons": {
-        "spanish": "Español",
-        "english": "English"
+      "services": {
+        "sections": [
+          {
+            "title": "Technical Support",
+            "items": [
+              {
+                "key": "assessment",
+                "label": "Line Assessment"
+              },
+              {
+                "key": "consulting",
+                "label": "Process Consulting"
+              },
+              {
+                "key": "support",
+                "label": "Post-Sale Support"
+              }
+            ]
+          },
+          {
+            "title": "Resources",
+            "items": [
+              {
+                "key": "technical",
+                "label": "Technical Sheets"
+              },
+              {
+                "key": "documentation",
+                "label": "Documentation"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Electronics Assembly Solutions",
+      "subtitle": "We are the experts!",
+      "description": "Specialized solutions for the electronics industry with over 20 years of experience. We know what the industry needs and we know how to solve your problems.",
+      "primaryCta": "How can we help you improve?",
+      "secondaryCta": "View Products"
+    },
+    "products": {
+      "title": "Our Specialties",
+      "subtitle": "Six specialized divisions with dedicated experts in each area of the electronics industry",
+      "viewMore": "View products",
+      "categories": {
+        "mro": {
+          "title": "MRO",
+          "description": "Maintenance, Repair and Operations for SMT lines",
+          "icon": "clipboard",
+          "items": [
+            "Type K Thermocouples",
+            "Chip Bonder",
+            "Isopropyl Alcohol",
+            "Nozzle Cleaner",
+            "Router Bits"
+          ]
+        },
+        "esd": {
+          "title": "ESD",
+          "description": "Electrostatic protection for PCB and electronic components",
+          "icon": "shield",
+          "items": [
+            "EVA Trays",
+            "Thermoformed Trays",
+            "Plastic Containers",
+            "Fiberglass Trays",
+            "EVA Mats"
+          ]
+        },
+        "solder": {
+          "title": "SOLDER",
+          "description": "Specialized soldering products for electronics",
+          "icon": "wrench",
+          "items": [
+            "Solder Bars",
+            "Solder Wire",
+            "Liquid Flux",
+            "Solder Preforms"
+          ]
+        },
+        "machines": {
+          "title": "MACHINES",
+          "description": "SMT equipment maintenance and repair",
+          "icon": "cog",
+          "items": [
+            "Spare Parts",
+            "Preventive Maintenance",
+            "Repair Service",
+            "Technical Support"
+          ]
+        },
+        "laser": {
+          "title": "LASER",
+          "description": "Precision laser cutting and engraving services",
+          "icon": "lightning",
+          "items": [
+            "Precision Cutting",
+            "Laser Engraving",
+            "Inspection Templates"
+          ]
+        },
+        "tooling": {
+          "title": "TOOLING",
+          "description": "Specialized tools for production lines",
+          "icon": "desktop",
+          "items": [
+            "Squeegees",
+            "Card Holders",
+            "Router Plates",
+            "Pallets and Fixtures"
+          ]
+        }
       }
     },
-    "footer": {
-      "company": {
-        "name": "IPCSolder",
-        "tagline": "We Are The Experts",
-        "description": "Leaders in electronic soldering and industrial solutions for maquiladoras, automotive and telecommunications. Over 15 years of experience serving the electronics industry."
+    "services": {
+      "title": "Why are we different?",
+      "subtitle": "Our team of experts with over 20 years of experience knows exactly what the industry needs",
+      "list": [
+        {
+          "title": "Line Assessment",
+          "description": "We review your production line at no cost and tell you where you are failing and how to improve it",
+          "icon": "target"
+        },
+        {
+          "title": "Fast Response",
+          "description": "We understand that time is critical. Immediate response with real technical solutions",
+          "icon": "lightning"
+        },
+        {
+          "title": "Expert Team",
+          "description": "Each specialist has over 30 years of experience in their specific area",
+          "icon": "users"
+        }
+      ]
+    },
+    "cta": {
+      "title": "How can we help you improve your production?",
+      "description": "Contact us for a free assessment of your production line. We help you increase your yield and reduce defects.",
+      "primaryCta": "Request Free Assessment",
+      "secondaryCta": "View Technical Sheets"
+    },
+    "contact": {
+      "title": "Contact Our Experts",
+      "subtitle": "We are ready to help you find the perfect solution",
+      "description": "Our team of specialists is available to analyze your specific needs and provide you with the best technical recommendations.",
+      "contactInfo": "Contact Information",
+      "labels": {
+        "phone": "Call now",
+        "email": "Send email",
+        "address": "Our location",
+        "hours": "Business hours"
       },
-      "contact": {
-        "title": "Contact Information",
+      "info": {
         "phone": "+52 (33) 1234-5678",
         "email": "sales@ipcsolder.com",
         "address": "Guadalajara, Jalisco, Mexico",
         "hours": "Mon - Fri: 8:00 AM - 6:00 PM"
       },
-      "navigation": {
-        "company": {
-          "title": "Company",
-          "links": [
-            {
-              "name": "About Us",
-              "url": "/about"
-            },
-            {
-              "name": "Mission & Values",
-              "url": "/mission-values"
-            },
-            {
-              "name": "History",
-              "url": "/history"
-            },
-            {
-              "name": "Expert Team",
-              "url": "/team"
-            },
-            {
-              "name": "Certifications",
-              "url": "/certifications"
-            }
-          ]
+      "cta": "Request Quote"
+    }
+  },
+  "mobileMenu": {
+    "title": "IPCSolder",
+    "language": "Language",
+    "nav": {
+      "home": "Home",
+      "about": "About Us",
+      "products": "Products",
+      "services": "Services",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "submenus": {
+      "about": [
+        {
+          "key": "history",
+          "label": "History"
         },
-        "products": {
-          "title": "Products",
-          "links": [
-            {
-              "name": "MRO",
-              "url": "/products/mro"
-            },
-            {
-              "name": "ESD",
-              "url": "/products/esd"
-            },
-            {
-              "name": "Solder",
-              "url": "/products/solder"
-            },
-            {
-              "name": "Machines",
-              "url": "/products/machines"
-            },
-            {
-              "name": "Laser",
-              "url": "/products/laser"
-            },
-            {
-              "name": "Tooling",
-              "url": "/products/tooling"
-            }
-          ]
+        {
+          "key": "mission",
+          "label": "Mission & Values"
         },
-        "services": {
-          "title": "Services",
-          "links": [
-            {
-              "name": "Technical Sheets",
-              "url": "/technical-sheets"
-            },
-            {
-              "name": "Technical Support",
-              "url": "/support"
-            },
-            {
-              "name": "Consulting",
-              "url": "/consulting"
-            },
-            {
-              "name": "Training",
-              "url": "/training"
-            },
-            {
-              "name": "Technical Blog",
-              "url": "/blog"
-            }
-          ]
+        {
+          "key": "team",
+          "label": "Expert Team"
         }
-      },
-      "industries": {
-        "title": "Industries",
-        "list": [
-          "Consumer Electronics",
-          "Automotive",
-          "Maquiladoras",
-          "Communications",
-          "OEM Manufacturers"
-        ]
-      },
-      "newsletter": {
-        "title": "Technical Newsletter",
-        "description": "Receive technical papers and industry updates",
-        "placeholder": "Your corporate email",
-        "button": "Subscribe"
-      },
-      "legal": {
-        "copyright": "© 2025 IPCSolder. All rights reserved.",
-        "privacy": "Privacy Policy",
-        "terms": "Terms & Conditions",
-        "cookies": "Cookie Policy",
-        "developer": "Developed by"
-      },
-      "social": {
-        "title": "Follow Us"
-      }
+      ],
+      "products": [
+        {
+          "key": "mro",
+          "label": "MRO"
+        },
+        {
+          "key": "esd",
+          "label": "ESD"
+        },
+        {
+          "key": "solder",
+          "label": "Solder"
+        },
+        {
+          "key": "machines",
+          "label": "Machines"
+        },
+        {
+          "key": "laser",
+          "label": "Laser"
+        },
+        {
+          "key": "tooling",
+          "label": "Tooling"
+        }
+      ],
+      "services": [
+        {
+          "key": "assessment",
+          "label": "Line Assessment"
+        },
+        {
+          "key": "consulting",
+          "label": "Process Consulting"
+        },
+        {
+          "key": "support",
+          "label": "Technical Support"
+        },
+        {
+          "key": "technical",
+          "label": "Technical Sheets"
+        }
+      ]
+    },
+    "languageButtons": {
+      "spanish": "Español",
+      "english": "English"
+    }
+  },
+  "footer": {
+    "company": {
+      "name": "IPCSolder",
+      "tagline": "We Are The Experts",
+      "description": "Leaders in electronic soldering and industrial solutions for maquiladoras, automotive and telecommunications. Over 15 years of experience serving the electronics industry."
     },
     "contact": {
-      "breadcrumb": {
-        "home": "Home",
-        "contact": "Contact"
-      },
-      "hero": {
-        "title": "Contact",
-        "subtitle": "How can we help you solve your problem?",
-        "description": "Contact us for a free assessment of your production line. Our experts are ready to help you improve and optimize your processes."
-      },
-      "info": {
-        "title": "Let's Talk!",
-        "description": "Our experts are ready to review your production line and offer you specific solutions. We prefer a complete form to better understand your situation and provide you with the most accurate response.",
-        "methods": {
-          "email": {
-            "title": "Corporate Email",
-            "value": "sales@ipcsolder.com",
-            "description": "Response within 24 hours maximum"
+      "title": "Contact Information",
+      "phone": "+52 (33) 1234-5678",
+      "email": "sales@ipcsolder.com",
+      "address": "Guadalajara, Jalisco, Mexico",
+      "hours": "Mon - Fri: 8:00 AM - 6:00 PM"
+    },
+    "navigation": {
+      "company": {
+        "title": "Company",
+        "links": [
+          {
+            "name": "About Us",
+            "url": "/about"
           },
-          "phone": {
-            "title": "Phone",
-            "value": "+52 (33) 1234-5678",
-            "description": "Monday to Friday, 9:00 AM - 6:00 PM"
+          {
+            "name": "Mission & Values",
+            "url": "/mission-values"
           },
-          "whatsapp": {
-            "title": "WhatsApp",
-            "value": "+52 (33) 1234-5678",
-            "description": "For quick inquiries"
+          {
+            "name": "History",
+            "url": "/history"
           },
-          "location": {
-            "title": "Location",
-            "value": "Guadalajara, Jalisco, Mexico",
-            "description": "Service throughout Mexico"
+          {
+            "name": "Expert Team",
+            "url": "/team"
+          },
+          {
+            "name": "Certifications",
+            "url": "/certifications"
           }
-        },
-        "map": {
-          "title": "Our Location",
-          "description": "📍 Guadalajara, Jalisco - We provide service throughout Mexico"
-        }
+        ]
       },
-      "form": {
-        "title": "Contact Form",
-        "subtitle": "Fill out this form with complete information so we can understand your situation and offer you the best technical solution.",
-        "fields": {
-          "name": {
-            "label": "Full Name",
-            "placeholder": "Your full name"
+      "products": {
+        "title": "Products",
+        "links": [
+          {
+            "name": "MRO",
+            "url": "/products/mro"
           },
-          "email": {
-            "label": "Corporate Email",
-            "placeholder": "you@company.com"
+          {
+            "name": "ESD",
+            "url": "/products/esd"
           },
-          "phone": {
-            "label": "Phone",
-            "placeholder": "+52 (33) 1234-5678"
+          {
+            "name": "Solder",
+            "url": "/products/solder"
           },
-          "company": {
-            "label": "Company",
-            "placeholder": "Your company name"
+          {
+            "name": "Machines",
+            "url": "/products/machines"
           },
-          "position": {
-            "label": "Position",
-            "placeholder": "Your position at the company"
+          {
+            "name": "Laser",
+            "url": "/products/laser"
           },
-          "industry": {
-            "label": "Industry",
-            "placeholder": "Select your industry",
-            "options": [
-              { "value": "", "label": "Select your industry" },
-              { "value": "electronica", "label": "Consumer Electronics" },
-              { "value": "automotriz", "label": "Automotive" },
-              { "value": "maquiladoras", "label": "Maquiladoras" },
-              { "value": "comunicaciones", "label": "Communications" },
-              { "value": "oem", "label": "OEM Manufacturers" },
-              { "value": "otra", "label": "Other" }
-            ]
-          },
-          "message": {
-            "label": "How can we help you?",
-            "placeholder": "Describe your need or project. Include details about your production line, specific problems, or what type of assessment you need..."
+          {
+            "name": "Tooling",
+            "url": "/products/tooling"
           }
-        },
-        "terms": {
-          "label": "I accept the terms and conditions and authorize the processing of my personal data for commercial purposes.",
-          "required": "You must accept the terms and conditions"
-        },
-        "validation": {
-          "required": "This field is required",
-          "email": "Invalid email",
-          "phone": "Invalid phone",
-          "minLength": "Message must be at least 10 characters",
-          "name": "Name is required",
-          "company": "Company is required",
-          "message": "Message is required"
-        },
-        "buttons": {
-          "submit": "Send Inquiry",
-          "sending": "Sending..."
-        },
-        "success": {
-          "message": "Message sent successfully! We will contact you soon."
-        },
-        "error": {
-          "message": "Error sending message. Please try again."
-        },
-        "sending": "Sending message...",
-        "emailSuggestion": {
-          "text": "Did you mean"
-        }
+        ]
       },
-      "alternative": {
-        "title": "Other Ways to Contact Us",
-        "subtitle": "Choose the method that works best for you. We're here to help.",
-        "methods": {
-          "email": {
-            "title": "Direct Email",
-            "description": "For detailed inquiries and technical documentation",
-            "button": "Send Email"
+      "services": {
+        "title": "Services",
+        "links": [
+          {
+            "name": "Technical Sheets",
+            "url": "/technical-sheets"
           },
-          "phone": {
-            "title": "Direct Call",
-            "description": "For urgent inquiries and immediate support",
-            "button": "Call Now"
+          {
+            "name": "Technical Support",
+            "url": "/support"
           },
-          "whatsapp": {
-            "title": "WhatsApp",
-            "description": "For quick inquiries and instant communication",
-            "button": "Open WhatsApp"
+          {
+            "name": "Consulting",
+            "url": "/consulting"
+          },
+          {
+            "name": "Training",
+            "url": "/training"
+          },
+          {
+            "name": "Technical Blog",
+            "url": "/blog"
           }
-        }
+        ]
       }
     },
-    "common": {
-      "cta": {
-        "viewAll": "View All Products",
-        "requestInfo": "Request Information",
-        "getQuote": "Request Quote",
-        "contact": "Contact",
-        "learnMore": "Learn More",
-        "viewMore": "View more",
-        "callNow": "Call now",
-        "sendEmail": "Send email"
-      },
-      "language": {
-        "spanish": "Español",
-        "english": "English"
-      },
-      "navigation": {
-        "menu": "Menu",
-        "close": "Close"
-      },
-      "loading": "Loading...",
-      "error": "Error",
-      "success": "Success",
-      "all": "All"
+    "industries": {
+      "title": "Industries",
+      "list": [
+        "Consumer Electronics",
+        "Automotive",
+        "Maquiladoras",
+        "Communications",
+        "OEM Manufacturers"
+      ]
     },
-    "about": {
-      "breadcrumb": {
-        "home": "Home",
-        "about": "About Us"
-      },
-      "hero": {
-        "title": "About Us",
-        "subtitle": "We are the experts!",
-        "description": "Over 20 years of combined experience in the electronics industry. We know what the market needs and we know how to solve your problems."
-      },
-      "history": {
-        "title": "Our History",
-        "paragraph1": "IPCSolder was born from the need to offer real solutions to the electronics industry. After years working in the sector, we identified that many companies send salespeople without real technical experience.",
-        "paragraph2": "We are different. Each member of our team is an expert with over 20 years of experience in their specific area. We are not just salespeople, we are engineers who know the processes from the inside.",
-        "paragraph3": "Our approach is simple: understand your problem and give you the right solution. We don't sell products, we sell solutions that work.",
-        "imageTitle": "Electronics Industry",
-        "imageDescription": "Specialized in maquiladoras, original manufacturers and electronic contract manufacturing"
-      },
-      "stats": {
-        "experience": {
-          "number": "20+",
-          "label": "Years of Experience"
+    "newsletter": {
+      "title": "Technical Newsletter",
+      "description": "Receive technical papers and industry updates",
+      "placeholder": "Your corporate email",
+      "button": "Subscribe"
+    },
+    "legal": {
+      "copyright": "© 2025 IPCSolder. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions",
+      "cookies": "Cookie Policy",
+      "developer": "Developed by"
+    },
+    "social": {
+      "title": "Follow Us"
+    }
+  },
+  "contact": {
+    "breadcrumb": {
+      "home": "Home",
+      "contact": "Contact"
+    },
+    "hero": {
+      "title": "Contact",
+      "subtitle": "How can we help you solve your problem?",
+      "description": "Contact us for a free assessment of your production line. Our experts are ready to help you improve and optimize your processes."
+    },
+    "info": {
+      "title": "Let's Talk!",
+      "description": "Our experts are ready to review your production line and offer you specific solutions. We prefer a complete form to better understand your situation and provide you with the most accurate response.",
+      "methods": {
+        "email": {
+          "title": "Corporate Email",
+          "value": "sales@ipcsolder.com",
+          "description": "Response within 24 hours maximum"
         },
-        "divisions": {
-          "number": "6",
-          "label": "Specialized Divisions"
+        "phone": {
+          "title": "Phone",
+          "value": "+52 (33) 1234-5678",
+          "description": "Monday to Friday, 9:00 AM - 6:00 PM"
         },
-        "experts": {
-          "number": "100%",
-          "label": "Certified Experts"
+        "whatsapp": {
+          "title": "WhatsApp",
+          "value": "+52 (33) 1234-5678",
+          "description": "For quick inquiries"
+        },
+        "location": {
+          "title": "Location",
+          "value": "Guadalajara, Jalisco, Mexico",
+          "description": "Service throughout Mexico"
         }
       },
-      "mission": {
-        "sectionTitle": "Mission & Values",
-        "sectionDescription": "What motivates us and guides us in every decision we make",
-        "mission": {
-          "title": "Our Mission",
-          "description": "To be a strategic and reliable partner for the electronics industry, offering innovative solutions in soldering and manufacturing supplies, with a focus on the customer, quality, efficiency, and continuous staff training."
-          },
-          "vision": {
-            "title": "Our Vision",
-            "description": "To consolidate ourselves as the most advanced and reliable partner for electronic manufacturing solutions, recognized for our ability to offer high-value comprehensive services, with innovation, technical support, and excellence in every project. We adapt to the changing needs of the market, driving the growth and competitiveness of our clients."
-          },
-          "values": {
-            "title": "Our Values",
-            "description": "We are guided by solid principles that are part of our business culture:",
-            "experience": {
-              "title": "Integrity",
-              "description": "we act with transparency in every project."
+      "map": {
+        "title": "Our Location",
+        "description": "📍 Guadalajara, Jalisco - We provide service throughout Mexico"
+      }
+    },
+    "form": {
+      "title": "Contact Form",
+      "subtitle": "Fill out this form with complete information so we can understand your situation and offer you the best technical solution.",
+      "fields": {
+        "name": {
+          "label": "Full Name",
+          "placeholder": "Your full name"
+        },
+        "email": {
+          "label": "Corporate Email",
+          "placeholder": "you@company.com"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+52 (33) 1234-5678"
+        },
+        "company": {
+          "label": "Company",
+          "placeholder": "Your company name"
+        },
+        "position": {
+          "label": "Position",
+          "placeholder": "Your position at the company"
+        },
+        "industry": {
+          "label": "Industry",
+          "placeholder": "Select your industry",
+          "options": [
+            {
+              "value": "",
+              "label": "Select your industry"
             },
-            "solutions": {
-              "title": "Customer Commitment",
-              "description": "we work to exceed their expectations."
+            {
+              "value": "electronica",
+              "label": "Consumer Electronics"
             },
-            "commitment": {
-              "title": "Honesty",
-              "description": "we build relationships based on trust."
+            {
+              "value": "automotriz",
+              "label": "Automotive"
             },
-            "working": {
-              "title": "Teamwork",
-              "description": "we collaborate to achieve the best results."
+            {
+              "value": "maquiladoras",
+              "label": "Maquiladoras"
             },
-            "responsibility": {
-              "title": "Responsibility",
-              "description": "we take on every challenge with discipline, ethics, and professionalism."
+            {
+              "value": "comunicaciones",
+              "label": "Communications"
+            },
+            {
+              "value": "oem",
+              "label": "OEM Manufacturers"
+            },
+            {
+              "value": "otra",
+              "label": "Other"
             }
-          
+          ]
         },
-        "differentiators": {
-          "title": "What makes us different?",
-          "description": "While others send salespeople, we send engineers. We know the electronics industry from the inside and we know exactly what you need to improve your production and reduce defects."
+        "message": {
+          "label": "How can we help you?",
+          "placeholder": "Describe your need or project. Include details about your production line, specific problems, or what type of assessment you need..."
         }
       },
-      "team": {
-        "sectionTitle": "Our Expert Team",
-        "sectionDescription": "Each specialist has over 20 years of experience in their specific area. They are \"old sea wolves\" who know exactly what the industry needs.",
-        "members": {
-          "member1": {
-            "initials": "JM",
-            "name": "Eng. José Martínez",
-            "role": "SMT and Soldering Specialist",
-            "experience": "25+ years",
-            "description": "Expert in soldering processes and SMT lines. Has worked with the main maquiladoras in the country.",
-            "specialties": [
-              "Selective soldering processes",
-              "SMT line optimization",
-              "Soldering defect analysis",
-              "Process implementation"
-            ]
-          },
-          "member2": {
-            "initials": "AR",
-            "name": "Eng. Ana Rodríguez",
-            "role": "ESD and Quality Specialist",
-            "experience": "22+ years",
-            "description": "Expert in electrostatic protection and quality systems for electronic manufacturing.",
-            "specialties": [
-              "ESD protection systems",
-              "Quality audits",
-              "Industrial certifications",
-              "Continuous improvement"
-            ]
-          },
-          "member3": {
-            "initials": "CF",
-            "name": "Eng. Carlos Fernández",
-            "role": "Equipment and Maintenance Specialist",
-            "experience": "28+ years",
-            "description": "Expert in SMT equipment maintenance and manufacturing process optimization.",
-            "specialties": [
-              "Preventive maintenance",
-              "SMT equipment repair",
-              "Process optimization",
-              "Technical training"
-            ]
-          }
-        }
+      "terms": {
+        "label": "I accept the terms and conditions and authorize the processing of my personal data for commercial purposes.",
+        "required": "You must accept the terms and conditions"
       },
-      "cta": {
-        "title": "Ready to work with real experts?",
-        "description": "Contact us for a free consultation. We help you identify improvement opportunities in your electronic manufacturing process.",
-        "primaryButton": "Request Free Consultation",
-        "secondaryButton": "View Our Products"
+      "validation": {
+        "required": "This field is required",
+        "email": "Invalid email",
+        "phone": "Invalid phone",
+        "minLength": "Message must be at least 10 characters",
+        "name": "Name is required",
+        "company": "Company is required",
+        "message": "Message is required"
+      },
+      "buttons": {
+        "submit": "Send Inquiry",
+        "sending": "Sending..."
+      },
+      "success": {
+        "message": "Message sent successfully! We will contact you soon."
+      },
+      "error": {
+        "message": "Error sending message. Please try again."
+      },
+      "sending": "Sending message...",
+      "emailSuggestion": {
+        "text": "Did you mean"
       }
     },
-    "forms": {
-      "contact": {
-        "title": "Contact Form",
-        "subtitle": "How can we help you?",
-        "fields": {
-          "name": {
-            "label": "Full name",
-            "placeholder": "Your full name"
-          },
-          "email": {
-            "label": "Corporate email",
-            "placeholder": "you@company.com"
-          },
-          "phone": {
-            "label": "Phone",
-            "placeholder": "+52 (33) 1234-5678"
-          },
-          "company": {
-            "label": "Company",
-            "placeholder": "Your company name"
-          },
-          "position": {
-            "label": "Position",
-            "placeholder": "Your position at the company"
-          },
-          "industry": {
-            "label": "Industry",
-            "placeholder": "Select your industry"
-          },
-          "message": {
-            "label": "How can we help you?",
-            "placeholder": "Describe your need or project..."
-          }
+    "alternative": {
+      "title": "Other Ways to Contact Us",
+      "subtitle": "Choose the method that works best for you. We're here to help.",
+      "methods": {
+        "email": {
+          "title": "Direct Email",
+          "description": "For detailed inquiries and technical documentation",
+          "button": "Send Email"
         },
-        "industries": [
-          "Consumer Electronics",
-          "Automotive",
-          "Maquiladoras",
-          "Communications",
-          "OEM Manufacturers",
-          "Other"
-        ],
-        "buttons": {
-          "submit": "Send Inquiry",
-          "sending": "Sending...",
-          "reset": "Clear Form"
+        "phone": {
+          "title": "Direct Call",
+          "description": "For urgent inquiries and immediate support",
+          "button": "Call Now"
         },
-        "validation": {
-          "required": "This field is required",
-          "email": "Invalid email",
-          "phone": "Invalid phone",
-          "minLength": "Minimum {{count}} characters"
-        },
-        "success": {
-          "title": "Message sent successfully!",
-          "description": "We will contact you within the next 24 hours."
-        },
-        "error": {
-          "title": "Error sending",
-          "description": "Please try again or contact us directly."
+        "whatsapp": {
+          "title": "WhatsApp",
+          "description": "For quick inquiries and instant communication",
+          "button": "Open WhatsApp"
         }
-      }
-    },
-    "products": {
-      "breadcrumb": {
-        "home": "Home",
-        "products": "Products"
-      },
-      "hero": {
-        "title": "Our Products",
-        "subtitle": "Electronics Assembly Solutions",
-        "description": "Six specialized divisions with high-quality products for all electronic industry needs. Each category has dedicated experts."
-      },
-      "categories": {
-        "mro": {
-          "title": "MRO",
-          "description": "Maintenance, Repair and Operations. Essential products for optimal operation of SMT lines and electronic manufacturing equipment."
-        },
-        "esd": {
-          "title": "ESD",
-          "description": "Electrostatic Protection. Specialized products to prevent electrostatic discharge damage to sensitive components."
-        },
-        "solder": {
-          "title": "SOLDER PRODUCTS",
-          "description": "High-quality soldering products including bars, wires, liquid flux and preforms for all electronic manufacturing applications."
-        },
-        "machines": {
-          "title": "MACHINES",
-          "description": "Specialized services for SMT equipment including spare parts, preventive maintenance, repairs and specialized technical support."
-        },
-        "laser": {
-          "title": "LASER",
-          "description": "Specialized precision laser cutting, laser engraving and inspection template services for industrial and electronic applications."
-        },
-        "tooling": {
-          "title": "TOOLING",
-          "description": "Specialized tools including squeegees, PCB holders, router plates, pallets and custom fixtures for SMT lines."
-        }
-      },
-      "mro": {
-        "thermocouples": {
-          "title": "Type K Thermocouples",
-          "subtitle": "Precision temperature measurement",
-          "description": "High-precision thermocouples available in different lengths with PFA insulation and glass braid for temperatures up to 480°C.",
-          "features": [
-            "Available in 1, 2 and 3 meters",
-            "Maximum connector temperature: 220°C",
-            "PFA insulated up to 260°C",
-            "Glass braid up to 480°C",
-            "OMEGA brand"
-          ]
-        },
-        "pallets": {
-          "title": "Pallets",
-          "subtitle": "PCB transport",
-          "description": "Specialized pallets for safe transport of PCBs through production lines with precise positioning.",
-          "features": [
-            "Precise positioning",
-            "Safe transport",
-            "Multiple configurations",
-            "Conveyor compatible",
-            "Resistant materials"
-          ]
-        },
-        "fixtures": {
-          "title": "Specialized Fixtures",
-          "subtitle": "Custom solutions",
-          "description": "Specialized fixtures and bases for specific applications including rotary bases, screwing systems and custom configurations.",
-          "features": [
-            "Rotary bases",
-            "Screwing systems",
-            "Custom configurations",
-            "Unique mechanical solutions",
-            "In-house manufacturing"
-          ]
-        },
-        "redGlue": {
-          "title": "NE8800T Red Glue",
-          "subtitle": "Chip Bonder adhesive",
-          "description": "Specialized adhesive for SMD component fixation before soldering process. Excellent adhesion and thermal resistance.",
-          "features": [
-            "Temporary component fixation",
-            "High temperature resistant",
-            "Easy application",
-            "SMT process compatible"
-          ]
-        },
-        "ipa": {
-          "title": "Isopropyl Alcohol (IPA)",
-          "subtitle": "PCB and component cleaning",
-          "description": "High purity isopropyl alcohol for cleaning PCBs, electronic components and manufacturing equipment.",
-          "features": [
-            "High purity 99.9%",
-            "Fast evaporation",
-            "No residue left",
-            "Safe for components"
-          ]
-        },
-        "nozzleCleaner": {
-          "title": "F37 Gel Nozzle Cleaner",
-          "subtitle": "Gel nozzle cleaner",
-          "description": "Specialized gel cleaner for dispensing nozzles and solder paste application. Non-aggressive formula.",
-          "features": [
-            "Adherent gel formula",
-            "Deep nozzle cleaning",
-            "Does not damage metal components",
-            "Easy application"
-          ]
-        },
-        "routerBits": {
-          "title": "Router Bits",
-          "subtitle": "Specialized PCB bits",
-          "description": "High precision bits for PCB cutting and drilling. Available in different diameters and geometries.",
-          "features": [
-            "Multiple diameters available",
-            "Clean and precise cutting",
-            "Long service life",
-            "CNC router compatible"
-          ]
-        }
-      },
-      "esd": {
-        "traysAndBins": {
-          "title": "Trays and Bins ESD Safe",
-          "subtitle": "Antistatic trays and containers",
-          "description": "Trays and containers specifically designed for safe handling of electrostatic discharge sensitive components.",
-          "features": [
-            "Controlled conductive material",
-            "Different sizes available",
-            "Reusable and durable",
-            "Meets ESD standards"
-          ]
-        },
-        "evaSheets": {
-          "title": "Conductive EVA Sheets",
-          "subtitle": "Conductive EVA sheets",
-          "description": "Conductive EVA sheets to create antistatic work surfaces and protect sensitive components during handling.",
-          "features": [
-            "Conductive EVA material",
-            "Easy to cut and adapt",
-            "Non-slip surface",
-            "Chemical resistant"
-          ]
-        }
-      },
-      "solder": {
-        "solderBars": {
-          "title": "Solder Bars",
-          "subtitle": "High-quality alloys",
-          "description": "Solder bars in SAC305, SAC387 and other specialized alloy formulations for electronic manufacturing applications.",
-          "features": [
-            "SAC305 and SAC387 alloys",
-            "Controlled composition",
-            "Excellent fluidity",
-            "Low dross formation",
-            "IPC certifications"
-          ]
-        },
-        "solderWire": {
-          "title": "Solder Wire",
-          "subtitle": "For manual and automatic soldering",
-          "description": "Solder wire with incorporated flux in different diameters and alloys for manual soldering and automated processes.",
-          "features": [
-            "Incorporated flux",
-            "Multiple diameters",
-            "Lead-free alloys",
-            "Excellent wettability",
-            "Reduced smoke"
-          ]
-        },
-        "liquidFlux": {
-          "title": "Liquid Flux",
-          "subtitle": "Soldering activators",
-          "description": "Liquid flux of different activities (RMA, RA, OA) to improve wettability and reduce defects in soldering processes.",
-          "features": [
-            "Different activity levels",
-            "Excellent wettability",
-            "Minimal residues",
-            "Cleaning compatible",
-            "Spray or brush application"
-          ]
-        },
-        "preforms": {
-          "title": "Solder Preforms",
-          "subtitle": "Predefined shapes",
-          "description": "Solder preforms in different geometries and alloys for specific electronic assembly applications.",
-          "features": [
-            "Custom geometries",
-            "Precise dosing",
-            "Specialized alloys",
-            "Process repeatability",
-            "Waste reduction"
-          ]
-        }
-      },
-      "machines": {
-        "spareParts": {
-          "title": "SMT Spare Parts",
-          "subtitle": "Original and compatible parts",
-          "description": "Original and compatible spare parts for SMT equipment from major brands including Panasonic, Fuji, Yamaha and JUKI.",
-          "features": [
-            "Certified original parts",
-            "High-quality compatibles",
-            "Extensive inventory",
-            "Fast delivery",
-            "Specialized technical support"
-          ]
-        },
-        "maintenance": {
-          "title": "Preventive Maintenance",
-          "subtitle": "Maintenance programs",
-          "description": "Preventive maintenance programs designed to maximize uptime and extend the life of SMT equipment.",
-          "features": [
-            "Customized programs",
-            "Certified technicians",
-            "Detailed reports",
-            "Failure prediction",
-            "Performance optimization"
-          ]
-        },
-        "repair": {
-          "title": "Repair Service",
-          "subtitle": "Specialized repairs",
-          "description": "Specialized repair service for SMT equipment with advanced diagnostics and on-site or workshop repairs.",
-          "features": [
-            "Advanced diagnostics",
-            "On-site repair",
-            "Specialized workshop",
-            "Service warranty",
-            "Fast response"
-          ]
-        },
-        "support": {
-          "title": "Technical Support",
-          "subtitle": "Specialized assistance",
-          "description": "Specialized technical support for process optimization, problem solving and personnel training.",
-          "features": [
-            "Specialized engineers",
-            "Remote support",
-            "Technical training",
-            "Process optimization",
-            "Technical documentation"
-          ]
-        }
-      },
-      "laser": {
-        "precisionCutting": {
-          "title": "Precision Cutting",
-          "subtitle": "Specialized laser cutting",
-          "description": "High-precision laser cutting services for electronic materials, solder stencils and specialized components.",
-          "features": [
-            "Micrometric precision",
-            "Multiple materials",
-            "Complex cuts",
-            "Quality finish",
-            "Fast delivery times"
-          ]
-        },
-        "laserEngraving": {
-          "title": "Laser Engraving",
-          "subtitle": "Marking and engraving",
-          "description": "Laser engraving services for component marking, traceability and customization of electronic products.",
-          "features": [
-            "Permanent marking",
-            "Barcodes and QR codes",
-            "Complete traceability",
-            "Multiple materials",
-            "High resolution"
-          ]
-        },
-        "inspectionTemplates": {
-          "title": "Inspection Templates",
-          "subtitle": "Specialized templates",
-          "description": "Laser-cut inspection templates for quality control and component verification on SMT lines.",
-          "features": [
-            "Custom design",
-            "Specialized materials",
-            "Precise tolerances",
-            "High durability",
-            "AOI equipment compatibility"
-          ]
-        }
-      },
-      "tooling": {
-        "squeegees": {
-          "title": "Squeegees",
-          "subtitle": "Application tools",
-          "description": "Squeegees of different materials and hardnesses for optimal solder paste application in screen printing processes.",
-          "features": [
-            "Multiple hardnesses",
-            "Specialized materials",
-            "Custom profiles",
-            "Long service life",
-            "Uniform application"
-          ]
-        },
-        "cardHolders": {
-          "title": "Card Holders",
-          "subtitle": "PCB support",
-          "description": "Specialized clamping systems for PCBs during manufacturing, inspection and repair processes.",
-          "features": [
-            "Secure clamping",
-            "Multiple configurations",
-            "Complete PCB access",
-            "Antistatic materials",
-            "Quick adjustment"
-          ]
-        },
-        "routerPlates": {
-          "title": "Router Plates",
-          "subtitle": "Specialized cutting bases",
-          "description": "Specialized plates for CNC routers with clamping and positioning systems for precise PCB cutting.",
-          "features": [
-            "Precise positioning",
-            "Vacuum systems",
-            "Resistant materials",
-            "Multiple configurations",
-            "CNC compatibility"
-          ]
-        },
-        "palletsFixtures": {
-          "title": "Pallets and Fixtures",
-          "subtitle": "Custom solutions",
-          "description": "Custom pallets and fixtures for specific electronic manufacturing applications and automated processes.",
-          "features": [
-            "Custom design",
-            "In-house manufacturing",
-            "Specialized materials",
-            "Dimensional precision",
-            "SMT line integration"
-          ]
-        }
-      },
-      "actions": {
-        "quote": "Request Quote",
-        "datasheet": "Datasheet"
-      },
-      "comingSoon": "More categories coming soon",
-      "cta": {
-        "title": "Need a specific solution?",
-        "description": "Our team of experts is ready to help you find the perfect product for your application. Contact us for a personalized consultation.",
-        "primaryButton": "Request Free Consultation",
-        "secondaryButton": "View Complete Catalog"
       }
     }
+  },
+  "common": {
+    "breadcrumb": {
+      "home": "Home"
+    },
+    "cta": {
+      "viewAll": "View All Products",
+      "requestInfo": "Request Information",
+      "getQuote": "Request Quote",
+      "contact": "Contact",
+      "learnMore": "Learn More",
+      "viewMore": "View more",
+      "callNow": "Call now",
+      "sendEmail": "Send email"
+    },
+    "language": {
+      "spanish": "Español",
+      "english": "English"
+    },
+    "navigation": {
+      "menu": "Menu",
+      "close": "Close"
+    },
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "all": "All"
+  },
+  "about": {
+    "breadcrumb": {
+      "home": "Home",
+      "about": "About Us"
+    },
+    "hero": {
+      "title": "About Us",
+      "subtitle": "We are the experts!",
+      "description": "Over 20 years of combined experience in the electronics industry. We know what the market needs and we know how to solve your problems."
+    },
+    "history": {
+      "title": "Our History",
+      "paragraph1": "IPCSolder was born from the need to offer real solutions to the electronics industry. After years working in the sector, we identified that many companies send salespeople without real technical experience.",
+      "paragraph2": "We are different. Each member of our team is an expert with over 20 years of experience in their specific area. We are not just salespeople, we are engineers who know the processes from the inside.",
+      "paragraph3": "Our approach is simple: understand your problem and give you the right solution. We don't sell products, we sell solutions that work.",
+      "imageTitle": "Electronics Industry",
+      "imageDescription": "Specialized in maquiladoras, original manufacturers and electronic contract manufacturing"
+    },
+    "stats": {
+      "experience": {
+        "number": "20+",
+        "label": "Years of Experience"
+      },
+      "divisions": {
+        "number": "6",
+        "label": "Specialized Divisions"
+      },
+      "experts": {
+        "number": "100%",
+        "label": "Certified Experts"
+      }
+    },
+    "mission": {
+      "sectionTitle": "Mission & Values",
+      "sectionDescription": "What motivates us and guides us in every decision we make",
+      "mission": {
+        "title": "Our Mission",
+        "description": "To be a strategic and reliable partner for the electronics industry, offering innovative solutions in soldering and manufacturing supplies, with a focus on the customer, quality, efficiency, and continuous staff training."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "description": "To consolidate ourselves as the most advanced and reliable partner for electronic manufacturing solutions, recognized for our ability to offer high-value comprehensive services, with innovation, technical support, and excellence in every project. We adapt to the changing needs of the market, driving the growth and competitiveness of our clients."
+      },
+      "values": {
+        "title": "Our Values",
+        "description": "At IPCSolder, we are guided by principles that inspire the way we work, make decisions, and relate to our clients, partners, and collaborators. These values are the foundation of our commitment to excellence.",
+        "description2": "Together, these values are the essence of IPCSolder: working with vision, acting with audacity, and remaining firm with perseverance to drive our clients' growth.",
+        "experience": {
+          "title": "Integrity",
+          "description": "we act with transparency in every project."
+        },
+        "solutions": {
+          "title": "Customer Commitment",
+          "description": "we work to exceed their expectations."
+        },
+        "commitment": {
+          "title": "Honesty",
+          "description": "we build relationships based on trust."
+        },
+        "working": {
+          "title": "Teamwork",
+          "description": "we collaborate to achieve the best results."
+        },
+        "responsibility": {
+          "title": "Responsibility",
+          "description": "we take on every challenge with discipline, ethics, and professionalism."
+        },
+        "vision": {
+          "title": "Vision",
+          "description": "We think about the future to anticipate trends and opportunities in the electronics industry. Our vision guides us to create innovative and sustainable solutions that generate value and keep our clients at the forefront."
+        },
+        "audacity": {
+          "title": "Audacity",
+          "description": "We believe in the courage to face challenges and explore new ideas. Audacity drives us to go beyond the conventional, to make firm decisions, and to open paths that strengthen our clients' competitiveness."
+        },
+        "perseverance": {
+          "title": "Perseverance",
+          "description": "Constancy and discipline characterize us. Perseverance allows us to overcome obstacles, stay focused on objectives, and advance with determination until we achieve outstanding results."
+        }
+      },
+      "differentiators": {
+        "title": "What makes us different?",
+        "description": "At IPCSolder, we don't send salespeople; we send engineers. Our team is composed of specialists who know the electronics industry firsthand, with real experience on the production floor.",
+        "description2": "This allows us to precisely understand your challenges, requirements, and needs. More than a supplier, we become your strategic ally, contributing technical knowledge and practical solutions that generate results.",
+        "description3": "Our mission is to help you improve your production and boost your processes, reducing defects, optimizing tools, and ensuring that every project meets the highest standards of quality and efficiency.",
+        "description4": "With IPCSolder, you get more than a product: you receive specialized technical support, proven experience, and a commitment to your success."
+      }
+    },
+    "team": {
+      "sectionTitle": "Our Expert Team",
+      "sectionDescription": "Each specialist has over 20 years of experience in their specific area. They are \"old sea wolves\" who know exactly what the industry needs.",
+      "members": {
+        "member1": {
+          "initials": "JM",
+          "name": "Eng. José Martínez",
+          "role": "SMT and Soldering Specialist",
+          "experience": "25+ years",
+          "description": "Expert in soldering processes and SMT lines. Has worked with the main maquiladoras in the country.",
+          "specialties": [
+            "Selective soldering processes",
+            "SMT line optimization",
+            "Soldering defect analysis",
+            "Process implementation"
+          ]
+        },
+        "member2": {
+          "initials": "AR",
+          "name": "Eng. Ana Rodríguez",
+          "role": "ESD and Quality Specialist",
+          "experience": "22+ years",
+          "description": "Expert in electrostatic protection and quality systems for electronic manufacturing.",
+          "specialties": [
+            "ESD protection systems",
+            "Quality audits",
+            "Industrial certifications",
+            "Continuous improvement"
+          ]
+        },
+        "member3": {
+          "initials": "CF",
+          "name": "Eng. Carlos Fernández",
+          "role": "Equipment and Maintenance Specialist",
+          "experience": "28+ years",
+          "description": "Expert in SMT equipment maintenance and manufacturing process optimization.",
+          "specialties": [
+            "Preventive maintenance",
+            "SMT equipment repair",
+            "Process optimization",
+            "Technical training"
+          ]
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to work with real experts?",
+      "description": "Contact us for a free consultation. We help you identify improvement opportunities in your electronic manufacturing process.",
+      "primaryButton": "Request Free Consultation",
+      "secondaryButton": "View Our Products"
+    }
+  },
+  "forms": {
+    "contact": {
+      "title": "Contact Form",
+      "subtitle": "How can we help you?",
+      "fields": {
+        "name": {
+          "label": "Full name",
+          "placeholder": "Your full name"
+        },
+        "email": {
+          "label": "Corporate email",
+          "placeholder": "you@company.com"
+        },
+        "phone": {
+          "label": "Phone",
+          "placeholder": "+52 (33) 1234-5678"
+        },
+        "company": {
+          "label": "Company",
+          "placeholder": "Your company name"
+        },
+        "position": {
+          "label": "Position",
+          "placeholder": "Your position at the company"
+        },
+        "industry": {
+          "label": "Industry",
+          "placeholder": "Select your industry"
+        },
+        "message": {
+          "label": "How can we help you?",
+          "placeholder": "Describe your need or project..."
+        }
+      },
+      "industries": [
+        "Consumer Electronics",
+        "Automotive",
+        "Maquiladoras",
+        "Communications",
+        "OEM Manufacturers",
+        "Other"
+      ],
+      "buttons": {
+        "submit": "Send Inquiry",
+        "sending": "Sending...",
+        "reset": "Clear Form"
+      },
+      "validation": {
+        "required": "This field is required",
+        "email": "Invalid email",
+        "phone": "Invalid phone",
+        "minLength": "Minimum {{count}} characters"
+      },
+      "success": {
+        "title": "Message sent successfully!",
+        "description": "We will contact you within the next 24 hours."
+      },
+      "error": {
+        "title": "Error sending",
+        "description": "Please try again or contact us directly."
+      }
+    }
+  },
+  "products": {
+    "breadcrumb": {
+      "home": "Home",
+      "products": "Products"
+    },
+    "hero": {
+      "title": "Our Products",
+      "subtitle": "Electronics Assembly Solutions",
+      "description": "Six specialized divisions with high-quality products for all electronic industry needs. Each category has dedicated experts."
+    },
+    "categories": {
+      "mro": {
+        "title": "MRO",
+        "description": "Maintenance, Repair and Operations. Essential products for optimal operation of SMT lines and electronic manufacturing equipment."
+      },
+      "esd": {
+        "title": "ESD",
+        "description": "Electrostatic Protection. Specialized products to prevent electrostatic discharge damage to sensitive components."
+      },
+      "solder": {
+        "title": "SOLDER PRODUCTS",
+        "description": "High-quality soldering products including bars, wires, liquid flux and preforms for all electronic manufacturing applications."
+      },
+      "machines": {
+        "title": "MACHINES",
+        "description": "Specialized services for SMT equipment including spare parts, preventive maintenance, repairs and specialized technical support."
+      },
+      "laser": {
+        "title": "LASER",
+        "description": "Specialized precision laser cutting, laser engraving and inspection template services for industrial and electronic applications."
+      },
+      "tooling": {
+        "title": "TOOLING",
+        "description": "Specialized tools including squeegees, PCB holders, router plates, pallets and custom fixtures for SMT lines."
+      }
+    },
+    "mro": {
+      "thermocouples": {
+        "title": "Type K Thermocouples",
+        "subtitle": "Precision temperature measurement",
+        "description": "High-precision thermocouples available in different lengths with PFA insulation and glass braid for temperatures up to 480°C.",
+        "features": [
+          "Available in 1, 2 and 3 meters",
+          "Maximum connector temperature: 220°C",
+          "PFA insulated up to 260°C",
+          "Glass braid up to 480°C",
+          "OMEGA brand"
+        ]
+      },
+      "pallets": {
+        "title": "Pallets",
+        "subtitle": "PCB transport",
+        "description": "Specialized pallets for safe transport of PCBs through production lines with precise positioning.",
+        "features": [
+          "Precise positioning",
+          "Safe transport",
+          "Multiple configurations",
+          "Conveyor compatible",
+          "Resistant materials"
+        ]
+      },
+      "fixtures": {
+        "title": "Specialized Fixtures",
+        "subtitle": "Custom solutions",
+        "description": "Specialized fixtures and bases for specific applications including rotary bases, screwing systems and custom configurations.",
+        "features": [
+          "Rotary bases",
+          "Screwing systems",
+          "Custom configurations",
+          "Unique mechanical solutions",
+          "In-house manufacturing"
+        ]
+      },
+      "redGlue": {
+        "title": "NE8800T Red Glue",
+        "subtitle": "Chip Bonder adhesive",
+        "description": "Specialized adhesive for SMD component fixation before soldering process. Excellent adhesion and thermal resistance.",
+        "features": [
+          "Temporary component fixation",
+          "High temperature resistant",
+          "Easy application",
+          "SMT process compatible"
+        ]
+      },
+      "ipa": {
+        "title": "Isopropyl Alcohol (IPA)",
+        "subtitle": "PCB and component cleaning",
+        "description": "High purity isopropyl alcohol for cleaning PCBs, electronic components and manufacturing equipment.",
+        "features": [
+          "High purity 99.9%",
+          "Fast evaporation",
+          "No residue left",
+          "Safe for components"
+        ]
+      },
+      "nozzleCleaner": {
+        "title": "F37 Gel Nozzle Cleaner",
+        "subtitle": "Gel nozzle cleaner",
+        "description": "Specialized gel cleaner for dispensing nozzles and solder paste application. Non-aggressive formula.",
+        "features": [
+          "Adherent gel formula",
+          "Deep nozzle cleaning",
+          "Does not damage metal components",
+          "Easy application"
+        ]
+      },
+      "routerBits": {
+        "title": "Router Bits",
+        "subtitle": "Specialized PCB bits",
+        "description": "High precision bits for PCB cutting and drilling. Available in different diameters and geometries.",
+        "features": [
+          "Multiple diameters available",
+          "Clean and precise cutting",
+          "Long service life",
+          "CNC router compatible"
+        ]
+      }
+    },
+    "esd": {
+      "traysAndBins": {
+        "title": "Trays and Bins ESD Safe",
+        "subtitle": "Antistatic trays and containers",
+        "description": "Trays and containers specifically designed for safe handling of electrostatic discharge sensitive components.",
+        "features": [
+          "Controlled conductive material",
+          "Different sizes available",
+          "Reusable and durable",
+          "Meets ESD standards"
+        ]
+      },
+      "evaSheets": {
+        "title": "Conductive EVA Sheets",
+        "subtitle": "Conductive EVA sheets",
+        "description": "Conductive EVA sheets to create antistatic work surfaces and protect sensitive components during handling.",
+        "features": [
+          "Conductive EVA material",
+          "Easy to cut and adapt",
+          "Non-slip surface",
+          "Chemical resistant"
+        ]
+      }
+    },
+    "solder": {
+      "solderBars": {
+        "title": "Solder Bars",
+        "subtitle": "High-quality alloys",
+        "description": "Solder bars in SAC305, SAC387 and other specialized alloy formulations for electronic manufacturing applications.",
+        "features": [
+          "SAC305 and SAC387 alloys",
+          "Controlled composition",
+          "Excellent fluidity",
+          "Low dross formation",
+          "IPC certifications"
+        ]
+      },
+      "solderWire": {
+        "title": "Solder Wire",
+        "subtitle": "For manual and automatic soldering",
+        "description": "Solder wire with incorporated flux in different diameters and alloys for manual soldering and automated processes.",
+        "features": [
+          "Incorporated flux",
+          "Multiple diameters",
+          "Lead-free alloys",
+          "Excellent wettability",
+          "Reduced smoke"
+        ]
+      },
+      "liquidFlux": {
+        "title": "Liquid Flux",
+        "subtitle": "Soldering activators",
+        "description": "Liquid flux of different activities (RMA, RA, OA) to improve wettability and reduce defects in soldering processes.",
+        "features": [
+          "Different activity levels",
+          "Excellent wettability",
+          "Minimal residues",
+          "Cleaning compatible",
+          "Spray or brush application"
+        ]
+      },
+      "preforms": {
+        "title": "Solder Preforms",
+        "subtitle": "Predefined shapes",
+        "description": "Solder preforms in different geometries and alloys for specific electronic assembly applications.",
+        "features": [
+          "Custom geometries",
+          "Precise dosing",
+          "Specialized alloys",
+          "Process repeatability",
+          "Waste reduction"
+        ]
+      }
+    },
+    "machines": {
+      "spareParts": {
+        "title": "SMT Spare Parts",
+        "subtitle": "Original and compatible parts",
+        "description": "Original and compatible spare parts for SMT equipment from major brands including Panasonic, Fuji, Yamaha and JUKI.",
+        "features": [
+          "Certified original parts",
+          "High-quality compatibles",
+          "Extensive inventory",
+          "Fast delivery",
+          "Specialized technical support"
+        ]
+      },
+      "maintenance": {
+        "title": "Preventive Maintenance",
+        "subtitle": "Maintenance programs",
+        "description": "Preventive maintenance programs designed to maximize uptime and extend the life of SMT equipment.",
+        "features": [
+          "Customized programs",
+          "Certified technicians",
+          "Detailed reports",
+          "Failure prediction",
+          "Performance optimization"
+        ]
+      },
+      "repair": {
+        "title": "Repair Service",
+        "subtitle": "Specialized repairs",
+        "description": "Specialized repair service for SMT equipment with advanced diagnostics and on-site or workshop repairs.",
+        "features": [
+          "Advanced diagnostics",
+          "On-site repair",
+          "Specialized workshop",
+          "Service warranty",
+          "Fast response"
+        ]
+      },
+      "support": {
+        "title": "Technical Support",
+        "subtitle": "Specialized assistance",
+        "description": "Specialized technical support for process optimization, problem solving and personnel training.",
+        "features": [
+          "Specialized engineers",
+          "Remote support",
+          "Technical training",
+          "Process optimization",
+          "Technical documentation"
+        ]
+      }
+    },
+    "laser": {
+      "precisionCutting": {
+        "title": "Precision Cutting",
+        "subtitle": "Specialized laser cutting",
+        "description": "High-precision laser cutting services for electronic materials, solder stencils and specialized components.",
+        "features": [
+          "Micrometric precision",
+          "Multiple materials",
+          "Complex cuts",
+          "Quality finish",
+          "Fast delivery times"
+        ]
+      },
+      "laserEngraving": {
+        "title": "Laser Engraving",
+        "subtitle": "Marking and engraving",
+        "description": "Laser engraving services for component marking, traceability and customization of electronic products.",
+        "features": [
+          "Permanent marking",
+          "Barcodes and QR codes",
+          "Complete traceability",
+          "Multiple materials",
+          "High resolution"
+        ]
+      },
+      "inspectionTemplates": {
+        "title": "Inspection Templates",
+        "subtitle": "Specialized templates",
+        "description": "Laser-cut inspection templates for quality control and component verification on SMT lines.",
+        "features": [
+          "Custom design",
+          "Specialized materials",
+          "Precise tolerances",
+          "High durability",
+          "AOI equipment compatibility"
+        ]
+      }
+    },
+    "tooling": {
+      "squeegees": {
+        "title": "Squeegees",
+        "subtitle": "Application tools",
+        "description": "Squeegees of different materials and hardnesses for optimal solder paste application in screen printing processes.",
+        "features": [
+          "Multiple hardnesses",
+          "Specialized materials",
+          "Custom profiles",
+          "Long service life",
+          "Uniform application"
+        ]
+      },
+      "cardHolders": {
+        "title": "Card Holders",
+        "subtitle": "PCB support",
+        "description": "Specialized clamping systems for PCBs during manufacturing, inspection and repair processes.",
+        "features": [
+          "Secure clamping",
+          "Multiple configurations",
+          "Complete PCB access",
+          "Antistatic materials",
+          "Quick adjustment"
+        ]
+      },
+      "routerPlates": {
+        "title": "Router Plates",
+        "subtitle": "Specialized cutting bases",
+        "description": "Specialized plates for CNC routers with clamping and positioning systems for precise PCB cutting.",
+        "features": [
+          "Precise positioning",
+          "Vacuum systems",
+          "Resistant materials",
+          "Multiple configurations",
+          "CNC compatibility"
+        ]
+      },
+      "palletsFixtures": {
+        "title": "Pallets and Fixtures",
+        "subtitle": "Custom solutions",
+        "description": "Custom pallets and fixtures for specific electronic manufacturing applications and automated processes.",
+        "features": [
+          "Custom design",
+          "In-house manufacturing",
+          "Specialized materials",
+          "Dimensional precision",
+          "SMT line integration"
+        ]
+      }
+    },
+    "actions": {
+      "quote": "Request Quote",
+      "datasheet": "Datasheet"
+    },
+    "comingSoon": "More categories coming soon",
+    "cta": {
+      "title": "Need a specific solution?",
+      "description": "Our team of experts is ready to help you find the perfect product for your application. Contact us for a personalized consultation.",
+      "primaryButton": "Request Free Consultation",
+      "secondaryButton": "View Complete Catalog"
+    }
+  },
+  "services": {
+    "breadcrumb": {
+      "home": "Home",
+      "services": "Services"
+    },
+    "hero": {
+      "title": "Our Services",
+      "subtitle": "How can we help you improve?",
+      "description": "Specialized technical support and consulting to improve your production, reduce defects and optimize processes with over 20 years of experience."
+    },
+    "valueProp": {
+      "title": "What makes us different?",
+      "paragraph1": "While other companies send salespeople without technical experience, we send engineers with over 20 years in the electronics industry.",
+      "paragraph2": "We don't sell products, we solve problems. We get into the process, review your line and tell you exactly where you are failing and how to improve it.",
+      "paragraph3": "Our approach is simple: we take away a problem, make it work for you, and then comes the commercial side with fast attention and appropriate sales plan.",
+      "assessmentCard": {
+        "title": "Free Assessment",
+        "description": "We review your line at no cost and tell you where to improve"
+      }
+    },
+    "servicesSection": {
+      "title": "Specialized Services",
+      "description": "Technical support and consulting with direct collaboration to achieve personalized solutions",
+      "assessment": {
+        "title": "Line Assessment",
+        "description": "Complete audit of your manufacturing process at no cost. We identify problems and improvement opportunities.",
+        "features": [
+          "Current manufacturing process audit",
+          "Manufacturing variables replication",
+          "Critical points identification",
+          "Detailed report with recommendations",
+          "Specific action plan",
+          "Post-implementation follow-up"
+        ],
+        "button": "Request Free Assessment"
+      },
+      "consulting": {
+        "title": "Process Consulting",
+        "description": "Process optimization with specific recommendations to increase production, reduce costs and improve yield.",
+        "features": [
+          "Best product recommendations per process",
+          "Strategies to reduce manufacturing costs",
+          "Plans to increase production yield",
+          "Waste and rework reduction",
+          "Line time optimization",
+          "Best practices implementation"
+        ],
+        "button": "Request Consulting"
+      },
+      "support": {
+        "title": "Specialized Technical Support",
+        "description": "Technical support with expert engineers who know equipment from the inside and can solve complex problems.",
+        "features": [
+          "24/7 technical support",
+          "Specialized troubleshooting",
+          "Scheduled preventive maintenance",
+          "On-site equipment repair",
+          "Calibration and software updates",
+          "Technical training and coaching"
+        ],
+        "button": "Contact Support"
+      },
+      "documentation": {
+        "title": "Technical Sheets and Documentation",
+        "description": "Access to detailed technical sheets, specifications and specialized documentation upon request.",
+        "features": [
+          "Detailed technical sheets",
+          "Safety data sheets (MSDS)",
+          "Product specifications",
+          "Application guides",
+          "Process documentation",
+          "Technical presentation letters"
+        ],
+        "button": "Request Documentation"
+      },
+      "fieldServices": {
+        "title": "Field Services",
+        "description": "Specialized services directly at your plant with experts who get involved in your process until achieving results.",
+        "features": [
+          "On-site implementation",
+          "Critical process supervision",
+          "Urgent problem resolution",
+          "Real-time optimization",
+          "Hands-on training",
+          "Process validation"
+        ],
+        "button": "Schedule Visit"
+      },
+      "analysis": {
+        "title": "Analysis and Reports",
+        "description": "Detailed analysis of your production line with technical reports and recommendations based on real data.",
+        "features": [
+          "Statistical defect analysis",
+          "Line efficiency reports",
+          "Industry benchmarking",
+          "Cost-benefit analysis",
+          "Production KPIs",
+          "Continuous improvement plans"
+        ],
+        "button": "Request Analysis"
+      }
+    },
+    "process": {
+      "title": "Our Work Process",
+      "description": "A systematic approach to guarantee real results in your production line",
+      "steps": [
+        {
+          "title": "Initial Contact",
+          "description": "You contact us with your specific problem. We understand your situation and schedule a visit."
+        },
+        {
+          "title": "Free Assessment",
+          "description": "We review your line at no cost. We identify problems and improvement opportunities."
+        },
+        {
+          "title": "Report and Recommendations",
+          "description": "We deliver a detailed report with specific recommendations and action plan."
+        },
+        {
+          "title": "Implementation",
+          "description": "We implement solutions working directly on your production line."
+        },
+        {
+          "title": "Follow-up",
+          "description": "We follow up to ensure improvements are maintained and continuously optimize."
+        }
+      ]
+    },
+    "industries": {
+      "title": "Industries We Serve",
+      "description": "Specialized experience in different sectors of the electronics industry",
+      "list": [
+        {
+          "title": "Consumer Electronics",
+          "description": "Mobile devices, tablets, wearables and mass consumer products."
+        },
+        {
+          "title": "Automotive",
+          "description": "Electronic components for automotive industry and electric vehicles."
+        },
+        {
+          "title": "Maquiladoras",
+          "description": "Contract manufacturing plants with high production volumes."
+        },
+        {
+          "title": "Communications",
+          "description": "Telecommunications equipment, networking and communications infrastructure."
+        },
+        {
+          "title": "Original Equipment Manufacturers (OEM)",
+          "description": "Companies that design and manufacture their own electronic products."
+        },
+        {
+          "title": "Medical Equipment",
+          "description": "Medical devices and diagnostic equipment with critical standards."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to improve your production?",
+      "description": "Contact our experts for a free assessment of your line. We help you identify improvement opportunities and reduce defects.",
+      "primaryButton": "Request Free Assessment",
+      "secondaryButton": "Talk to an Expert"
+    }
+  },
+  "blog": {
+    "breadcrumb": {
+      "home": "Home",
+      "blog": "Blog"
+    },
+    "hero": {
+      "title": "Technical Blog",
+      "subtitle": "Knowledge from the Experts",
+      "description": "Papers, research and technical knowledge from our experts in the electronics industry. Stay updated with the latest trends and best practices."
+    },
+    "filters": {
+      "searchPlaceholder": "Search technical articles...",
+      "allCategories": "All",
+      "activeFilters": "Active filters:",
+      "clearFilters": "Clear filters"
+    },
+    "results": {
+      "searchResults": "Results for",
+      "categoryResults": "Category:",
+      "totalArticles": "technical articles",
+      "articles": "articles",
+      "loading": "Loading articles...",
+      "noResults": "No results found",
+      "noArticles": "No articles available",
+      "tryOtherTerms": "Try other search terms",
+      "comingSoon": "We will soon publish specialized technical content"
+    },
+    "card": {
+      "readingTime": "min read",
+      "readMore": "Read more",
+      "share": "Share",
+      "linkCopied": "Link copied to clipboard"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "newsletter": {
+      "title": "Subscribe to Our Blog",
+      "description": "Receive the latest research, technical papers and expert knowledge directly in your email. Once every 2 months.",
+      "placeholder": "Your corporate email",
+      "button": "Subscribe"
+    },
+    "post": {
+      "notFound": "Post not found",
+      "notFoundDescription": "The article you are looking for does not exist or has been deleted.",
+      "contentNotAvailable": "Content not available",
+      "contentNotAvailableDescription": "This article is not available in the selected language.",
+      "backToBlog": "Back to Blog",
+      "tags": "Tags:",
+      "relatedPosts": "Related Articles"
+    }
   }
-  
+}

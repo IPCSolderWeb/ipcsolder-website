@@ -263,7 +263,10 @@ const About = ({ currentLanguage = 'es' }) => {
                                 <p><strong className="text-blue-900">{t('about.mission.values.solutions.title')}:</strong> {t('about.mission.values.solutions.description')}</p>
                                 <p><strong className="text-blue-900">{t('about.mission.values.commitment.title')}:</strong> {t('about.mission.values.commitment.description')}</p>
                                 <p><strong className="text-blue-900">{t('about.mission.values.working.title')}:</strong> {t('about.mission.values.working.description')}</p>
-                                <p><strong className="text-blue-900">{t('about.mission.values.responsibility.title')}:</strong> {t('about.mission.values.responsibility.description')}</p>
+                                <p><strong className="text-blue-900">{t('about.mission.values.vision.title')}:</strong> {t('about.mission.values.vision.description')}</p>
+                                <p><strong className="text-blue-900">{t('about.mission.values.audacity.title')}:</strong> {t('about.mission.values.audacity.description')}</p>
+                                <p><strong className="text-blue-900">{t('about.mission.values.perseverance.title')}:</strong> {t('about.mission.values.perseverance.description')}</p>
+                                <p className="text-gray-600 leading-relaxed">{t('about.mission.values.description2')}</p>
                             </div>
                         </div>
 
@@ -271,7 +274,7 @@ const About = ({ currentLanguage = 'es' }) => {
                         <div
                             id="differentiators-card"
                             data-animate
-                            className={`bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 ${isVisible['differentiators-card']
+                            className={`bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 border space-y-3 border-gray-100 ${isVisible['differentiators-card']
                                 ? 'opacity-100 translate-y-0'
                                 : 'opacity-0 translate-y-8'
                                 }`}
@@ -280,8 +283,12 @@ const About = ({ currentLanguage = 'es' }) => {
                             <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-900 rounded-xl flex items-center justify-center mb-6 text-white text-2xl">
                                 🤝
                             </div>
+
                             <h3 className="text-2xl font-bold text-blue-900 mb-4">{t('about.mission.differentiators.title')}</h3>
                             <p className="text-gray-600 leading-relaxed">{t('about.mission.differentiators.description')}</p>
+                            <p className="text-gray-600 leading-relaxed">{t('about.mission.differentiators.description2')}</p>
+                            <p className="text-gray-600 leading-relaxed">{t('about.mission.differentiators.description3')}</p>
+                            <p className="text-gray-600 leading-relaxed">{t('about.mission.differentiators.description4')}</p>
                         </div>
                     </div>
                 </div>
