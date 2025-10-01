@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { name, email, phone, company, position, industry, message, language = 'es' } = req.body;
+    const { name, email, phone, state, municipality, company, position, industry, message, language = 'es' } = req.body;
 
     console.log('🌐 Idioma recibido en API:', language);
 
@@ -72,6 +72,16 @@ export default async function handler(req, res) {
                 <tr>
                   <td style="padding: 8px 0; color: #475569; font-weight: bold;">Phone:</td>
                   <td style="padding: 8px 0; color: #1e293b;">${phone}</td>
+                </tr>` : ''}
+                ${state ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">State:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${state}</td>
+                </tr>` : ''}
+                ${municipality ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">City:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${municipality}</td>
                 </tr>` : ''}
               </table>
             </div>
@@ -163,6 +173,16 @@ export default async function handler(req, res) {
                   <td style="padding: 8px 0; color: #475569; font-weight: bold;">Teléfono:</td>
                   <td style="padding: 8px 0; color: #1e293b;">${phone}</td>
                 </tr>` : ''}
+                ${state ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Estado:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${state}</td>
+                </tr>` : ''}
+                ${municipality ? `
+                <tr>
+                  <td style="padding: 8px 0; color: #475569; font-weight: bold;">Ciudad:</td>
+                  <td style="padding: 8px 0; color: #1e293b;">${municipality}</td>
+                </tr>` : ''}
               </table>
             </div>
 
@@ -249,10 +269,8 @@ export default async function handler(req, res) {
           </div>
 
           <!-- Footer -->
-          <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
-            <p style="color: #64748b; margin: 0; font-size: 14px;">
-              <strong>ipcsolder.com</strong>
-            </p>
+          <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 20px; text-align: center;">
+            <a href="https://www.ipcsolder.com" style="color: #ffffff; text-decoration: none; font-size: 16px; font-weight: bold;">IPCSolder</a>
           </div>
 
         </div>
@@ -295,10 +313,8 @@ export default async function handler(req, res) {
           </div>
 
           <!-- Footer -->
-          <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
-            <p style="color: #64748b; margin: 0; font-size: 14px;">
-              <strong>ipcsolder.com</strong>
-            </p>
+          <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 20px; text-align: center;">
+            <a href="https://www.ipcsolder.com" style="color: #ffffff; text-decoration: none; font-size: 16px; font-weight: bold;">IPCSolder</a>
           </div>
 
         </div>

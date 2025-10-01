@@ -14,6 +14,8 @@ const Contact = ({ currentLanguage = 'es' }) => {
         name: '',
         email: '',
         phone: '',
+        state: '',
+        municipality: '',
         company: '',
         position: '',
         industry: '',
@@ -207,6 +209,8 @@ const Contact = ({ currentLanguage = 'es' }) => {
                     name: formData.name,
                     email: formData.email,
                     phone: formData.phone,
+                    state: formData.state,
+                    municipality: formData.municipality,
                     company: formData.company,
                     position: formData.position,
                     industry: formData.industry,
@@ -224,6 +228,8 @@ const Contact = ({ currentLanguage = 'es' }) => {
                     name: '',
                     email: '',
                     phone: '',
+                    state: '',
+                    municipality: '',
                     company: '',
                     position: '',
                     industry: '',
@@ -527,6 +533,39 @@ const Contact = ({ currentLanguage = 'es' }) => {
                                         {formErrors.phone && (
                                             <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>
                                         )}
+                                    </div>
+                                </div>
+
+                                {/* State and Municipality Row */}
+                                <div className="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label htmlFor="state" className="block text-sm font-semibold text-gray-700 mb-2">
+                                            {t('contact.form.fields.state.label')}
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="state"
+                                            name="state"
+                                            value={formData.state}
+                                            onChange={handleInputChange}
+                                            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                            placeholder={t('contact.form.fields.state.placeholder')}
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label htmlFor="municipality" className="block text-sm font-semibold text-gray-700 mb-2">
+                                            {t('contact.form.fields.municipality.label')}
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="municipality"
+                                            name="municipality"
+                                            value={formData.municipality}
+                                            onChange={handleInputChange}
+                                            className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                                            placeholder={t('contact.form.fields.municipality.placeholder')}
+                                        />
                                     </div>
                                 </div>
 
