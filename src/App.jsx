@@ -6,7 +6,15 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
 import ProductsIndex from './pages/Products/ProductsIndex';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
 import MaintenanceChecker from './components/MaintenanceChecker';
+
+// Admin imports
+import AdminLogin from './pages/admin/AdminLogin';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import PostEditor from './pages/admin/PostEditor';
+import ProtectedRoute from './components/admin/ProtectedRoute';
 
 // Importar estilos (si no están en main.jsx)
 import './index.css';
@@ -199,119 +207,202 @@ const App = () => {
     <MaintenanceChecker>
       <Router>
         <div className="App">
-        {/* Layout wrapper para todas las páginas */}
-        <Layout 
-          currentLanguage={currentLanguage}
-          onLanguageChange={handleGlobalLanguageChange}
-        >
           {/* Rutas de la aplicación */}
           <Routes>
-            {/* Ruta principal */}
+            {/* Admin Routes - Sin Layout principal */}
             <Route 
-              path="/" 
+              path="/admin/login" 
+              element={<AdminLogin />} 
+            />
+            
+            <Route 
+              path="/admin/dashboard" 
               element={
-                <Home 
-                  currentLanguage={currentLanguage} 
-                />
+                <ProtectedRoute>
+                  <AdminDashboard />
+                </ProtectedRoute>
               } 
             />
             
-            {/* Rutas de páginas existentes */}
+            <Route 
+              path="/admin/posts/new" 
+              element={
+                <ProtectedRoute>
+                  <PostEditor />
+                </ProtectedRoute>
+              } 
+            />
+            
+            <Route 
+              path="/admin/posts/edit/:id" 
+              element={
+                <ProtectedRoute>
+                  <PostEditor />
+                </ProtectedRoute>
+              } 
+            />
+
+            {/* Redirección del admin root */}
+            <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+
+            {/* Rutas públicas con Layout */}
+            <Route 
+              path="/" 
+              element={
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <Home currentLanguage={currentLanguage} />
+                </Layout>
+              } 
+            />
+            
+            {/* Rutas de páginas existentes con Layout */}
             <Route 
               path="/about" 
               element={
-                <About 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <About currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
             
             <Route 
               path="/nosotros" 
               element={
-                <About 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <About currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
             
             <Route 
               path="/contact" 
               element={
-                <Contact 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <Contact currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
             
             <Route 
               path="/contacto" 
               element={
-                <Contact 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <Contact currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
 
-            {/* Rutas de servicios */}
+            {/* Rutas de servicios con Layout */}
             <Route 
               path="/services" 
               element={
-                <Services 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <Services currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
             
             <Route 
               path="/servicios" 
               element={
-                <Services 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <Services currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
 
-            {/* Rutas de productos */}
+            {/* Rutas de productos con Layout */}
             <Route 
               path="/products" 
               element={
-                <ProductsIndex 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <ProductsIndex currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
             
             <Route 
               path="/productos" 
               element={
-                <ProductsIndex 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <ProductsIndex currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
             
             <Route 
               path="/products/:category" 
               element={
-                <ProductsIndex 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <ProductsIndex currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
             
             <Route 
               path="/productos/:category" 
               element={
-                <ProductsIndex 
-                  currentLanguage={currentLanguage} 
-                />
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <ProductsIndex currentLanguage={currentLanguage} />
+                </Layout>
               } 
             />
             
             <Route 
               path="/blog" 
-              element={<BlogPlaceholder />} 
+              element={
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <Blog currentLanguage={currentLanguage} />
+                </Layout>
+              } 
+            />
+            
+            <Route 
+              path="/blog/:slug" 
+              element={
+                <Layout 
+                  currentLanguage={currentLanguage}
+                  onLanguageChange={handleGlobalLanguageChange}
+                >
+                  <BlogPost currentLanguage={currentLanguage} />
+                </Layout>
+              } 
             />
 
             {/* Redirecciones útiles */}
@@ -321,7 +412,6 @@ const App = () => {
             {/* 404 - Debe estar al final */}
             <Route path="*" element={<NotFound />} />
           </Routes>
-        </Layout>
 
         {/* Analytics placeholder (para futuras integraciones) */}
         {process.env.NODE_ENV === 'production' && (

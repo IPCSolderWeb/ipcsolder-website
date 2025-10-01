@@ -435,7 +435,8 @@
         },
         "values": {
           "title": "Nuestros Valores",
-          "description": "Nos guiamos por principios sólidos que forman parte de nuestra cultura empresarial:",
+          "description": "En IPCSolder nos guiamos por principios que inspiran nuestra forma de trabajar, tomar decisiones y relacionarnos con nuestros clientes, socios y colaboradores. Estos valores son la base de nuestro compromiso con la excelencia.",
+          "description2": "En conjunto, estos valores son la esencia de IPCSolder: trabajar con visión, actuar con audacia y mantenernos firmes con perseverancia para impulsar el crecimiento de nuestros clientes.",
           "experience": {
             "title": "Integridad",
             "description": "actuamos con transparencia en cada proyecto."
@@ -455,11 +456,26 @@
           "responsibility": {
             "title": "Responsabilidad",
             "description": "asumimos cada reto con disciplina, ética y profesionalismo."
+          },
+          "vision": {
+            "title": "Visión",
+            "description": "Pensamos en el futuro para anticipar tendencias y oportunidades en la industria electrónica. Nuestra visión nos orienta a crear soluciones innovadoras y sostenibles que generen valor y mantengan a nuestros clientes a la vanguardia."
+          },
+          "audacity": {
+            "title": "Audacia",
+            "description": "Creemos en la valentía para enfrentar retos y explorar nuevas ideas. La audacia nos impulsa a ir más allá de lo convencional, a tomar decisiones firmes y a abrir caminos que fortalezcan la competitividad de nuestros clientes."
+          },
+          "perseverance": {
+            "title": "Perseverancia",
+            "description": "La constancia y disciplina nos caracterizan. La perseverancia nos permite superar obstáculos, mantenernos enfocados en los objetivos y avanzar con determinación hasta alcanzar resultados sobresalientes."
           }
         },
         "differentiators": {
           "title": "¿Qué nos hace diferentes?",
-          "description": "Mientras otros envían vendedores, nosotros enviamos ingenieros. Conocemos la industria electrónica desde adentro y sabemos exactamente qué necesitas para mejorar tu producción y reducir defectos."
+          "description": "En IPCSolder no enviamos vendedores, enviamos ingenieros. Nuestro equipo está conformado por especialistas que conocen de primera mano la industria electrónica, con experiencia real en piso de producción.",
+          "description2": "Esto nos permite entender con precisión tus retos, requisitos y necesidades. Más que un proveedor, nos convertimos en tu aliado estratégico, aportando conocimiento técnico y soluciones prácticas que generan resultados.",
+          "description3": "Nuestra misión es ayudarte a mejorar tu producción e impulsar tus procesos, reduciendo defectos, optimizando herramientas y asegurando que cada proyecto alcance los más altos estándares de calidad y eficiencia.",
+          "description4": "Con IPCSolder obtienes más que un producto: recibes soporte técnico especializado, experiencia comprobada y compromiso con tu éxito."
         }
       },
       "team": {
@@ -647,6 +663,9 @@
       }
     },
     "common": {
+      "breadcrumb": {
+        "home": "Inicio"
+      },
       "cta": {
         "viewAll": "Ver Todos los Productos",
         "requestInfo": "Solicitar Información",
@@ -1073,6 +1092,224 @@
         "description": "Nuestro equipo de expertos está listo para ayudarte a encontrar el producto perfecto para tu aplicación. Contáctanos para una consulta personalizada.",
         "primaryButton": "Solicitar Consulta Gratuita",
         "secondaryButton": "Ver Catálogo Completo"
+      }
+    },
+    "services": {
+      "breadcrumb": {
+        "home": "Inicio",
+        "services": "Servicios"
+      },
+      "hero": {
+        "title": "Nuestros Servicios",
+        "subtitle": "¿Cómo podemos ayudarte a mejorar?",
+        "description": "Soporte técnico especializado y consultoría para mejorar tu producción, reducir defectos y optimizar procesos con más de 20 años de experiencia."
+      },
+      "valueProp": {
+        "title": "¿Qué nos hace diferentes?",
+        "paragraph1": "Mientras otras empresas envían vendedores sin experiencia técnica, nosotros enviamos ingenieros con más de 20 años en la industria electrónica.",
+        "paragraph2": "No vendemos productos, solucionamos problemas. Nos metemos al proceso, revisamos tu línea y te decimos exactamente dónde estás fallando y cómo mejorarlo.",
+        "paragraph3": "Nuestro enfoque es simple: que les quitemos un problema, que les funcione, y después viene el lado comercial con atención rápida y plan de venta adecuado.",
+        "assessmentCard": {
+          "title": "Assessment Gratuito",
+          "description": "Revisamos tu línea sin costo y te decimos dónde mejorar"
+        }
+      },
+      "servicesSection": {
+        "title": "Servicios Especializados",
+        "description": "Soporte técnico y consultoría con colaboración directa para lograr soluciones personalizadas",
+        "assessment": {
+          "title": "Assessment de Líneas",
+          "description": "Auditoría completa de tu proceso de manufactura sin costo. Identificamos problemas y oportunidades de mejora.",
+          "features": [
+            "Auditoría del proceso actual de manufactura",
+            "Replicación de variables de manufactura",
+            "Identificación de puntos críticos",
+            "Reporte detallado con recomendaciones",
+            "Plan de acción específico",
+            "Seguimiento post-implementación"
+          ],
+          "button": "Solicitar Assessment Gratuito"
+        },
+        "consulting": {
+          "title": "Consultoría de Procesos",
+          "description": "Optimización de procesos con recomendaciones específicas para aumentar producción, reducir costos y mejorar yield.",
+          "features": [
+            "Recomendaciones de mejores productos por proceso",
+            "Estrategias para reducir costos de manufactura",
+            "Planes para aumentar el yield de producción",
+            "Reducción de desperdicios y retrabajo",
+            "Optimización de tiempos de línea",
+            "Implementación de mejores prácticas"
+          ],
+          "button": "Solicitar Consultoría"
+        },
+        "support": {
+          "title": "Soporte Técnico Especializado",
+          "description": "Soporte técnico con ingenieros expertos que conocen los equipos desde adentro y pueden solucionar problemas complejos.",
+          "features": [
+            "Soporte técnico 24/7",
+            "Troubleshooting especializado",
+            "Mantenimiento preventivo programado",
+            "Reparación de equipos en sitio",
+            "Calibración y actualización de software",
+            "Training y capacitación técnica"
+          ],
+          "button": "Contactar Soporte"
+        },
+        "documentation": {
+          "title": "Fichas Técnicas y Documentación",
+          "description": "Acceso a fichas técnicas detalladas, especificaciones y documentación especializada bajo solicitud.",
+          "features": [
+            "Fichas técnicas detalladas",
+            "Hojas de seguridad (MSDS)",
+            "Especificaciones de productos",
+            "Guías de aplicación",
+            "Documentación de procesos",
+            "Cartas de presentación técnicas"
+          ],
+          "button": "Solicitar Documentación"
+        },
+        "fieldServices": {
+          "title": "Servicios de Campo",
+          "description": "Servicios especializados directamente en tu planta con expertos que se involucran en tu proceso hasta lograr resultados.",
+          "features": [
+            "Implementación en sitio",
+            "Supervisión de procesos críticos",
+            "Resolución de problemas urgentes",
+            "Optimización en tiempo real",
+            "Training hands-on",
+            "Validación de procesos"
+          ],
+          "button": "Agendar Visita"
+        },
+        "analysis": {
+          "title": "Análisis y Reportes",
+          "description": "Análisis detallado de tu línea de producción con reportes técnicos y recomendaciones basadas en datos reales.",
+          "features": [
+            "Análisis estadístico de defectos",
+            "Reportes de eficiencia de línea",
+            "Benchmarking vs industria",
+            "Análisis de costo-beneficio",
+            "KPIs de producción",
+            "Planes de mejora continua"
+          ],
+          "button": "Solicitar Análisis"
+        }
+      },
+      "process": {
+        "title": "Nuestro Proceso de Trabajo",
+        "description": "Un enfoque sistemático para garantizar resultados reales en tu línea de producción",
+        "steps": [
+          {
+            "title": "Contacto Inicial",
+            "description": "Nos contactas con tu problema específico. Entendemos tu situación y programamos visita."
+          },
+          {
+            "title": "Assessment Gratuito",
+            "description": "Revisamos tu línea sin costo. Identificamos problemas y oportunidades de mejora."
+          },
+          {
+            "title": "Reporte y Recomendaciones",
+            "description": "Entregamos reporte detallado con recomendaciones específicas y plan de acción."
+          },
+          {
+            "title": "Implementación",
+            "description": "Implementamos las soluciones trabajando directamente en tu línea de producción."
+          },
+          {
+            "title": "Seguimiento",
+            "description": "Damos seguimiento para asegurar que las mejoras se mantengan y optimizar continuamente."
+          }
+        ]
+      },
+      "industries": {
+        "title": "Industrias que Atendemos",
+        "description": "Experiencia especializada en diferentes sectores de la industria electrónica",
+        "list": [
+          {
+            "title": "Electrónica de Consumo",
+            "description": "Dispositivos móviles, tablets, wearables y productos de consumo masivo."
+          },
+          {
+            "title": "Automotriz",
+            "description": "Componentes electrónicos para la industria automotriz y vehículos eléctricos."
+          },
+          {
+            "title": "Maquiladoras",
+            "description": "Plantas de manufactura por contrato con altos volúmenes de producción."
+          },
+          {
+            "title": "Comunicaciones",
+            "description": "Equipos de telecomunicaciones, networking y infraestructura de comunicaciones."
+          },
+          {
+            "title": "Fabricantes Originales (OEM)",
+            "description": "Empresas que diseñan y fabrican sus propios productos electrónicos."
+          },
+          {
+            "title": "Equipos Médicos",
+            "description": "Dispositivos médicos y equipos de diagnóstico con estándares críticos."
+          }
+        ]
+      },
+      "cta": {
+        "title": "¿Listo para mejorar tu producción?",
+        "description": "Contacta a nuestros expertos para un assessment gratuito de tu línea. Te ayudamos a identificar oportunidades de mejora y reducir defectos.",
+        "primaryButton": "Solicitar Assessment Gratuito",
+        "secondaryButton": "Hablar con un Experto"
+      }
+    },
+    "blog": {
+      "breadcrumb": {
+        "home": "Inicio",
+        "blog": "Blog"
+      },
+      "hero": {
+        "title": "Blog Técnico",
+        "subtitle": "Knowledge from the Experts",
+        "description": "Papers, investigaciones y conocimiento técnico de nuestros expertos en la industria electrónica. Mantente actualizado con las últimas tendencias y mejores prácticas."
+      },
+      "filters": {
+        "searchPlaceholder": "Buscar artículos técnicos...",
+        "allCategories": "Todos",
+        "activeFilters": "Filtros activos:",
+        "clearFilters": "Limpiar filtros"
+      },
+      "results": {
+        "searchResults": "Resultados para",
+        "categoryResults": "Categoría:",
+        "totalArticles": "artículos técnicos",
+        "articles": "artículos",
+        "loading": "Cargando artículos...",
+        "noResults": "No se encontraron resultados",
+        "noArticles": "No hay artículos disponibles",
+        "tryOtherTerms": "Intenta con otros términos de búsqueda",
+        "comingSoon": "Pronto publicaremos contenido técnico especializado"
+      },
+      "card": {
+        "readingTime": "min lectura",
+        "readMore": "Leer más",
+        "share": "Compartir",
+        "linkCopied": "Link copiado al clipboard"
+      },
+      "pagination": {
+        "previous": "Anterior",
+        "next": "Siguiente"
+      },
+      "newsletter": {
+        "title": "Suscríbete a Nuestro Blog",
+        "description": "Recibe las últimas investigaciones, papers técnicos y conocimiento de expertos directamente en tu email. Una vez cada 2 meses.",
+        "placeholder": "Tu email corporativo",
+        "button": "Suscribirse"
+      },
+      "post": {
+        "notFound": "Post no encontrado",
+        "notFoundDescription": "El artículo que buscas no existe o ha sido eliminado.",
+        "contentNotAvailable": "Contenido no disponible",
+        "contentNotAvailableDescription": "Este artículo no está disponible en el idioma seleccionado.",
+        "backToBlog": "Volver al Blog",
+        "tags": "Tags:",
+        "relatedPosts": "Artículos Relacionados"
       }
     }
 }
