@@ -35,14 +35,14 @@ export default async function handler(req, res) {
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>New contact message - IPC Solder</title>
+        <title>New contact message - IPCSolder</title>
       </head>
       <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
           
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 30px 20px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPC Solder</h1>
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPCSolder</h1>
             <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 16px;">New contact message</p>
           </div>
 
@@ -135,14 +135,14 @@ export default async function handler(req, res) {
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nuevo mensaje de contacto - IPC Solder</title>
+        <title>Nuevo mensaje de contacto - IPCSolder</title>
       </head>
       <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
           
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 30px 20px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPC Solder</h1>
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPCSolder</h1>
             <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 16px;">Nuevo mensaje de contacto</p>
           </div>
 
@@ -238,14 +238,14 @@ export default async function handler(req, res) {
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Thank you for contacting us - IPC Solder</title>
+        <title>Thank you for contacting us - IPCSolder</title>
       </head>
       <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
           
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 30px 20px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPC Solder</h1>
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPCSolder</h1>
             <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 16px;">Thank you for contacting us</p>
           </div>
 
@@ -258,7 +258,7 @@ export default async function handler(req, res) {
             </p>
             
             <p style="color: #1e293b; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">
-              We appreciate your interest in IPC Solder and look forward to assisting you.
+              We appreciate your interest in IPCSolder and look forward to assisting you.
             </p>
 
             <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; text-align: center;">
@@ -282,14 +282,14 @@ export default async function handler(req, res) {
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gracias por contactarnos - IPC Solder</title>
+        <title>Gracias por contactarnos - IPCSolder</title>
       </head>
       <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
           
           <!-- Header -->
           <div style="background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%); padding: 30px 20px; text-align: center;">
-            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPC Solder</h1>
+            <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: bold;">IPCSolder</h1>
             <p style="color: #bfdbfe; margin: 10px 0 0 0; font-size: 16px;">Gracias por contactarnos</p>
           </div>
 
@@ -302,7 +302,7 @@ export default async function handler(req, res) {
             </p>
             
             <p style="color: #1e293b; line-height: 1.6; margin-bottom: 20px; font-size: 16px;">
-              Agradecemos tu interés en IPC Solder y esperamos poder ayudarte.
+              Agradecemos tu interés en IPCSolder y esperamos poder ayudarte.
             </p>
 
             <div style="background-color: #f1f5f9; border-radius: 8px; padding: 20px; text-align: center;">
@@ -337,7 +337,7 @@ export default async function handler(req, res) {
     const clientEmail = await resend.emails.send({
       from: 'contacto@ipcsolder.com',
       to: [email],
-      subject: language === 'en' ? 'Thank you for contacting us - IPC Solder' : 'Gracias por contactarnos - IPC Solder',
+      subject: language === 'en' ? 'Thank you for contacting us - IPCSolder' : 'Gracias por contactarnos - IPC Solder',
       html: clientEmailContent,
     });
 
