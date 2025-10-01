@@ -191,7 +191,7 @@ const MobileMenu = ({
                   {t('mobileMenu.submenus.services', { returnObjects: true }).map((item) => (
                     <button
                       key={item.key}
-                      onClick={() => handleNavClick(`/services/${item.key}`)}
+                      onClick={() => handleNavClick('/services')}
                       className="block w-full text-left py-2 px-3 text-gray-600 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-colors duration-200 text-sm"
                     >
                       {item.label}

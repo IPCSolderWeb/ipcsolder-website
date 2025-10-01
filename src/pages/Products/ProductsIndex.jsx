@@ -1,8 +1,10 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 const ProductsIndex = () => {
     const { t, ready } = useTranslation();
+    const navigate = useNavigate();
     const [activeCategory, setActiveCategory] = useState('all');
     const [isVisible, setIsVisible] = useState({});
 
@@ -55,16 +57,33 @@ const ProductsIndex = () => {
             if (element) {
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
+        } else {
+            // Scroll al top cuando selecciona "Todos"
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 
-    // Si las traducciones no están listas, mostrar loading
+    // Función para manejar navegación a contacto
+    const handleQuoteRequest = (e) => {
+        e.preventDefault();
+        navigate('/contacto');
+        // Scroll al top después de la navegación
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100);
+    };
+
+    // Si las traducciones no est�n listas, mostrar contenido con placeholders
     if (!ready) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
-                <div className="text-center">
-                    <div className="text-2xl font-bold text-gray-900 mb-4">{t('common.loading')}</div>
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+            <div className="bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                    <div className="text-center">
+                        <div className="animate-pulse">
+                            <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
+                            <div className="h-4 bg-gray-200 rounded w-96 mx-auto"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
@@ -197,13 +216,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.mro.thermocouples.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* {t('products.mro.redGlue.title')} Chip Bonder */}
@@ -240,13 +259,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.mro.redGlue.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Isopropyl Alcohol (IPA) */}
@@ -283,13 +302,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.mro.ipa.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* F37 Gel Nozzle Cleaner */}
@@ -326,13 +345,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.mro.nozzleCleaner.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Router Bits */}
@@ -369,13 +388,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.mro.routerBits.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -434,13 +453,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.esd.traysAndBins.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Conductive EVA Sheets */}
@@ -477,13 +496,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.esd.evaSheets.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -542,13 +561,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.solder.solderBars.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Solder Wires */}
@@ -585,13 +604,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.solder.solderWire.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Liquid Flux */}
@@ -628,13 +647,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.solder.liquidFlux.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Solder Preforms */}
@@ -671,13 +690,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.solder.preforms.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -736,13 +755,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.machines.spareParts.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Preventive Maintenance & Repair Service */}
@@ -779,13 +798,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.machines.maintenance.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -844,13 +863,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.laser.precisionCutting.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Laser Engraving */}
@@ -887,13 +906,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.laser.laserEngraving.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Inspection Templates */}
@@ -930,13 +949,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.laser.inspectionTemplates.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -995,13 +1014,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.tooling.squeegees.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Board Holders */}
@@ -1038,13 +1057,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.tooling.cardHolders.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Router Plates */}
@@ -1081,13 +1100,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.tooling.routerPlates.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Pallets */}
@@ -1124,13 +1143,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.tooling.palletsFixtures.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Fixtures */}
@@ -1167,13 +1186,13 @@ const ProductsIndex = () => {
                                 <ul className="space-y-2 mb-6">
                                     {t('products.tooling.palletsFixtures.features', { returnObjects: true }).map((feature, index) => (
                                         <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">✓</span>
+                                            <span className="text-green-500 mr-2">?</span>
                                             {feature}
                                         </li>
                                     ))}
                                 </ul>
 
-                                <div><a href="/contacto" className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</a></div>
+                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -1199,9 +1218,12 @@ const ProductsIndex = () => {
                             {t('products.cta.description')}
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <a href="/contacto" className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center">
+                            <button
+                                onClick={handleQuoteRequest}
+                                className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-center"
+                            >
                                 {t('products.cta.primaryButton')}
-                            </a>
+                            </button>
                             <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
                                 {t('products.cta.secondaryButton')}
                             </button>
@@ -1214,6 +1236,7 @@ const ProductsIndex = () => {
 };
 
 export default ProductsIndex;
+
 
 
 
