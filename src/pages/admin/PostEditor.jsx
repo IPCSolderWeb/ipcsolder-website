@@ -181,6 +181,14 @@ const PostEditor = () => {
 
       if (publishNow) {
         showSuccess('¡Post publicado exitosamente! Los usuarios ya pueden verlo en el blog.', '🎉 ¡Publicado!')
+        
+        // Enviar newsletter automáticamente
+        try {
+          await sendNewsletterAutomatically(savedPost, contentData)
+        } catch (newsletterError) {
+          console.error('Error enviando newsletter:', newsletterError)
+          showWarning('Post publicado correctamente, pero hubo un error enviando el newsletter', 'Newsletter no enviado')
+        }
       } else {
         showSuccess('Post guardado como borrador. Puedes continuar editándolo más tarde.', '💾 Guardado')
       }
@@ -419,6 +427,68 @@ const PostEditor = () => {
       ))}
     </div>
   )
+}
+
+// Función para enviar newsletter automáticamente
+async function sendNewsletterAutomatically(savedPost, contentData) {
+  console.log('📧 PostEditor: Enviando newsletter automáticamente', savedPost.id)
+  
+  try {
+    // Preparar datos del blog para el newsletter
+    const newsletterData = {
+      blogId: savedPost.id,
+      title_es: contentData.es?.title || 'Sin título',
+      title_en: contentData.en?.title || contentData.es?.title || 'Sin título',
+      excerpt_es: contentData.es?.excerpt || 'Sin resumen',
+      excerpt_en: contentData.en?.excerpt || contentData.es?.excerpt || 'Sin resumen',
+      slug: savedPost.slug,
+      featured_image_url: savedPost.featured_image_url,
+      category_es: savedPost.category_name_es,
+      category_en: savedPost.category_name_en,
+      reading_time: calculateReadingTime(contentData.es?.content || '')
+    }
+
+    console.log('📧 PostEditor: Datos del newsletter preparados', newsletterData)
+
+    // Llamar a la API de newsletter
+    const response = await fetch('/api/newsletter/send-blog-notification', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newsletterData)
+    })
+
+    const result = await response.json()
+
+    if (result.success) {
+      console.log('✅ PostEditor: Newsletter enviado exitosamente', {
+        sent: result.sent,
+        subscribers: result.subscribers
+      })
+    } else {
+      console.error('❌ PostEditor: Error en respuesta del newsletter:', result.error)
+      throw new Error(result.error || 'Error desconocido enviando newsletter')
+    }
+
+  } catch (error) {
+    console.error('❌ PostEditor: Error enviando newsletter:', error)
+    throw error
+  }
+}
+
+// Función auxiliar para calcular tiempo de lectura
+function calculateReadingTime(content) {
+  if (!content) return 5
+  
+  // Remover HTML tags y contar palabras
+  const plainText = content.replace(/<[^>]*>/g, '')
+  const wordCount = plainText.split(/\s+/).filter(word => word.length > 0).length
+  
+  // Promedio de 200 palabras por minuto
+  const readingTime = Math.ceil(wordCount / 200)
+  
+  return Math.max(1, readingTime) // Mínimo 1 minuto
 }
 
 export default PostEditor
