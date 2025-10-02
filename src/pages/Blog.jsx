@@ -289,25 +289,111 @@ const Blog = ({ currentLanguage = 'es' }) => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-blue-900 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">{t('blog.newsletter.title')}</h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            {t('blog.newsletter.description')}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+      <NewsletterSection currentLanguage={i18n.language || currentLanguage} />
+    </div>
+  )
+}
+
+// Componente Newsletter Section
+const NewsletterSection = ({ currentLanguage }) => {
+  const { t } = useTranslation()
+  const [email, setEmail] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [message, setMessage] = useState('')
+  const [messageType, setMessageType] = useState('') // 'success' | 'error'
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    
+    if (!email.trim()) {
+      setMessage(t('blog.newsletter.errors.emailRequired'))
+      setMessageType('error')
+      return
+    }
+
+    setIsSubmitting(true)
+    setMessage('')
+
+    try {
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email.trim(),
+          language: currentLanguage
+        })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setMessage(data.message)
+        setMessageType('success')
+        setEmail('') // Limpiar formulario
+      } else {
+        setMessage(data.error || t('blog.newsletter.errors.generic'))
+        setMessageType('error')
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error)
+      setMessage(t('blog.newsletter.errors.network'))
+      setMessageType('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  return (
+    <section className="bg-gradient-to-r from-blue-600 to-blue-900 text-white py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="text-3xl font-bold mb-4">{t('blog.newsletter.title')}</h2>
+        <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          {t('blog.newsletter.description')}
+        </p>
+        
+        <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder={t('blog.newsletter.placeholder')}
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-300 focus:outline-none"
+              disabled={isSubmitting}
+              className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:ring-2 focus:ring-blue-300 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
             />
-            <button className="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold transition-colors">
-              {t('blog.newsletter.button')}
+            <button 
+              type="submit"
+              disabled={isSubmitting}
+              className="bg-blue-800 hover:bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[120px]"
+            >
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  {t('blog.newsletter.sending')}
+                </>
+              ) : (
+                t('blog.newsletter.button')
+              )}
             </button>
           </div>
-        </div>
-      </section>
-    </div>
+          
+          {message && (
+            <div className={`mt-4 p-3 rounded-lg text-sm ${
+              messageType === 'success' 
+                ? 'bg-green-100 text-green-800 border border-green-200' 
+                : 'bg-red-100 text-red-800 border border-red-200'
+            }`}>
+              {message}
+            </div>
+          )}
+        </form>
+      </div>
+    </section>
   )
 }
 

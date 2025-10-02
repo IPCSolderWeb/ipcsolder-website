@@ -8,6 +8,24 @@ const ProductsIndex = () => {
     const [activeCategory, setActiveCategory] = useState('all');
     const [isVisible, setIsVisible] = useState({});
 
+    // Verificar si hay un filtro específico solicitado desde Home
+    useEffect(() => {
+        const selectedCategory = localStorage.getItem('selectedProductCategory');
+        if (selectedCategory) {
+            // Aplicar el filtro específico
+            setActiveCategory(selectedCategory);
+            // Limpiar el localStorage para futuras visitas
+            localStorage.removeItem('selectedProductCategory');
+            // Hacer scroll a la categoría específica después de un breve delay
+            setTimeout(() => {
+                const element = document.getElementById(selectedCategory);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 500);
+        }
+    }, []);
+
     // Animation on scroll
     useEffect(() => {
         const observerOptions = {
