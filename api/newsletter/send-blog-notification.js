@@ -6,203 +6,203 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Crear cliente de Supabase con Service Role (bypassa RLS)
 const supabase = createClient(
-  process.env.VITE_SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
+    process.env.VITE_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 // Esquema de validación para el blog
 const blogNotificationSchema = z.object({
-  blogId: z.string().uuid('ID de blog inválido'),
-  title_es: z.string().min(1, 'Título en español requerido'),
-  title_en: z.string().min(1, 'Título en inglés requerido'),
-  excerpt_es: z.string().min(1, 'Resumen en español requerido'),
-  excerpt_en: z.string().min(1, 'Resumen en inglés requerido'),
-  slug: z.string().min(1, 'Slug requerido'),
-  featured_image_url: z.string().url().optional(),
-  category_es: z.string().optional(),
-  category_en: z.string().optional(),
-  reading_time: z.number().optional().default(5)
+    blogId: z.string().uuid('ID de blog inválido'),
+    title_es: z.string().min(1, 'Título en español requerido'),
+    title_en: z.string().min(1, 'Título en inglés requerido'),
+    excerpt_es: z.string().min(1, 'Resumen en español requerido'),
+    excerpt_en: z.string().min(1, 'Resumen en inglés requerido'),
+    slug: z.string().min(1, 'Slug requerido'),
+    featured_image_url: z.string().url().optional(),
+    category_es: z.string().optional(),
+    category_en: z.string().optional(),
+    reading_time: z.number().optional().default(5)
 });
 
 export default async function handler(req, res) {
-  // Solo permitir POST
-  if (req.method !== 'POST') {
-    return res.status(405).json({ 
-      success: false, 
-      error: 'Método no permitido' 
-    });
-  }
-
-  try {
-    console.log('📧 Blog Notification: Iniciando envío de newsletter', req.body);
-
-    // Validar datos del blog
-    const blogData = blogNotificationSchema.parse(req.body);
-
-    console.log('✅ Blog Notification: Datos del blog validados', {
-      blogId: blogData.blogId,
-      slug: blogData.slug
-    });
-
-    // Obtener todos los suscriptores activos
-    const { data: subscribers, error: subscribersError } = await supabase
-      .from('newsletter_subscribers')
-      .select('id, email, language, unsubscribe_token')
-      .eq('is_active', true)
-      .not('confirmed_at', 'is', null);
-
-    if (subscribersError) {
-      console.error('❌ Blog Notification: Error obteniendo suscriptores:', subscribersError);
-      throw new Error('Error obteniendo suscriptores');
+    // Solo permitir POST
+    if (req.method !== 'POST') {
+        return res.status(405).json({
+            success: false,
+            error: 'Método no permitido'
+        });
     }
 
-    if (!subscribers || subscribers.length === 0) {
-      console.log('ℹ️ Blog Notification: No hay suscriptores activos');
-      return res.status(200).json({
-        success: true,
-        message: 'No hay suscriptores activos para enviar',
-        sent: 0
-      });
-    }
+    try {
+        console.log('📧 Blog Notification: Iniciando envío de newsletter', req.body);
 
-    console.log(`📊 Blog Notification: ${subscribers.length} suscriptores activos encontrados`);
+        // Validar datos del blog
+        const blogData = blogNotificationSchema.parse(req.body);
 
-    // Separar suscriptores por idioma
-    const spanishSubscribers = subscribers.filter(sub => sub.language === 'es');
-    const englishSubscribers = subscribers.filter(sub => sub.language === 'en');
+        console.log('✅ Blog Notification: Datos del blog validados', {
+            blogId: blogData.blogId,
+            slug: blogData.slug
+        });
 
-    console.log(`🇪🇸 Suscriptores ES: ${spanishSubscribers.length}`);
-    console.log(`🇺🇸 Suscriptores EN: ${englishSubscribers.length}`);
+        // Obtener todos los suscriptores activos
+        const { data: subscribers, error: subscribersError } = await supabase
+            .from('newsletter_subscribers')
+            .select('id, email, language, unsubscribe_token')
+            .eq('is_active', true)
+            .not('confirmed_at', 'is', null);
 
-    let totalSent = 0;
-    const errors = [];
-
-    // Enviar emails en español
-    if (spanishSubscribers.length > 0) {
-      try {
-        const emailsEs = spanishSubscribers.map(subscriber => ({
-          from: 'IPCSolder Blog <noreply@ipcsolder.com>',
-          to: subscriber.email,
-          subject: `🔧 Nuevo artículo: ${blogData.title_es}`,
-          html: generateEmailTemplate(blogData, 'es', subscriber.unsubscribe_token)
-        }));
-
-        const { data: resultEs, error: errorEs } = await resend.batch.send(emailsEs);
-
-        if (errorEs) {
-          console.error('❌ Blog Notification: Error enviando emails ES:', errorEs);
-          errors.push(`Error enviando emails en español: ${errorEs.message}`);
-        } else {
-          totalSent += spanishSubscribers.length;
-          console.log(`✅ Blog Notification: ${spanishSubscribers.length} emails ES enviados`);
+        if (subscribersError) {
+            console.error('❌ Blog Notification: Error obteniendo suscriptores:', subscribersError);
+            throw new Error('Error obteniendo suscriptores');
         }
-      } catch (error) {
-        console.error('❌ Blog Notification: Error en batch ES:', error);
-        errors.push(`Error en lote español: ${error.message}`);
-      }
-    }
 
-    // Enviar emails en inglés
-    if (englishSubscribers.length > 0) {
-      try {
-        const emailsEn = englishSubscribers.map(subscriber => ({
-          from: 'IPCSolder Blog <noreply@ipcsolder.com>',
-          to: subscriber.email,
-          subject: `🔧 New article: ${blogData.title_en}`,
-          html: generateEmailTemplate(blogData, 'en', subscriber.unsubscribe_token)
-        }));
-
-        const { data: resultEn, error: errorEn } = await resend.batch.send(emailsEn);
-
-        if (errorEn) {
-          console.error('❌ Blog Notification: Error enviando emails EN:', errorEn);
-          errors.push(`Error enviando emails en inglés: ${errorEn.message}`);
-        } else {
-          totalSent += englishSubscribers.length;
-          console.log(`✅ Blog Notification: ${englishSubscribers.length} emails EN enviados`);
+        if (!subscribers || subscribers.length === 0) {
+            console.log('ℹ️ Blog Notification: No hay suscriptores activos');
+            return res.status(200).json({
+                success: true,
+                message: 'No hay suscriptores activos para enviar',
+                sent: 0
+            });
         }
-      } catch (error) {
-        console.error('❌ Blog Notification: Error en batch EN:', error);
-        errors.push(`Error en lote inglés: ${error.message}`);
-      }
+
+        console.log(`📊 Blog Notification: ${subscribers.length} suscriptores activos encontrados`);
+
+        // Separar suscriptores por idioma
+        const spanishSubscribers = subscribers.filter(sub => sub.language === 'es');
+        const englishSubscribers = subscribers.filter(sub => sub.language === 'en');
+
+        console.log(`🇪🇸 Suscriptores ES: ${spanishSubscribers.length}`);
+        console.log(`🇺🇸 Suscriptores EN: ${englishSubscribers.length}`);
+
+        let totalSent = 0;
+        const errors = [];
+
+        // Enviar emails en español
+        if (spanishSubscribers.length > 0) {
+            try {
+                const emailsEs = spanishSubscribers.map(subscriber => ({
+                    from: 'IPCSolder Blog <noreply@ipcsolder.com>',
+                    to: subscriber.email,
+                    subject: `🔧 Nuevo artículo: ${blogData.title_es}`,
+                    html: generateEmailTemplate(blogData, 'es', subscriber.unsubscribe_token)
+                }));
+
+                const { data: resultEs, error: errorEs } = await resend.batch.send(emailsEs);
+
+                if (errorEs) {
+                    console.error('❌ Blog Notification: Error enviando emails ES:', errorEs);
+                    errors.push(`Error enviando emails en español: ${errorEs.message}`);
+                } else {
+                    totalSent += spanishSubscribers.length;
+                    console.log(`✅ Blog Notification: ${spanishSubscribers.length} emails ES enviados`);
+                }
+            } catch (error) {
+                console.error('❌ Blog Notification: Error en batch ES:', error);
+                errors.push(`Error en lote español: ${error.message}`);
+            }
+        }
+
+        // Enviar emails en inglés
+        if (englishSubscribers.length > 0) {
+            try {
+                const emailsEn = englishSubscribers.map(subscriber => ({
+                    from: 'IPCSolder Blog <noreply@ipcsolder.com>',
+                    to: subscriber.email,
+                    subject: `🔧 New article: ${blogData.title_en}`,
+                    html: generateEmailTemplate(blogData, 'en', subscriber.unsubscribe_token)
+                }));
+
+                const { data: resultEn, error: errorEn } = await resend.batch.send(emailsEn);
+
+                if (errorEn) {
+                    console.error('❌ Blog Notification: Error enviando emails EN:', errorEn);
+                    errors.push(`Error enviando emails en inglés: ${errorEn.message}`);
+                } else {
+                    totalSent += englishSubscribers.length;
+                    console.log(`✅ Blog Notification: ${englishSubscribers.length} emails EN enviados`);
+                }
+            } catch (error) {
+                console.error('❌ Blog Notification: Error en batch EN:', error);
+                errors.push(`Error en lote inglés: ${error.message}`);
+            }
+        }
+
+        // Registrar el envío en logs (opcional - podemos crear tabla después)
+        console.log(`🎉 Blog Notification: Newsletter enviado exitosamente`, {
+            blogId: blogData.blogId,
+            totalSent,
+            errors: errors.length
+        });
+
+        // Respuesta
+        return res.status(200).json({
+            success: true,
+            message: `Newsletter enviado a ${totalSent} suscriptores`,
+            sent: totalSent,
+            subscribers: {
+                spanish: spanishSubscribers.length,
+                english: englishSubscribers.length
+            },
+            errors: errors.length > 0 ? errors : undefined
+        });
+
+    } catch (error) {
+        console.error('❌ Blog Notification: Error general:', error);
+
+        // Error de validación
+        if (error instanceof z.ZodError) {
+            return res.status(400).json({
+                success: false,
+                error: 'Datos del blog inválidos',
+                details: error.errors
+            });
+        }
+
+        // Error general
+        return res.status(500).json({
+            success: false,
+            error: 'Error interno del servidor'
+        });
     }
-
-    // Registrar el envío en logs (opcional - podemos crear tabla después)
-    console.log(`🎉 Blog Notification: Newsletter enviado exitosamente`, {
-      blogId: blogData.blogId,
-      totalSent,
-      errors: errors.length
-    });
-
-    // Respuesta
-    return res.status(200).json({
-      success: true,
-      message: `Newsletter enviado a ${totalSent} suscriptores`,
-      sent: totalSent,
-      subscribers: {
-        spanish: spanishSubscribers.length,
-        english: englishSubscribers.length
-      },
-      errors: errors.length > 0 ? errors : undefined
-    });
-
-  } catch (error) {
-    console.error('❌ Blog Notification: Error general:', error);
-
-    // Error de validación
-    if (error instanceof z.ZodError) {
-      return res.status(400).json({
-        success: false,
-        error: 'Datos del blog inválidos',
-        details: error.errors
-      });
-    }
-
-    // Error general
-    return res.status(500).json({
-      success: false,
-      error: 'Error interno del servidor'
-    });
-  }
 }
 
 // Función para generar template de email
 function generateEmailTemplate(blogData, language, unsubscribeToken) {
-  const isSpanish = language === 'es';
-  
-  const title = isSpanish ? blogData.title_es : blogData.title_en;
-  const excerpt = isSpanish ? blogData.excerpt_es : blogData.excerpt_en;
-  const category = isSpanish ? blogData.category_es : blogData.category_en;
-  
-  const blogUrl = `https://www.ipcsolder.com/blog/${blogData.slug}`;
-  const unsubscribeUrl = `https://www.ipcsolder.com/api/newsletter/unsubscribe?token=${unsubscribeToken}`;
-  
-  const texts = {
-    es: {
-      newArticle: '¡Nuevo Artículo Técnico!',
-      readFull: 'Leer Artículo Completo',
-      readingTime: 'Tiempo de lectura',
-      minutes: 'minutos',
-      category: 'Categoría',
-      unsubscribe: 'Desuscribirse',
-      footerText: 'Recibiste este email porque te suscribiste a nuestro blog técnico.',
-      companyTagline: 'Nosotros Somos Los Expertos'
-    },
-    en: {
-      newArticle: 'New Technical Article!',
-      readFull: 'Read Full Article',
-      readingTime: 'Reading time',
-      minutes: 'minutes',
-      category: 'Category',
-      unsubscribe: 'Unsubscribe',
-      footerText: 'You received this email because you subscribed to our technical blog.',
-      companyTagline: 'We Are The Experts'
-    }
-  };
+    const isSpanish = language === 'es';
 
-  const t = texts[language];
+    const title = isSpanish ? blogData.title_es : blogData.title_en;
+    const excerpt = isSpanish ? blogData.excerpt_es : blogData.excerpt_en;
+    const category = isSpanish ? blogData.category_es : blogData.category_en;
 
-  return `
+    const blogUrl = `https://www.ipcsolder.com/blog/${blogData.slug}?lang=${language}`;
+    const unsubscribeUrl = `https://www.ipcsolder.com/api/newsletter/unsubscribe?token=${unsubscribeToken}`;
+
+    const texts = {
+        es: {
+            newArticle: '¡Nuevo Artículo Técnico!',
+            readFull: 'Leer Artículo Completo',
+            readingTime: 'Tiempo de lectura',
+            minutes: 'minutos',
+            category: 'Categoría',
+            unsubscribe: 'Desuscribirse',
+            footerText: 'Recibiste este email porque te suscribiste a nuestro blog técnico.',
+            companyTagline: 'Nosotros Somos Los Expertos'
+        },
+        en: {
+            newArticle: 'New Technical Article!',
+            readFull: 'Read Full Article',
+            readingTime: 'Reading time',
+            minutes: 'minutes',
+            category: 'Category',
+            unsubscribe: 'Unsubscribe',
+            footerText: 'You received this email because you subscribed to our technical blog.',
+            companyTagline: 'We Are The Experts'
+        }
+    };
+
+    const t = texts[language];
+
+    return `
     <!DOCTYPE html>
     <html lang="${language}">
     <head>
