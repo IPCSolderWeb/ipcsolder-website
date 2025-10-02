@@ -1308,7 +1308,13 @@
         "title": "Suscríbete a Nuestro Blog",
         "description": "Recibe las últimas investigaciones, papers técnicos y conocimiento de expertos directamente en tu email. Una vez cada 2 meses.",
         "placeholder": "Tu email corporativo",
-        "button": "Suscribirse"
+        "button": "Suscribirse",
+        "sending": "Enviando...",
+        "errors": {
+          "emailRequired": "El email es requerido",
+          "generic": "Error al suscribirse. Inténtalo de nuevo.",
+          "network": "Error de conexión. Verifica tu internet e inténtalo de nuevo."
+        }
       },
       "post": {
         "notFound": "Post no encontrado",

@@ -167,27 +167,36 @@ const Home = ({ currentLanguage = 'es' }) => {
                 key={key}
                 className="group cursor-pointer"
                 onClick={() => {
+                  // Navegar a productos con filtro específico
                   navigate('/productos');
+                  // Guardar el filtro deseado en localStorage para que ProductsIndex lo use
+                  localStorage.setItem('selectedProductCategory', key);
                   window.scrollTo(0, 0);
                 }}
               >
-                <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-100 hover:-translate-y-2">
-                  <div className="w-15 h-15 bg-gradient-to-br from-blue-600 to-blue-900 rounded-xl flex items-center justify-center mb-6 text-white">
-                    <CheckCircle size={32} />
-                  </div>
+                <div 
+                  className="relative rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 h-full border border-gray-100 hover:-translate-y-2 overflow-hidden"
+                  style={{
+                    backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url(/images/categories/${key}.webp)`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    minHeight: '320px'
+                  }}
+                >
+                  <div className="relative z-10 p-8 h-full flex flex-col justify-between text-white">
+                    <div className="mb-6">
+                      <h3 className="text-2xl font-bold mb-3 group-hover:text-blue-200 transition-colors text-shadow">
+                        {t(`home.products.categories.${key}.title`)}
+                      </h3>
+                      <p className="text-blue-100 mb-5 leading-relaxed text-shadow">
+                        {t(`home.products.categories.${key}.description`)}
+                      </p>
+                    </div>
 
-                  <div className="mb-6">
-                    <h3 className="text-2xl font-bold text-blue-900 mb-3 group-hover:text-blue-600 transition-colors">
-                      {t(`home.products.categories.${key}.title`)}
-                    </h3>
-                    <p className="text-gray-600 mb-5 leading-relaxed">
-                      {t(`home.products.categories.${key}.description`)}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center text-blue-600 font-medium group-hover:text-blue-700">
-                    <span className="mr-2">{t('home.products.viewMore')}</span>
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
+                    <div className="flex items-center text-white font-medium group-hover:text-blue-200 transition-colors">
+                      <span className="mr-2">{t('home.products.viewMore')}</span>
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-200" />
+                    </div>
                   </div>
                 </div>
               </div>
