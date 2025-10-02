@@ -1,118 +1,118 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Crear cliente de Supabase
+// Crear cliente de Supabase con Service Role (bypassa RLS)
 const supabase = createClient(
-  process.env.VITE_SUPABASE_URL,
-  process.env.VITE_SUPABASE_ANON_KEY
+    process.env.VITE_SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 export default async function handler(req, res) {
-  // Permitir GET para enlaces de email
-  if (req.method !== 'GET') {
-    return res.status(405).json({ 
-      success: false, 
-      error: 'Método no permitido' 
-    });
-  }
-
-  try {
-    const { token } = req.query;
-
-    console.log('🚫 Newsletter Unsubscribe: Iniciando desuscripción', { token: token?.substring(0, 8) + '...' });
-
-    // Validar que el token existe
-    if (!token) {
-      return res.status(400).send(generateErrorPage(
-        'Token de desuscripción requerido',
-        'Unsubscribe token required'
-      ));
+    // Permitir GET para enlaces de email
+    if (req.method !== 'GET') {
+        return res.status(405).json({
+            success: false,
+            error: 'Método no permitido'
+        });
     }
 
-    // Buscar suscriptor con el token
-    const { data: subscriber, error: findError } = await supabase
-      .from('newsletter_subscribers')
-      .select('id, email, is_active, confirmed_at, language, unsubscribed_at')
-      .eq('unsubscribe_token', token)
-      .single();
+    try {
+        const { token } = req.query;
 
-    if (findError || !subscriber) {
-      console.error('❌ Newsletter Unsubscribe: Token no encontrado:', findError);
-      return res.status(404).send(generateErrorPage(
-        'Token de desuscripción inválido o expirado',
-        'Invalid or expired unsubscribe token'
-      ));
+        console.log('🚫 Newsletter Unsubscribe: Iniciando desuscripción', { token: token?.substring(0, 8) + '...' });
+
+        // Validar que el token existe
+        if (!token) {
+            return res.status(400).send(generateErrorPage(
+                'Token de desuscripción requerido',
+                'Unsubscribe token required'
+            ));
+        }
+
+        // Buscar suscriptor con el token
+        const { data: subscriber, error: findError } = await supabase
+            .from('newsletter_subscribers')
+            .select('id, email, is_active, confirmed_at, language, unsubscribed_at')
+            .eq('unsubscribe_token', token)
+            .single();
+
+        if (findError || !subscriber) {
+            console.error('❌ Newsletter Unsubscribe: Token no encontrado:', findError);
+            return res.status(404).send(generateErrorPage(
+                'Token de desuscripción inválido o expirado',
+                'Invalid or expired unsubscribe token'
+            ));
+        }
+
+        console.log('✅ Newsletter Unsubscribe: Suscriptor encontrado', {
+            email: subscriber.email,
+            language: subscriber.language
+        });
+
+        // Verificar si ya está desuscrito
+        if (!subscriber.is_active && subscriber.unsubscribed_at) {
+            console.log('ℹ️ Newsletter Unsubscribe: Ya estaba desuscrito');
+            return res.status(200).send(generateSuccessPage(
+                subscriber.language,
+                true // Ya desuscrito
+            ));
+        }
+
+        // Desuscribir
+        const { error: updateError } = await supabase
+            .from('newsletter_subscribers')
+            .update({
+                is_active: false,
+                unsubscribed_at: new Date().toISOString()
+            })
+            .eq('id', subscriber.id);
+
+        if (updateError) {
+            console.error('❌ Newsletter Unsubscribe: Error desuscribiendo:', updateError);
+            return res.status(500).send(generateErrorPage(
+                'Error interno procesando desuscripción',
+                'Internal error processing unsubscription'
+            ));
+        }
+
+        console.log('✅ Newsletter Unsubscribe: Desuscripción exitosa', subscriber.email);
+
+        // Página de éxito
+        return res.status(200).send(generateSuccessPage(subscriber.language, false));
+
+    } catch (error) {
+        console.error('❌ Newsletter Unsubscribe: Error general:', error);
+        return res.status(500).send(generateErrorPage(
+            'Error interno del servidor',
+            'Internal server error'
+        ));
     }
-
-    console.log('✅ Newsletter Unsubscribe: Suscriptor encontrado', { 
-      email: subscriber.email, 
-      language: subscriber.language 
-    });
-
-    // Verificar si ya está desuscrito
-    if (!subscriber.is_active && subscriber.unsubscribed_at) {
-      console.log('ℹ️ Newsletter Unsubscribe: Ya estaba desuscrito');
-      return res.status(200).send(generateSuccessPage(
-        subscriber.language,
-        true // Ya desuscrito
-      ));
-    }
-
-    // Desuscribir
-    const { error: updateError } = await supabase
-      .from('newsletter_subscribers')
-      .update({
-        is_active: false,
-        unsubscribed_at: new Date().toISOString()
-      })
-      .eq('id', subscriber.id);
-
-    if (updateError) {
-      console.error('❌ Newsletter Unsubscribe: Error desuscribiendo:', updateError);
-      return res.status(500).send(generateErrorPage(
-        'Error interno procesando desuscripción',
-        'Internal error processing unsubscription'
-      ));
-    }
-
-    console.log('✅ Newsletter Unsubscribe: Desuscripción exitosa', subscriber.email);
-
-    // Página de éxito
-    return res.status(200).send(generateSuccessPage(subscriber.language, false));
-
-  } catch (error) {
-    console.error('❌ Newsletter Unsubscribe: Error general:', error);
-    return res.status(500).send(generateErrorPage(
-      'Error interno del servidor',
-      'Internal server error'
-    ));
-  }
 }
 
 // Función para generar página de éxito
 function generateSuccessPage(language, alreadyUnsubscribed) {
-  const isSpanish = language === 'es';
-  
-  const title = isSpanish ? 'Desuscripción Completada' : 'Unsubscription Completed';
-  const heading = alreadyUnsubscribed 
-    ? (isSpanish ? 'Ya estabas desuscrito' : 'Already unsubscribed')
-    : (isSpanish ? 'Desuscripción Completada' : 'Unsubscription Completed');
-  
-  const message = alreadyUnsubscribed
-    ? (isSpanish 
-        ? 'Tu email ya estaba desuscrito de nuestro newsletter.'
-        : 'Your email was already unsubscribed from our newsletter.')
-    : (isSpanish
-        ? 'Has sido desuscrito exitosamente de nuestro newsletter. Ya no recibirás más emails de nosotros. Lamentamos verte partir.'
-        : 'You have been successfully unsubscribed from our newsletter. You will no longer receive emails from us. We\'re sorry to see you go.');
+    const isSpanish = language === 'es';
 
-  const resubscribeText = isSpanish 
-    ? 'Si cambias de opinión, puedes suscribirte nuevamente en cualquier momento visitando nuestro blog.'
-    : 'If you change your mind, you can subscribe again anytime by visiting our blog.';
+    const title = isSpanish ? 'Desuscripción Completada' : 'Unsubscription Completed';
+    const heading = alreadyUnsubscribed
+        ? (isSpanish ? 'Ya estabas desuscrito' : 'Already unsubscribed')
+        : (isSpanish ? 'Desuscripción Completada' : 'Unsubscription Completed');
 
-  const blogButton = isSpanish ? 'Ver Blog' : 'View Blog';
-  const homeButton = isSpanish ? 'Ir al Inicio' : 'Go Home';
+    const message = alreadyUnsubscribed
+        ? (isSpanish
+            ? 'Tu email ya estaba desuscrito de nuestro newsletter.'
+            : 'Your email was already unsubscribed from our newsletter.')
+        : (isSpanish
+            ? 'Has sido desuscrito exitosamente de nuestro newsletter. Ya no recibirás más emails de nosotros. Lamentamos verte partir.'
+            : 'You have been successfully unsubscribed from our newsletter. You will no longer receive emails from us. We\'re sorry to see you go.');
 
-  return `
+    const resubscribeText = isSpanish
+        ? 'Si cambias de opinión, puedes suscribirte nuevamente en cualquier momento visitando nuestro blog.'
+        : 'If you change your mind, you can subscribe again anytime by visiting our blog.';
+
+    const blogButton = isSpanish ? 'Ver Blog' : 'View Blog';
+    const homeButton = isSpanish ? 'Ir al Inicio' : 'Go Home';
+
+    return `
     <!DOCTYPE html>
     <html lang="${language}">
     <head>
@@ -247,7 +247,7 @@ function generateSuccessPage(language, alreadyUnsubscribed) {
 
 // Función para generar página de error
 function generateErrorPage(messageEs, messageEn) {
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>

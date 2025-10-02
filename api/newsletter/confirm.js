@@ -1,9 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
 
-// Crear cliente de Supabase
+// Crear cliente de Supabase con Service Role (bypassa RLS)
 const supabase = createClient(
     process.env.VITE_SUPABASE_URL,
-    process.env.VITE_SUPABASE_ANON_KEY
+    process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
 export default async function handler(req, res) {
