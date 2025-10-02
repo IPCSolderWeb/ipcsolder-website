@@ -187,7 +187,7 @@ export default async function handler(req, res) {
 async function sendConfirmationEmail(email, token, language) {
   console.log('📧 Newsletter Subscribe: Enviando email de confirmación', { email, language });
 
-  const confirmUrl = `${process.env.VERCEL_URL || 'http://localhost:3000'}/api/newsletter/confirm?token=${token}`;
+  const confirmUrl = `https://www.ipcsolder.com/api/newsletter/confirm?token=${token}`;
   
   const subject = language === 'es' 
     ? 'Confirma tu suscripción al blog de IPCSolder'
