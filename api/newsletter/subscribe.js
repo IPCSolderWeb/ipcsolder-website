@@ -1,9 +1,15 @@
-import { supabase } from '../../src/lib/supabase.js';
+import { createClient } from '@supabase/supabase-js';
 import { Resend } from 'resend';
 import { z } from 'zod';
 import crypto from 'crypto';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
+// Crear cliente de Supabase
+const supabase = createClient(
+  process.env.VITE_SUPABASE_URL,
+  process.env.VITE_SUPABASE_ANON_KEY
+);
 
 // Esquema de validación
 const subscribeSchema = z.object({

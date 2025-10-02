@@ -1,4 +1,10 @@
-import { supabase } from '../../src/lib/supabase.js';
+import { createClient } from '@supabase/supabase-js';
+
+// Crear cliente de Supabase
+const supabase = createClient(
+  process.env.VITE_SUPABASE_URL,
+  process.env.VITE_SUPABASE_ANON_KEY
+);
 
 export default async function handler(req, res) {
   // Permitir GET para enlaces de email

@@ -1,115 +1,121 @@
-import { supabase } from '../../src/lib/supabase.js';
+import { createClient } from '@supabase/supabase-js';
+
+// Crear cliente de Supabase
+const supabase = createClient(
+    process.env.VITE_SUPABASE_URL,
+    process.env.VITE_SUPABASE_ANON_KEY
+);
 
 export default async function handler(req, res) {
-  // Permitir GET para enlaces de email
-  if (req.method !== 'GET') {
-    return res.status(405).json({ 
-      success: false, 
-      error: 'Método no permitido' 
-    });
-  }
-
-  try {
-    const { token } = req.query;
-
-    console.log('🔐 Newsletter Confirm: Iniciando confirmación', { token: token?.substring(0, 8) + '...' });
-
-    // Validar que el token existe
-    if (!token) {
-      return res.status(400).send(generateErrorPage('Token de confirmación requerido', 'Confirmation token required'));
+    // Permitir GET para enlaces de email
+    if (req.method !== 'GET') {
+        return res.status(405).json({
+            success: false,
+            error: 'Método no permitido'
+        });
     }
 
-    // Buscar suscriptor con el token
-    const { data: subscriber, error: findError } = await supabase
-      .from('newsletter_subscribers')
-      .select('id, email, is_active, confirmed_at, language, unsubscribed_at')
-      .eq('confirmation_token', token)
-      .single();
+    try {
+        const { token } = req.query;
 
-    if (findError || !subscriber) {
-      console.error('❌ Newsletter Confirm: Token no encontrado:', findError);
-      return res.status(404).send(generateErrorPage(
-        'Token de confirmación inválido o expirado',
-        'Invalid or expired confirmation token'
-      ));
+        console.log('🔐 Newsletter Confirm: Iniciando confirmación', { token: token?.substring(0, 8) + '...' });
+
+        // Validar que el token existe
+        if (!token) {
+            return res.status(400).send(generateErrorPage('Token de confirmación requerido', 'Confirmation token required'));
+        }
+
+        // Buscar suscriptor con el token
+        const { data: subscriber, error: findError } = await supabase
+            .from('newsletter_subscribers')
+            .select('id, email, is_active, confirmed_at, language, unsubscribed_at')
+            .eq('confirmation_token', token)
+            .single();
+
+        if (findError || !subscriber) {
+            console.error('❌ Newsletter Confirm: Token no encontrado:', findError);
+            return res.status(404).send(generateErrorPage(
+                'Token de confirmación inválido o expirado',
+                'Invalid or expired confirmation token'
+            ));
+        }
+
+        console.log('✅ Newsletter Confirm: Suscriptor encontrado', {
+            email: subscriber.email,
+            language: subscriber.language
+        });
+
+        // Verificar si ya está confirmado
+        if (subscriber.is_active && subscriber.confirmed_at) {
+            console.log('ℹ️ Newsletter Confirm: Ya estaba confirmado');
+            return res.status(200).send(generateSuccessPage(
+                subscriber.language,
+                true // Ya confirmado
+            ));
+        }
+
+        // Verificar si se había desuscrito (caso edge)
+        if (subscriber.unsubscribed_at) {
+            console.log('⚠️ Newsletter Confirm: Intentando confirmar suscripción desuscrita');
+            return res.status(400).send(generateErrorPage(
+                'Esta suscripción fue cancelada previamente',
+                'This subscription was previously cancelled'
+            ));
+        }
+
+        // Confirmar suscripción
+        const { error: updateError } = await supabase
+            .from('newsletter_subscribers')
+            .update({
+                is_active: true,
+                confirmed_at: new Date().toISOString(),
+                confirmation_token: null // Limpiar token usado
+            })
+            .eq('id', subscriber.id);
+
+        if (updateError) {
+            console.error('❌ Newsletter Confirm: Error confirmando suscripción:', updateError);
+            return res.status(500).send(generateErrorPage(
+                'Error interno confirmando suscripción',
+                'Internal error confirming subscription'
+            ));
+        }
+
+        console.log('🎉 Newsletter Confirm: Suscripción confirmada exitosamente', subscriber.email);
+
+        // Página de éxito
+        return res.status(200).send(generateSuccessPage(subscriber.language, false));
+
+    } catch (error) {
+        console.error('❌ Newsletter Confirm: Error general:', error);
+        return res.status(500).send(generateErrorPage(
+            'Error interno del servidor',
+            'Internal server error'
+        ));
     }
-
-    console.log('✅ Newsletter Confirm: Suscriptor encontrado', { 
-      email: subscriber.email, 
-      language: subscriber.language 
-    });
-
-    // Verificar si ya está confirmado
-    if (subscriber.is_active && subscriber.confirmed_at) {
-      console.log('ℹ️ Newsletter Confirm: Ya estaba confirmado');
-      return res.status(200).send(generateSuccessPage(
-        subscriber.language,
-        true // Ya confirmado
-      ));
-    }
-
-    // Verificar si se había desuscrito (caso edge)
-    if (subscriber.unsubscribed_at) {
-      console.log('⚠️ Newsletter Confirm: Intentando confirmar suscripción desuscrita');
-      return res.status(400).send(generateErrorPage(
-        'Esta suscripción fue cancelada previamente',
-        'This subscription was previously cancelled'
-      ));
-    }
-
-    // Confirmar suscripción
-    const { error: updateError } = await supabase
-      .from('newsletter_subscribers')
-      .update({
-        is_active: true,
-        confirmed_at: new Date().toISOString(),
-        confirmation_token: null // Limpiar token usado
-      })
-      .eq('id', subscriber.id);
-
-    if (updateError) {
-      console.error('❌ Newsletter Confirm: Error confirmando suscripción:', updateError);
-      return res.status(500).send(generateErrorPage(
-        'Error interno confirmando suscripción',
-        'Internal error confirming subscription'
-      ));
-    }
-
-    console.log('🎉 Newsletter Confirm: Suscripción confirmada exitosamente', subscriber.email);
-
-    // Página de éxito
-    return res.status(200).send(generateSuccessPage(subscriber.language, false));
-
-  } catch (error) {
-    console.error('❌ Newsletter Confirm: Error general:', error);
-    return res.status(500).send(generateErrorPage(
-      'Error interno del servidor',
-      'Internal server error'
-    ));
-  }
 }
 
 // Función para generar página de éxito
 function generateSuccessPage(language, alreadyConfirmed) {
-  const isSpanish = language === 'es';
-  
-  const title = isSpanish ? '¡Suscripción Confirmada!' : 'Subscription Confirmed!';
-  const heading = alreadyConfirmed 
-    ? (isSpanish ? '¡Ya estabas suscrito!' : 'Already subscribed!')
-    : (isSpanish ? '¡Suscripción Confirmada!' : 'Subscription Confirmed!');
-  
-  const message = alreadyConfirmed
-    ? (isSpanish 
-        ? 'Tu suscripción ya estaba activa. Seguirás recibiendo nuestros artículos técnicos.'
-        : 'Your subscription was already active. You will continue receiving our technical articles.')
-    : (isSpanish
-        ? '¡Gracias por confirmar tu suscripción! Ahora recibirás nuestros últimos artículos sobre soldadura electrónica, componentes y tecnología industrial.'
-        : 'Thank you for confirming your subscription! You will now receive our latest articles about electronic soldering, components and industrial technology.');
+    const isSpanish = language === 'es';
 
-  const blogButton = isSpanish ? 'Ver Blog' : 'View Blog';
-  const homeButton = isSpanish ? 'Ir al Inicio' : 'Go Home';
+    const title = isSpanish ? '¡Suscripción Confirmada!' : 'Subscription Confirmed!';
+    const heading = alreadyConfirmed
+        ? (isSpanish ? '¡Ya estabas suscrito!' : 'Already subscribed!')
+        : (isSpanish ? '¡Suscripción Confirmada!' : 'Subscription Confirmed!');
 
-  return `
+    const message = alreadyConfirmed
+        ? (isSpanish
+            ? 'Tu suscripción ya estaba activa. Seguirás recibiendo nuestros artículos técnicos.'
+            : 'Your subscription was already active. You will continue receiving our technical articles.')
+        : (isSpanish
+            ? '¡Gracias por confirmar tu suscripción! Ahora recibirás nuestros últimos artículos sobre soldadura electrónica, componentes y tecnología industrial.'
+            : 'Thank you for confirming your subscription! You will now receive our latest articles about electronic soldering, components and industrial technology.');
+
+    const blogButton = isSpanish ? 'Ver Blog' : 'View Blog';
+    const homeButton = isSpanish ? 'Ir al Inicio' : 'Go Home';
+
+    return `
     <!DOCTYPE html>
     <html lang="${language}">
     <head>
@@ -234,7 +240,7 @@ function generateSuccessPage(language, alreadyConfirmed) {
 
 // Función para generar página de error
 function generateErrorPage(messageEs, messageEn) {
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
