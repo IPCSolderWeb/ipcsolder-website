@@ -7,8 +7,8 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-    // Permitir GET para enlaces de email
-    if (req.method !== 'GET') {
+    // Permitir GET para mostrar confirmación y POST para procesar
+    if (req.method !== 'GET' && req.method !== 'POST') {
         return res.status(405).json({
             success: false,
             error: 'Método no permitido'
@@ -17,8 +17,6 @@ export default async function handler(req, res) {
 
     try {
         const { token } = req.query;
-
-        console.log('🚫 Newsletter Unsubscribe: Iniciando desuscripción', { token: token?.substring(0, 8) + '...' });
 
         // Validar que el token existe
         if (!token) {
@@ -43,41 +41,62 @@ export default async function handler(req, res) {
             ));
         }
 
-        console.log('✅ Newsletter Unsubscribe: Suscriptor encontrado', {
-            email: subscriber.email,
-            language: subscriber.language
-        });
+        // Si es GET, mostrar página de confirmación
+        if (req.method === 'GET') {
+            console.log('👀 Newsletter Unsubscribe: Mostrando confirmación', {
+                email: subscriber.email,
+                language: subscriber.language
+            });
 
-        // Verificar si ya está desuscrito
-        if (!subscriber.is_active && subscriber.unsubscribed_at) {
-            console.log('ℹ️ Newsletter Unsubscribe: Ya estaba desuscrito');
-            return res.status(200).send(generateSuccessPage(
-                subscriber.language,
-                true // Ya desuscrito
-            ));
+            // Verificar si ya está desuscrito
+            if (!subscriber.is_active && subscriber.unsubscribed_at) {
+                return res.status(200).send(generateSuccessPage(
+                    subscriber.language,
+                    true // Ya desuscrito
+                ));
+            }
+
+            // Mostrar página de confirmación
+            return res.status(200).send(generateConfirmationPage(subscriber, token));
         }
 
-        // Desuscribir
-        const { error: updateError } = await supabase
-            .from('newsletter_subscribers')
-            .update({
-                is_active: false,
-                unsubscribed_at: new Date().toISOString()
-            })
-            .eq('id', subscriber.id);
+        // Si es POST, procesar desuscripción
+        if (req.method === 'POST') {
+            console.log('🚫 Newsletter Unsubscribe: Procesando desuscripción', {
+                email: subscriber.email,
+                language: subscriber.language
+            });
 
-        if (updateError) {
-            console.error('❌ Newsletter Unsubscribe: Error desuscribiendo:', updateError);
-            return res.status(500).send(generateErrorPage(
-                'Error interno procesando desuscripción',
-                'Internal error processing unsubscription'
-            ));
+            // Verificar si ya está desuscrito
+            if (!subscriber.is_active && subscriber.unsubscribed_at) {
+                return res.status(200).send(generateSuccessPage(
+                    subscriber.language,
+                    true // Ya desuscrito
+                ));
+            }
+
+            // Desuscribir
+            const { error: updateError } = await supabase
+                .from('newsletter_subscribers')
+                .update({
+                    is_active: false,
+                    unsubscribed_at: new Date().toISOString()
+                })
+                .eq('id', subscriber.id);
+
+            if (updateError) {
+                console.error('❌ Newsletter Unsubscribe: Error desuscribiendo:', updateError);
+                return res.status(500).send(generateErrorPage(
+                    'Error interno procesando desuscripción',
+                    'Internal error processing unsubscription'
+                ));
+            }
+
+            console.log('✅ Newsletter Unsubscribe: Desuscripción exitosa', subscriber.email);
+
+            // Página de éxito
+            return res.status(200).send(generateSuccessPage(subscriber.language, false));
         }
-
-        console.log('✅ Newsletter Unsubscribe: Desuscripción exitosa', subscriber.email);
-
-        // Página de éxito
-        return res.status(200).send(generateSuccessPage(subscriber.language, false));
 
     } catch (error) {
         console.error('❌ Newsletter Unsubscribe: Error general:', error);
@@ -86,6 +105,164 @@ export default async function handler(req, res) {
             'Internal server error'
         ));
     }
+}
+
+// Función para generar página de confirmación
+function generateConfirmationPage(subscriber, token) {
+  const isSpanish = subscriber.language === 'es';
+  
+  const title = isSpanish ? 'Confirmar Desuscripción' : 'Confirm Unsubscription';
+  const heading = isSpanish ? '¿Deseas desuscribirte?' : 'Do you want to unsubscribe?';
+  const message = isSpanish
+    ? `Estás a punto de desuscribirte de nuestro newsletter técnico con el email: <strong>${subscriber.email}</strong>`
+    : `You are about to unsubscribe from our technical newsletter with email: <strong>${subscriber.email}</strong>`;
+  
+  const confirmText = isSpanish
+    ? 'Ya no recibirás más emails de nuestro blog técnico. Puedes volver a suscribirte en cualquier momento.'
+    : 'You will no longer receive emails from our technical blog. You can resubscribe at any time.';
+
+  const confirmButton = isSpanish ? 'Sí, Desuscribirme' : 'Yes, Unsubscribe Me';
+  const cancelButton = isSpanish ? 'Cancelar' : 'Cancel';
+
+  return `
+    <!DOCTYPE html>
+    <html lang="${subscriber.language}">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>${title} - IPCSolder</title>
+      <style>
+        body {
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          line-height: 1.6;
+          color: #333;
+          background: linear-gradient(135deg, #f3f4f6, #e5e7eb);
+          margin: 0;
+          padding: 20px;
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .container {
+          background: white;
+          max-width: 500px;
+          width: 100%;
+          border-radius: 16px;
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+          overflow: hidden;
+        }
+        .header {
+          background: linear-gradient(135deg, #dc2626, #ef4444);
+          padding: 40px 30px;
+          text-align: center;
+          color: white;
+        }
+        .header h1 {
+          margin: 0 0 10px 0;
+          font-size: 32px;
+          font-weight: bold;
+        }
+        .header p {
+          margin: 0;
+          opacity: 0.9;
+          font-size: 16px;
+        }
+        .content {
+          padding: 40px 30px;
+          text-align: center;
+        }
+        .icon {
+          font-size: 64px;
+          margin-bottom: 20px;
+        }
+        .content h2 {
+          color: #dc2626;
+          margin: 0 0 20px 0;
+          font-size: 28px;
+        }
+        .content p {
+          color: #6b7280;
+          margin-bottom: 20px;
+          font-size: 16px;
+        }
+        .warning-box {
+          background: #fef3c7;
+          border: 1px solid #f59e0b;
+          padding: 20px;
+          border-radius: 8px;
+          margin: 20px 0 30px 0;
+          font-size: 14px;
+          color: #92400e;
+        }
+        .buttons {
+          display: flex;
+          gap: 15px;
+          flex-direction: column;
+        }
+        .btn {
+          padding: 15px 25px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 16px;
+          transition: all 0.2s;
+          display: inline-block;
+          border: none;
+          cursor: pointer;
+        }
+        .btn-danger {
+          background: #dc2626;
+          color: white;
+        }
+        .btn-danger:hover {
+          background: #b91c1c;
+          transform: translateY(-1px);
+        }
+        .btn-secondary {
+          background: #f3f4f6;
+          color: #374151;
+          border: 1px solid #d1d5db;
+        }
+        .btn-secondary:hover {
+          background: #e5e7eb;
+          transform: translateY(-1px);
+        }
+        @media (min-width: 480px) {
+          .buttons {
+            flex-direction: row;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>IPCSolder</h1>
+          <p>${isSpanish ? 'Nosotros Somos Los Expertos' : 'We Are The Experts'}</p>
+        </div>
+        
+        <div class="content">
+          <div class="icon">⚠️</div>
+          <h2>${heading}</h2>
+          <p>${message}</p>
+          
+          <div class="warning-box">
+            ${confirmText}
+          </div>
+          
+          <form method="POST" style="display: inline;">
+            <input type="hidden" name="token" value="${token}">
+            <div class="buttons">
+              <button type="submit" class="btn btn-danger">${confirmButton}</button>
+              <a href="/blog" class="btn btn-secondary">${cancelButton}</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
 }
 
 // Función para generar página de éxito
