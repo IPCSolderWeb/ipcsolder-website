@@ -181,6 +181,8 @@ function generateSuccessPage(language, alreadyConfirmed) {
           display: flex;
           gap: 15px;
           flex-direction: column;
+          align-items: center;
+          justify-content: center;
         }
         .btn {
           padding: 15px 25px;
@@ -211,6 +213,7 @@ function generateSuccessPage(language, alreadyConfirmed) {
         @media (min-width: 480px) {
           .buttons {
             flex-direction: row;
+            justify-content: center;
           }
         }
       </style>
