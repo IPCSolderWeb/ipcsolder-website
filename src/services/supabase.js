@@ -190,12 +190,74 @@ export const adminService = {
   },
 
   async deletePost(id) {
-    const { error } = await supabase
-      .from('posts')
-      .delete()
-      .eq('id', id)
+    try {
+      // 1. Obtener el post para verificar si tiene imagen destacada
+      const { data: post, error: fetchError } = await supabase
+        .from('posts')
+        .select('featured_image_url')
+        .eq('id', id)
+        .single()
 
-    if (error) throw error
+      if (fetchError) throw fetchError
+
+      // 2. Si tiene imagen destacada, eliminarla del bucket
+      if (post?.featured_image_url) {
+        try {
+          const imageUrl = post.featured_image_url
+          
+          // Extraer el path del archivo desde la URL - manejo más robusto
+          let filePath = null
+          
+          // Intentar diferentes formatos de URL de Supabase
+          if (imageUrl.includes('/storage/v1/object/public/blog-images/')) {
+            const urlParts = imageUrl.split('/storage/v1/object/public/blog-images/')
+            if (urlParts.length > 1) {
+              filePath = decodeURIComponent(urlParts[1])
+            }
+          } else if (imageUrl.includes('/blog-images/')) {
+            // Formato alternativo
+            const urlParts = imageUrl.split('/blog-images/')
+            if (urlParts.length > 1) {
+              filePath = decodeURIComponent(urlParts[1])
+            }
+          }
+          
+          if (filePath) {
+            // Importar imageService dinámicamente para evitar dependencias circulares
+            const { default: imageService } = await import('../services/imageService')
+            
+            // Eliminar del bucket de Supabase
+            const deleteResult = await imageService.deleteImage(filePath)
+            
+            if (deleteResult.success) {
+              console.log('✅ Imagen eliminada del bucket:', filePath)
+            } else {
+              console.warn('⚠️ No se pudo eliminar la imagen del bucket:', deleteResult.error)
+              // Continuamos con la eliminación del post aunque falle la imagen
+            }
+          } else {
+            console.warn('⚠️ No se pudo extraer el path de la URL:', imageUrl)
+          }
+        } catch (imageError) {
+          console.warn('⚠️ Error eliminando imagen del bucket:', imageError)
+          // Continuamos con la eliminación del post aunque falle la imagen
+        }
+      }
+
+      // 3. Eliminar el post de la base de datos
+      const { error: deleteError } = await supabase
+        .from('posts')
+        .delete()
+        .eq('id', id)
+
+      if (deleteError) throw deleteError
+
+      console.log('✅ Post eliminado completamente (BD + imagen)')
+      
+    } catch (error) {
+      console.error('❌ Error eliminando post:', error)
+      throw error
+    }
   },
 
   // CRUD de contenido de posts
