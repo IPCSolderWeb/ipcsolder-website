@@ -14,7 +14,9 @@ import MaintenanceChecker from './components/MaintenanceChecker';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import PostEditor from './pages/admin/PostEditor';
+import Newsletter from './pages/admin/Newsletter';
 import ProtectedRoute from './components/admin/ProtectedRoute';
+import AdminLayout from './components/admin/AdminLayout';
 
 // Importar estilos (si no están en main.jsx)
 import './index.css';
@@ -209,7 +211,7 @@ const App = () => {
         <div className="App">
           {/* Rutas de la aplicación */}
           <Routes>
-            {/* Admin Routes - Sin Layout principal */}
+            {/* Admin Routes */}
             <Route 
               path="/admin/login" 
               element={<AdminLogin />} 
@@ -218,27 +220,36 @@ const App = () => {
             <Route 
               path="/admin/dashboard" 
               element={
-                <ProtectedRoute>
+                <AdminLayout>
                   <AdminDashboard />
-                </ProtectedRoute>
+                </AdminLayout>
+              } 
+            />
+            
+            <Route 
+              path="/admin/newsletter" 
+              element={
+                <AdminLayout>
+                  <Newsletter />
+                </AdminLayout>
               } 
             />
             
             <Route 
               path="/admin/posts/new" 
               element={
-                <ProtectedRoute>
+                <AdminLayout>
                   <PostEditor />
-                </ProtectedRoute>
+                </AdminLayout>
               } 
             />
             
             <Route 
               path="/admin/posts/edit/:id" 
               element={
-                <ProtectedRoute>
+                <AdminLayout>
                   <PostEditor />
-                </ProtectedRoute>
+                </AdminLayout>
               } 
             />
 
