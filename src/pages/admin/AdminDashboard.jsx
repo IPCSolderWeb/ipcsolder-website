@@ -11,32 +11,36 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState('')
   const [deleteModal, setDeleteModal] = useState({ show: false, postId: null, postTitle: '' })
+  const [currentPage, setCurrentPage] = useState(1)
+  const [totalPosts, setTotalPosts] = useState(0)
+  const [loadingMore, setLoadingMore] = useState(false)
+  const postsPerPage = 25
   const navigate = useNavigate()
   const location = useLocation()
-  const { user, loading: authLoading } = useAuth()
   const { toasts, showSuccess, showError, showWarning, removeToast } = useToast()
 
   // Mostrar mensaje de bienvenida solo cuando viene del login
   useEffect(() => {
-    if (location.state?.fromLogin && user) {
+    if (location.state?.fromLogin) {
       showSuccess('¡Bienvenido al panel de administración!', '👋 ¡Hola!')
       // Limpiar el estado para evitar que se muestre de nuevo
       navigate(location.pathname, { replace: true, state: {} })
     }
-  }, [location.state, user, showSuccess, navigate, location.pathname])
+  }, [location.state, showSuccess, navigate, location.pathname])
 
   // Cargar datos
   useEffect(() => {
     const loadData = async () => {
-      if (!user || authLoading) return
       
       try {
-        const [postsData, categoriesData] = await Promise.all([
-          adminService.getAllPosts(),
-          blogService.getCategories()
+        const [postsData, categoriesData, totalCount] = await Promise.all([
+          adminService.getAllPosts(1, postsPerPage),
+          blogService.getCategories(),
+          adminService.getPostsCount()
         ])
         setPosts(postsData)
         setCategories(categoriesData)
+        setTotalPosts(totalCount)
       } catch (error) {
         console.error('Error loading data:', error)
         showError('Error al cargar los datos del dashboard', 'Error de conexión')
@@ -46,12 +50,31 @@ const AdminDashboard = () => {
     }
 
     loadData()
-  }, [user, authLoading])
+  }, [])
+
+  // Cargar más posts
+  const loadMorePosts = async () => {
+    if (loadingMore || posts.length >= totalPosts) return
+
+    try {
+      setLoadingMore(true)
+      const nextPage = currentPage + 1
+      const morePosts = await adminService.getAllPosts(nextPage, postsPerPage)
+      setPosts(prevPosts => [...prevPosts, ...morePosts])
+      setCurrentPage(nextPage)
+    } catch (error) {
+      console.error('Error loading more posts:', error)
+      showError('Error al cargar más posts', 'Error de conexión')
+    } finally {
+      setLoadingMore(false)
+    }
+  }
 
   const handleDeletePost = async (postId) => {
     try {
       await adminService.deletePost(postId)
       setPosts(posts.filter(post => post.id !== postId))
+      setTotalPosts(prev => prev - 1)
       showSuccess('Post eliminado correctamente', 'Eliminación exitosa')
       setDeleteModal({ show: false, postId: null, postTitle: '' })
     } catch (error) {
@@ -91,7 +114,7 @@ const AdminDashboard = () => {
            excerpt.toLowerCase().includes(searchTerm.toLowerCase())
   })
 
-  if (loading || authLoading) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -113,7 +136,7 @@ const AdminDashboard = () => {
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-600">Total Posts</p>
-              <p className="text-2xl font-bold text-gray-900">{posts.length}</p>
+              <p className="text-2xl font-bold text-gray-900">{totalPosts}</p>
             </div>
           </div>
         </div>
@@ -262,6 +285,26 @@ const AdminDashboard = () => {
             </tbody>
           </table>
         </div>
+        
+        {/* Load More Button */}
+        {posts.length < totalPosts && (
+          <div className="px-6 py-4 border-t border-gray-200 text-center">
+            <button
+              onClick={loadMorePosts}
+              disabled={loadingMore}
+              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loadingMore ? (
+                <>
+                  <div className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Cargando...
+                </>
+              ) : (
+                `Cargar más posts (${posts.length} de ${totalPosts})`
+              )}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Delete Post Confirmation Modal */}

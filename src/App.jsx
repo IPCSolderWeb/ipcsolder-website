@@ -238,7 +238,7 @@ const App = () => {
             <Route 
               path="/admin/posts/new" 
               element={
-                <AdminLayout>
+                <AdminLayout fullWidth={true}>
                   <PostEditor />
                 </AdminLayout>
               } 
@@ -247,7 +247,7 @@ const App = () => {
             <Route 
               path="/admin/posts/edit/:id" 
               element={
-                <AdminLayout>
+                <AdminLayout fullWidth={true}>
                   <PostEditor />
                 </AdminLayout>
               } 

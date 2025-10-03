@@ -223,19 +223,33 @@ export const adminService = {
     return data
   },
 
-  // Obtener todos los posts para admin
-  async getAllPosts() {
+  // Obtener todos los posts para admin con paginación
+  async getAllPosts(page = 1, limit = 25) {
+    const from = (page - 1) * limit
+    const to = from + limit - 1
+
     const { data, error } = await supabase
       .from('posts')
       .select(`
         *,
-        post_contents(*),
-        categories(*)
+        post_contents(title, excerpt, language),
+        categories(name_es, name_en)
       `)
       .order('created_at', { ascending: false })
+      .range(from, to)
 
     if (error) throw error
     return data || []
+  },
+
+  // Obtener conteo total de posts para paginación
+  async getPostsCount() {
+    const { count, error } = await supabase
+      .from('posts')
+      .select('*', { count: 'exact', head: true })
+
+    if (error) throw error
+    return count || 0
   }
 }
 

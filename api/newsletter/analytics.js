@@ -71,12 +71,22 @@ export default async function handler(req, res) {
     const totalSignups = subscribers.length + unconfirmedSubscribers.length;
     const confirmationRate = totalSignups > 0 ? (subscribers.length / totalSignups * 100).toFixed(1) : 0;
 
+    // Obtener los últimos 5 suscriptores confirmados
+    const recentSubscribersList = subscribers
+      .sort((a, b) => new Date(b.confirmed_at) - new Date(a.confirmed_at))
+      .slice(0, 5)
+      .map(sub => ({
+        email: sub.email,
+        language: sub.language,
+        confirmedAt: sub.confirmed_at
+      }));
+
     const analytics = {
       totalSubscribers,
       recentSubscribers,
       confirmationRate: parseFloat(confirmationRate),
       languageBreakdown: languageStats,
-      monthlyGrowth: monthlyStats,
+      recentSubscribersList,
       lastUpdated: new Date().toISOString()
     };
 

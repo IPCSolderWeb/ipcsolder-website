@@ -6,7 +6,7 @@ const Newsletter = () => {
         recentSubscribers: 0,
         confirmationRate: 0,
         languageBreakdown: { es: 0, en: 0 },
-        monthlyGrowth: [],
+        recentSubscribersList: [],
         lastUpdated: null
     })
     const [loading, setLoading] = useState(true)
@@ -245,40 +245,39 @@ const Newsletter = () => {
                 </div>
             </div>
 
-            {/* Monthly Growth Chart */}
+            {/* Recent Subscribers */}
             <div className="bg-white rounded-lg shadow p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Crecimiento Mensual</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Últimos Suscriptores</h3>
                 <div className="space-y-3">
-                    {analytics.monthlyGrowth.map((month, index) => (
-                        <div key={index} className="flex items-center justify-between py-2">
-                            <div className="flex items-center">
-                                <span className="text-lg mr-3">📊</span>
-                                <div>
-                                    <p className="text-sm font-medium text-gray-900 capitalize">
-                                        {month.month}
-                                    </p>
+                    {analytics.recentSubscribersList && analytics.recentSubscribersList.length > 0 ? (
+                        analytics.recentSubscribersList.map((subscriber, index) => (
+                            <div key={index} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
+                                <div className="flex items-center">
+                                    <span className="text-lg mr-3">👤</span>
+                                    <div>
+                                        <p className="text-sm font-medium text-gray-900">
+                                            {subscriber.email}
+                                        </p>
+                                        <p className="text-xs text-gray-500">
+                                            {subscriber.language === 'es' ? '🇪🇸 Español' : '🇺🇸 English'}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex items-center">
-                                <div className="w-32 bg-gray-200 rounded-full h-2 mr-3">
-                                    <div
-                                        className="bg-blue-500 h-2 rounded-full"
-                                        style={{
-                                            width: `${Math.max((month.subscribers / Math.max(...analytics.monthlyGrowth.map(m => m.subscribers), 1)) * 100, 5)}%`
-                                        }}
-                                    ></div>
-                                </div>
-                                <span className="text-sm font-semibold text-gray-700 w-8 text-right">
-                                    +{month.subscribers}
+                                <span className="text-sm text-gray-500">
+                                    {new Date(subscriber.confirmedAt).toLocaleDateString('es-ES')}
                                 </span>
                             </div>
+                        ))
+                    ) : (
+                        <div className="text-center py-4 text-gray-500">
+                            Cargando últimos suscriptores...
                         </div>
-                    ))}
+                    )}
                 </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex space-x-4">
+            <div className="flex justify-center space-x-4">
                 <button
                     onClick={() => {
                         setShowSubscribers(true)
@@ -293,9 +292,6 @@ const Newsletter = () => {
                     className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
                 >
                     Exportar Lista
-                </button>
-                <button className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors">
-                    Enviar Newsletter Manual
                 </button>
             </div>
 
