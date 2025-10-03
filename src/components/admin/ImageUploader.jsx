@@ -314,7 +314,7 @@ const ImageUploader = ({ onImageUploaded, currentImageUrl = null, autoSave = fal
               {deleting ? 'Eliminando...' : 'Eliminar'}
             </button>
           </div>
-          <div className="aspect-video max-w-md bg-gray-100 rounded-lg overflow-hidden border-2 border-green-300">
+          <div className="aspect-video w-full bg-gray-100 rounded-lg overflow-hidden border-2 border-green-300">
             <img 
               src={currentImage} 
               alt="Imagen destacada actual" 

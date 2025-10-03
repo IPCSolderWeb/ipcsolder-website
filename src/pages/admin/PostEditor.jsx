@@ -17,7 +17,7 @@ const PostEditor = () => {
   const [saving, setSaving] = useState(false)
   const [categories, setCategories] = useState([])
   const [currentLanguage, setCurrentLanguage] = useState('es')
-  
+
   // Estados del post
   const [postData, setPostData] = useState({
     slug: '',
@@ -43,7 +43,7 @@ const PostEditor = () => {
   useEffect(() => {
     const loadInitialData = async () => {
       if (!user || authLoading) return
-      
+
       setLoading(true)
       try {
         // Cargar categorías
@@ -54,7 +54,7 @@ const PostEditor = () => {
         if (isEditing && id) {
           const posts = await adminService.getAllPosts()
           const post = posts.find(p => p.id === id)
-          
+
           if (post) {
             setPostData({
               slug: post.slug,
@@ -181,7 +181,7 @@ const PostEditor = () => {
 
       if (publishNow) {
         showSuccess('¡Post publicado exitosamente! Los usuarios ya pueden verlo en el blog.', '🎉 ¡Publicado!')
-        
+
         // Enviar newsletter automáticamente
         try {
           await sendNewsletterAutomatically(savedPost, contentData)
@@ -192,7 +192,7 @@ const PostEditor = () => {
       } else {
         showSuccess('Post guardado como borrador. Puedes continuar editándolo más tarde.', '💾 Guardado')
       }
-      
+
       setTimeout(() => {
         navigate('/admin/dashboard')
       }, 2000)
@@ -252,31 +252,29 @@ const PostEditor = () => {
         </div>
       </header>
 
-      <div className="max-w-none mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 xl:grid-cols-5 gap-8">
+      <div className="w-full px-4 py-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-none">
           {/* Main Content */}
-          <div className="xl:col-span-3">
+          <div className="lg:col-span-2">
             {/* Language Tabs */}
             <div className="bg-white rounded-lg shadow mb-6">
               <div className="border-b border-gray-200">
                 <nav className="flex space-x-8 px-6">
                   <button
                     onClick={() => setCurrentLanguage('es')}
-                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                      currentLanguage === 'es'
+                    className={`py-4 px-1 border-b-2 font-medium text-sm ${currentLanguage === 'es'
                         ? 'border-blue-500 text-blue-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
+                      }`}
                   >
                     🇪🇸 Español
                   </button>
                   <button
                     onClick={() => setCurrentLanguage('en')}
-                    className={`py-4 px-1 border-b-2 font-medium text-sm ${
-                      currentLanguage === 'en'
+                    className={`py-4 px-1 border-b-2 font-medium text-sm ${currentLanguage === 'en'
                         ? 'border-blue-500 text-blue-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700'
-                    }`}
+                      }`}
                   >
                     🇺🇸 English
                   </button>
@@ -323,23 +321,97 @@ const PostEditor = () => {
                   <textarea
                     value={contentData[currentLanguage].content}
                     onChange={(e) => handleContentChange(currentLanguage, 'content', e.target.value)}
-                    rows={20}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-sm"
+                    rows={25}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 font-mono text-base"
                     placeholder={`Contenido completo del post en ${currentLanguage === 'es' ? 'español' : 'inglés'}. Puedes usar HTML básico.`}
                   />
                   <p className="text-sm text-gray-500 mt-1">
                     Soporta HTML básico: &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;
                   </p>
+
+                  {/* AI Helper Section */}
+                  <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <div className="flex items-start">
+                      <span className="text-2xl mr-3">🤖</span>
+                      <div className="flex-1">
+                        <h4 className="text-sm font-semibold text-blue-800 mb-2">
+                          💡 Mejora tu blog con IA
+                        </h4>
+                        <p className="text-xs text-blue-700 mb-3">
+                          Copia este prompt en ChatGPT, Claude o cualquier IA para mejorar tu contenido:
+                        </p>
+                        <div className="bg-white border border-blue-300 rounded p-3 text-xs font-mono text-gray-800 max-h-32 overflow-y-auto">
+                          <div className="select-all">
+                            Actúa como un experto editor de contenido técnico y diseñador web. Necesito que mejores este contenido de blog sobre soldadura y electrónica para que sea más atractivo, profesional y fácil de leer.
+
+                            CONTENIDO ORIGINAL:
+                            [Pega aquí tu contenido]
+
+                            INSTRUCCIONES:
+                            1. **Estructura HTML**: Convierte el texto a HTML bien estructurado usando:
+                            - &lt;h2&gt; y &lt;h3&gt; para títulos y subtítulos
+                            - &lt;p&gt; para párrafos bien organizados
+                            - &lt;ul&gt; y &lt;li&gt; para listas de puntos importantes
+                            - &lt;strong&gt; para destacar conceptos clave
+                            - &lt;em&gt; para énfasis sutil
+
+                            2. **Mejoras de contenido**:
+                            - Agrega una introducción atractiva que enganche al lector
+                            - Divide el contenido en secciones claras con subtítulos
+                            - Incluye consejos prácticos y advertencias de seguridad
+                            - Agrega una conclusión que resuma los puntos clave
+
+                            3. **Estilo técnico**:
+                            - Usa terminología precisa pero accesible
+                            - Incluye especificaciones técnicas cuando sea relevante
+                            - Agrega recomendaciones de herramientas o materiales
+                            - Menciona errores comunes y cómo evitarlos
+
+                            4. **Formato visual**:
+                            - Usa listas para pasos o componentes
+                            - Destaca advertencias importantes
+                            - Organiza la información de forma escaneada
+
+                            DEVUELVE: Solo el HTML mejorado, listo para copiar y pegar en el editor.
+                          </div>
+                        </div>
+                        <div className="flex justify-between items-center mt-2">
+                          <p className="text-xs text-blue-600">
+                            ✨ Copia el prompt completo y pega tu contenido donde dice [Pega aquí tu contenido]
+                          </p>
+                          <button
+                            onClick={() => {
+                              const promptText = document.querySelector('.select-all').textContent;
+                              navigator.clipboard.writeText(promptText).then(() => {
+                                // Mostrar feedback visual
+                                const btn = event.target;
+                                const originalText = btn.textContent;
+                                btn.textContent = '✅ Copiado!';
+                                btn.className = btn.className.replace('text-blue-600', 'text-green-600');
+                                setTimeout(() => {
+                                  btn.textContent = originalText;
+                                  btn.className = btn.className.replace('text-green-600', 'text-blue-600');
+                                }, 2000);
+                              });
+                            }}
+                            className="text-xs text-blue-600 hover:text-blue-800 font-medium px-2 py-1 rounded hover:bg-blue-100 transition-colors"
+                          >
+                            📋 Copiar Prompt
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Sidebar */}
-          <div className="xl:col-span-2">
-            <div className="bg-white rounded-lg shadow p-8 w-full">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">Configuración</h3>
-              
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-lg shadow p-6 w-full">
+              <h3 className="text-lg font-semibold text-gray-900 mb-6">Configuración</h3>
+
               {/* Category */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -389,8 +461,8 @@ const PostEditor = () => {
               </div>
 
               {/* Featured Image */}
-              <div className="mb-8 w-full">
-                <label className="block text-base font-semibold text-gray-700 mb-4">Imagen Destacada</label>
+              <div className="mb-6 w-full">
+                <label className="block text-sm font-medium text-gray-700 mb-3">Imagen Destacada</label>
                 <div className="w-full">
                   <ImageUploader
                     currentImageUrl={postData.featured_image_url}
@@ -432,7 +504,7 @@ const PostEditor = () => {
 // Función para enviar newsletter automáticamente
 async function sendNewsletterAutomatically(savedPost, contentData) {
   console.log('📧 PostEditor: Enviando newsletter automáticamente', savedPost.id)
-  
+
   try {
     // Preparar datos del blog para el newsletter
     const newsletterData = {
@@ -480,14 +552,14 @@ async function sendNewsletterAutomatically(savedPost, contentData) {
 // Función auxiliar para calcular tiempo de lectura
 function calculateReadingTime(content) {
   if (!content) return 5
-  
+
   // Remover HTML tags y contar palabras
   const plainText = content.replace(/<[^>]*>/g, '')
   const wordCount = plainText.split(/\s+/).filter(word => word.length > 0).length
-  
+
   // Promedio de 200 palabras por minuto
   const readingTime = Math.ceil(wordCount / 200)
-  
+
   return Math.max(1, readingTime) // Mínimo 1 minuto
 }
 
