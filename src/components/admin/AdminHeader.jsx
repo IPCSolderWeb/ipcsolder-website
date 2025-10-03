@@ -43,11 +43,6 @@ const AdminHeader = () => {
       path: '/admin/newsletter',
       label: '📧 Newsletter',
       icon: '📧'
-    },
-    {
-      path: '/admin/settings',
-      label: '⚙️ Configuración',
-      icon: '⚙️'
     }
   ]
 
