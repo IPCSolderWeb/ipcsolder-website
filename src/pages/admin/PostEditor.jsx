@@ -52,8 +52,7 @@ const PostEditor = () => {
 
         // Si estamos editando, cargar el post
         if (isEditing && id) {
-          const posts = await adminService.getAllPosts()
-          const post = posts.find(p => p.id === id)
+          const post = await adminService.getPostForEdit(id)
 
           if (post) {
             setPostData({
@@ -182,12 +181,18 @@ const PostEditor = () => {
       if (publishNow) {
         showSuccess('¡Post publicado exitosamente! Los usuarios ya pueden verlo en el blog.', '🎉 ¡Publicado!')
 
-        // Enviar newsletter automáticamente
-        try {
-          await sendNewsletterAutomatically(savedPost, contentData)
-        } catch (newsletterError) {
-          console.error('Error enviando newsletter:', newsletterError)
-          showWarning('Post publicado correctamente, pero hubo un error enviando el newsletter', 'Newsletter no enviado')
+        // Enviar newsletter automáticamente SOLO para posts nuevos
+        if (!isEditing) {
+          try {
+            console.log('📧 PostEditor: Enviando newsletter para post nuevo:', savedPost.id)
+            await sendNewsletterAutomatically(savedPost, contentData)
+            showSuccess('Newsletter enviado a todos los suscriptores', '📧 Newsletter enviado')
+          } catch (newsletterError) {
+            console.error('❌ PostEditor: Error enviando newsletter:', newsletterError)
+            showWarning('Post publicado correctamente, pero hubo un error enviando el newsletter', 'Newsletter no enviado')
+          }
+        } else {
+          console.log('📝 PostEditor: Post editado - No se envía newsletter')
         }
       } else {
         showSuccess('Post guardado como borrador. Puedes continuar editándolo más tarde.', '💾 Guardado')
@@ -344,40 +349,47 @@ const PostEditor = () => {
                           <div className="select-all">
                             Actúa como un experto editor de contenido técnico y diseñador web. Necesito que mejores este contenido de blog sobre soldadura y electrónica para que sea más atractivo, profesional y fácil de leer.
 
-                            CONTENIDO ORIGINAL:
-                            [Pega aquí tu contenido]
+                            **CONTENIDO ORIGINAL:**
+                            **[PEGA AQUÍ TU CONTENIDO]**
 
-                            INSTRUCCIONES:
-                            1. **Estructura HTML**: Convierte el texto a HTML bien estructurado usando:
+                            **INSTRUCCIONES:**
+                            1. **Estructura HTML completa**: Convierte el texto a HTML bien estructurado usando:
                             - &lt;h2&gt; y &lt;h3&gt; para títulos y subtítulos
                             - &lt;p&gt; para párrafos bien organizados
                             - &lt;ul&gt; y &lt;li&gt; para listas de puntos importantes
                             - &lt;strong&gt; para destacar conceptos clave
                             - &lt;em&gt; para énfasis sutil
+                            - &lt;br&gt; para saltos de línea cuando sea necesario
+                            - &lt;div style="text-align: center;"&gt; para centrar texto importante
+                            - &lt;p style="text-align: center;"&gt; para párrafos centrados
 
                             2. **Mejoras de contenido**:
                             - Agrega una introducción atractiva que enganche al lector
-                            - Divide el contenido en secciones claras con subtítulos
+                            - Divide el contenido en secciones claras con subtítulos (&lt;h2&gt;, &lt;h3&gt;)
                             - Incluye consejos prácticos y advertencias de seguridad
                             - Agrega una conclusión que resuma los puntos clave
+                            - Usa &lt;strong&gt; para destacar información crítica
 
                             3. **Estilo técnico**:
                             - Usa terminología precisa pero accesible
                             - Incluye especificaciones técnicas cuando sea relevante
                             - Agrega recomendaciones de herramientas o materiales
                             - Menciona errores comunes y cómo evitarlos
+                            - Destaca advertencias importantes con &lt;strong&gt; o centrado
 
-                            4. **Formato visual**:
-                            - Usa listas para pasos o componentes
-                            - Destaca advertencias importantes
+                            4. **Formato visual avanzado**:
+                            - Usa &lt;ul&gt; y &lt;li&gt; para pasos o componentes
+                            - Centra títulos importantes con style="text-align: center;"
                             - Organiza la información de forma escaneada
+                            - Usa &lt;br&gt; para espaciado cuando sea necesario
+                            - Aplica &lt;em&gt; para notas técnicas sutiles
 
-                            DEVUELVE: Solo el HTML mejorado, listo para copiar y pegar en el editor.
+                            **DEVUELVE:** Solo el HTML mejorado y completo, listo para copiar y pegar en el editor.
                           </div>
                         </div>
                         <div className="flex justify-between items-center mt-2">
                           <p className="text-xs text-blue-600">
-                            ✨ Copia el prompt completo y pega tu contenido donde dice [Pega aquí tu contenido]
+                            ✨ Copia el prompt completo y pega tu contenido donde dice **[PEGA AQUÍ TU CONTENIDO]**
                           </p>
                           <button
                             onClick={() => {
@@ -531,7 +543,28 @@ async function sendNewsletterAutomatically(savedPost, contentData) {
       body: JSON.stringify(newsletterData)
     })
 
-    const result = await response.json()
+    // Verificar si la respuesta es válida
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('❌ PostEditor: Error HTTP en newsletter API:', response.status, errorText)
+      throw new Error(`Error ${response.status}: ${errorText || 'Error en la API de newsletter'}`)
+    }
+
+    // Verificar si la respuesta tiene contenido JSON válido
+    const contentType = response.headers.get('content-type')
+    if (!contentType || !contentType.includes('application/json')) {
+      const responseText = await response.text()
+      console.error('❌ PostEditor: Respuesta no es JSON:', responseText.substring(0, 200))
+      throw new Error('La API de newsletter no devolvió una respuesta JSON válida')
+    }
+
+    let result
+    try {
+      result = await response.json()
+    } catch (jsonError) {
+      console.error('❌ PostEditor: Error parseando JSON:', jsonError)
+      throw new Error('Error parseando la respuesta de la API de newsletter')
+    }
 
     if (result.success) {
       console.log('✅ PostEditor: Newsletter enviado exitosamente', {
