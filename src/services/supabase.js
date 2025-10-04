@@ -304,6 +304,22 @@ export const adminService = {
     return data || []
   },
 
+  // Obtener un post específico para edición (con todos los campos)
+  async getPostForEdit(id) {
+    const { data, error } = await supabase
+      .from('posts')
+      .select(`
+        *,
+        post_contents(*),
+        categories(*)
+      `)
+      .eq('id', id)
+      .single()
+
+    if (error) throw error
+    return data
+  },
+
   // Obtener conteo total de posts para paginación
   async getPostsCount() {
     const { count, error } = await supabase
