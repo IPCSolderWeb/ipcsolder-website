@@ -185,7 +185,7 @@
           "hours": "Horario de atención"
         },
         "info": {
-          "phone": "+52 (33) 1234-5678",
+          "phone": "+52 (33) 4514 2400",
           "email": "ventas@ipcsolder.com",
           "address": "Guadalajara, Jalisco, México",
           "hours": "Lun - Vie: 8:00 AM - 6:00 PM"
@@ -277,7 +277,7 @@
       },
       "contact": {
         "title": "Información de Contacto",
-        "phone": "+52 (33) 1234-5678",
+        "phone": "+52 (33) 4514 2400",
         "email": "ventas@ipcsolder.com",
         "address": "Guadalajara, Jalisco, México",
         "hours": "Lun - Vie: 8:00 AM - 6:00 PM"
@@ -551,12 +551,12 @@
           },
           "phone": {
             "title": "Teléfono",
-            "value": "+52 (33) 1234-5678",
+            "value": "+52 (33) 4514 2400",
             "description": "Lunes a Viernes, 9:00 AM - 6:00 PM"
           },
           "whatsapp": {
             "title": "WhatsApp",
-            "value": "+52 (33) 1234-5678",
+            "value": "+52 (33) 4514 2400",
             "description": "Para consultas rápidas"
           },
           "location": {
@@ -584,7 +584,7 @@
           },
           "phone": {
             "label": "Teléfono",
-            "placeholder": "+52 (33) 1234-5678"
+            "placeholder": "+52 (33) 4514 2400"
           },
           "state": {
             "label": "Estado",
@@ -712,7 +712,7 @@
           },
           "phone": {
             "label": "Teléfono",
-            "placeholder": "+52 (33) 1234-5678"
+            "placeholder": "+52 (33) 4514 2400"
           },
           "company": {
             "label": "Empresa",

@@ -48,7 +48,7 @@ const Footer = () => {
           <div className="lg:col-span-2">
             <div className="mb-6">
               <div className="text-3xl font-bold text-white mb-2">
-                IPC<span className="text-primary-400">Solder</span>
+                IPCSolder{/*<span className="text-primary-400">Solder</span>*/}
               </div>
               <p className="text-primary-400 font-medium mb-4">
                 {t('footer.company.tagline')}
