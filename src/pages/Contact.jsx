@@ -262,10 +262,10 @@ const Contact = ({ currentLanguage = 'es' }) => {
                 window.location.href = 'mailto:ventas@ipcsolder.com';
                 break;
             case 'phone':
-                window.location.href = 'tel:+523312345678';
+                window.location.href = 'tel:+523345142400';
                 break;
             case 'whatsapp':
-                window.open('https://wa.me/523312345678', '_blank');
+                window.open('https://wa.me/523345142400', '_blank');
                 break;
             default:
                 break;
