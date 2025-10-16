@@ -8,7 +8,7 @@ import {
 import '../styles/video-hero.css';
 
 const Home = ({ currentLanguage = 'es' }) => {
-  const { t, ready } = useTranslation();
+  const { t, ready, i18n } = useTranslation();
   const navigate = useNavigate();
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -63,13 +63,30 @@ const Home = ({ currentLanguage = 'es' }) => {
         window.scrollTo(0, 0);
         break;
       case 'cta-primary':
-        // "Solicitar Assessment Gratuito" -> Contacto
-        navigate('/contacto');
-        window.scrollTo(0, 0);
+        // "Solicitar Assessment Gratuito" -> Contacto con pre-llenado
+        {
+          const contactUrl = i18n.language === 'es' ? '/contacto' : '/contact';
+          const subject = i18n.language === 'es' 
+            ? 'Solicito un assessment gratuito de mi línea de producción'
+            : 'I request a free assessment of my production line';
+          navigate(`${contactUrl}?service=assessment&subject=${encodeURIComponent(subject)}&lang=${i18n.language}`);
+          setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }, 100);
+        }
         break;
       case 'cta-secondary':
-        // "Ver Fichas Técnicas" -> Se queda como está por ahora
-        console.log('Ver Fichas Técnicas - Por implementar');
+        // "Ver Fichas Técnicas" -> Contacto con pre-llenado
+        {
+          const contactUrl = i18n.language === 'es' ? '/contacto' : '/contact';
+          const subject = i18n.language === 'es' 
+            ? 'Me interesa información de fichas técnicas'
+            : 'I\'m interested in technical sheets information';
+          navigate(`${contactUrl}?service=fichas-tecnicas&subject=${encodeURIComponent(subject)}&lang=${i18n.language}`);
+          setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }, 100);
+        }
         break;
       default:
         console.log(`Acción no definida: ${action}`);

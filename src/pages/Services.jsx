@@ -6,7 +6,7 @@ import {
 } from 'react-icons/hi';
 
 const Services = ({ currentLanguage = 'es' }) => {
-    const { t, ready } = useTranslation();
+    const { t, ready, i18n } = useTranslation();
     const navigate = useNavigate();
     const [isVisible, setIsVisible] = useState({});
 
@@ -45,7 +45,54 @@ const Services = ({ currentLanguage = 'es' }) => {
     const handleCTA = (action) => {
         console.log(`📞 Services: CTA clicked - ${action}`);
 
+        // Mapeo de servicios a mensajes pre-llenados
+        const getServiceMessage = (service, lang) => {
+            const messages = {
+                'assessment': {
+                    'es': 'Solicito un assessment gratuito de mi línea de producción',
+                    'en': 'I request a free assessment of my production line'
+                },
+                'consulting': {
+                    'es': 'Me interesa consultoría de procesos para optimizar mi producción',
+                    'en': 'I\'m interested in process consulting to optimize my production'
+                },
+                'support': {
+                    'es': 'Necesito soporte técnico especializado',
+                    'en': 'I need specialized technical support'
+                },
+                'documentation': {
+                    'es': 'Solicito fichas técnicas y documentación especializada',
+                    'en': 'I request technical sheets and specialized documentation'
+                },
+                'field-services': {
+                    'es': 'Me interesa agendar una visita de servicios de campo',
+                    'en': 'I\'m interested in scheduling a field services visit'
+                },
+                'analysis': {
+                    'es': 'Solicito análisis y reportes de mi línea de producción',
+                    'en': 'I request analysis and reports of my production line'
+                }
+            };
+
+            return messages[service] ? messages[service][lang] : messages['assessment'][lang];
+        };
+
         switch (action) {
+            case 'assessment':
+            case 'consulting':
+            case 'support':
+            case 'documentation':
+            case 'field-services':
+            case 'analysis':
+                {
+                    const contactUrl = i18n.language === 'es' ? '/contacto' : '/contact';
+                    const subject = getServiceMessage(action, i18n.language);
+                    navigate(`${contactUrl}?service=${action}&subject=${encodeURIComponent(subject)}&lang=${i18n.language}`);
+                    setTimeout(() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 100);
+                }
+                break;
             case 'contact':
                 navigate('/contacto');
                 window.scrollTo(0, 0);
@@ -180,7 +227,7 @@ const Services = ({ currentLanguage = 'es' }) => {
                                 ))}
                             </ul>
                             <button
-                                onClick={() => handleCTA('contact')}
+                                onClick={() => handleCTA('assessment')}
                                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                             >
                                 {t('services.servicesSection.assessment.button')}
@@ -204,7 +251,7 @@ const Services = ({ currentLanguage = 'es' }) => {
                                 ))}
                             </ul>
                             <button
-                                onClick={() => handleCTA('contact')}
+                                onClick={() => handleCTA('consulting')}
                                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                             >
                                 {t('services.servicesSection.consulting.button')}
@@ -228,7 +275,7 @@ const Services = ({ currentLanguage = 'es' }) => {
                                 ))}
                             </ul>
                             <button
-                                onClick={() => handleCTA('contact')}
+                                onClick={() => handleCTA('support')}
                                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                             >
                                 {t('services.servicesSection.support.button')}
@@ -252,7 +299,7 @@ const Services = ({ currentLanguage = 'es' }) => {
                                 ))}
                             </ul>
                             <button
-                                onClick={() => handleCTA('contact')}
+                                onClick={() => handleCTA('documentation')}
                                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                             >
                                 {t('services.servicesSection.documentation.button')}
@@ -276,7 +323,7 @@ const Services = ({ currentLanguage = 'es' }) => {
                                 ))}
                             </ul>
                             <button
-                                onClick={() => handleCTA('contact')}
+                                onClick={() => handleCTA('field-services')}
                                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                             >
                                 {t('services.servicesSection.fieldServices.button')}
@@ -300,7 +347,7 @@ const Services = ({ currentLanguage = 'es' }) => {
                                 ))}
                             </ul>
                             <button
-                                onClick={() => handleCTA('contact')}
+                                onClick={() => handleCTA('analysis')}
                                 className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                             >
                                 {t('services.servicesSection.analysis.button')}
@@ -384,7 +431,7 @@ const Services = ({ currentLanguage = 'es' }) => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                             <button
-                                onClick={() => handleCTA('contact')}
+                                onClick={() => handleCTA('assessment')}
                                 className="bg-white text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-300 flex items-center space-x-2 group shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                             >
                                 <span>{t('services.cta.primaryButton')}</span>
