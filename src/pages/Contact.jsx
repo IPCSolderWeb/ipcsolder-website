@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation } from 'react-router-dom';
 import {
     HiMail as Mail,
     HiPhone as Phone,
@@ -10,6 +11,7 @@ import {
 
 const Contact = ({ currentLanguage = 'es' }) => {
     const { t, ready, i18n } = useTranslation();
+    const location = useLocation();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -61,6 +63,22 @@ const Contact = ({ currentLanguage = 'es' }) => {
             observer.disconnect();
         };
     }, []);
+
+    // Leer parámetros URL para pre-llenar formulario
+    useEffect(() => {
+        const urlParams = new URLSearchParams(location.search);
+        const subject = urlParams.get('subject');
+        const service = urlParams.get('service');
+        const lang = urlParams.get('lang');
+
+        if (subject) {
+            console.log('📋 Pre-llenando formulario con asunto:', subject);
+            setFormData(prev => ({
+                ...prev,
+                message: decodeURIComponent(subject)
+            }));
+        }
+    }, [location.search]);
 
     // Función para calcular distancia entre strings (similitud)
     const levenshteinDistance = (str1, str2) => {

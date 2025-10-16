@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
+import PrivacyModal from '../modals/PrivacyModal';
 import {
   FiPhone as Phone,
   FiMail as Mail,
@@ -9,28 +11,98 @@ import {
   FiExternalLink as ExternalLink
 } from 'react-icons/fi';
 import {
-  FaFacebook as Facebook,
   FaLinkedin as Linkedin,
-  FaTwitter as Twitter,
-  FaYoutube as Youtube
+  // Redes sociales comentadas temporalmente - se activarán cuando estén disponibles
+  // FaFacebook as Facebook,
+  // FaTwitter as Twitter,
+  // FaYoutube as Youtube
 } from 'react-icons/fa';
 
 const Footer = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
+  // Mapeo de servicios a parámetros para pre-llenar formulario
+  const getServiceParams = (url, currentLang) => {
+    const serviceMap = {
+      // URLs en español
+      '/fichas-tecnicas': { service: 'fichas-tecnicas', subject: 'Me interesa información de fichas técnicas' },
+      '/soporte': { service: 'soporte-tecnico', subject: 'Necesito soporte técnico' },
+      '/consultoria': { service: 'consultoria', subject: 'Me interesa información sobre consultoría' },
+      '/capacitacion': { service: 'capacitacion', subject: 'Me interesa información sobre capacitación' },
 
+      // URLs en inglés
+      '/technical-sheets': { service: 'technical-sheets', subject: 'I\'m interested in technical sheets information' },
+      '/support': { service: 'technical-support', subject: 'I need technical support' },
+      '/consulting': { service: 'consulting', subject: 'I\'m interested in consulting information' },
+      '/training': { service: 'training', subject: 'I\'m interested in training information' }
+    };
 
+    return serviceMap[url] || null;
+  };
 
   const handleFooterNavigation = (url) => {
     console.log(`🦶 Footer: Navegando a: ${url}`);
-    // Aquí se implementará la navegación con React Router
+
+    // Verificar si es un enlace de servicio que debe ir a contacto
+    const serviceParams = getServiceParams(url, i18n.language);
+    if (serviceParams) {
+      // Navegar a contacto con parámetros pre-llenados
+      const contactUrl = i18n.language === 'es' ? '/contacto' : '/contact';
+      navigate(`${contactUrl}?service=${serviceParams.service}&subject=${encodeURIComponent(serviceParams.subject)}&lang=${i18n.language}`);
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+      return;
+    }
+
+    // Navegación para enlaces de Productos (a secciones específicas) - PRIMERO
+    if (url.includes('/productos/') || url.includes('/products/')) {
+      // Extraer la categoría del URL
+      const category = url.split('/').pop(); // mro, esd, solder, etc.
+
+      // Navegar a productos y luego hacer scroll a la sección
+      navigate('/productos');
+      setTimeout(() => {
+        const element = document.getElementById(`category-${category}`);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          // Si no encuentra la sección, scroll al top de productos
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 300);
+    }
+    // Navegación para enlaces de Empresa (siempre al top)
+    else if (url === '/' || url === '/nosotros' || url === '/about' || url === '/productos' || url === '/products' || url === '/servicios' || url === '/services' || url === '/blog' || url === '/contacto' || url === '/contact') {
+      navigate(url);
+      // Scroll al top después de navegar
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
+    // Para otros enlaces, navegación normal
+    else {
+      navigate(url);
+    }
   };
 
 
 
   const handleSocialClick = (platform) => {
     console.log(`📱 Footer: Click en red social: ${platform}`);
-    // Aquí se implementarán los enlaces reales a redes sociales
+
+    switch (platform) {
+      case 'linkedin':
+        // Aquí se pondrá la URL real de LinkedIn cuando esté disponible
+        window.open('https://www.linkedin.com/company/ipcsolder', '_blank');
+        break;
+      // Otras redes sociales se activarán cuando estén disponibles
+      default:
+        console.log(`Red social ${platform} no configurada aún`);
+        break;
+    }
   };
 
   console.log('🔄 Footer: Renderizando componente');
@@ -177,6 +249,8 @@ const Footer = () => {
                 <Linkedin size={20} />
               </button>
 
+              {/* Redes sociales deshabilitadas temporalmente - se activarán cuando estén disponibles */}
+              {/*
               <button
                 onClick={() => handleSocialClick('facebook')}
                 className="text-gray-400 hover:text-primary-400 transition-colors duration-200 p-2 rounded-lg hover:bg-gray-800"
@@ -197,12 +271,13 @@ const Footer = () => {
               >
                 <Youtube size={20} />
               </button>
+              */}
             </div>
 
             {/* Legal Links */}
             <div className="flex flex-wrap justify-center lg:justify-end items-center space-x-6 text-sm">
               <button
-                onClick={() => handleFooterNavigation('/privacy')}
+                onClick={() => setShowPrivacyModal(true)}
                 className="text-gray-400 hover:text-primary-400 transition-colors duration-200"
               >
                 {t('footer.legal.privacy')}
@@ -230,6 +305,12 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {/* Privacy Modal */}
+      <PrivacyModal
+        isOpen={showPrivacyModal}
+        onClose={() => setShowPrivacyModal(false)}
+      />
     </footer>
   );
 };
