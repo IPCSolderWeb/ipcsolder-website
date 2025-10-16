@@ -273,7 +273,7 @@
       "company": {
         "name": "IPCSolder",
         "tagline": "Nosotros Somos Los Expertos",
-        "description": "Líderes en soldadura electrónica y soluciones industriales para maquiladoras, automotriz y telecomunicaciones. Más de 15 años de experiencia atendiendo la industria electrónica."
+        "description": "Líderes en soldadura electrónica y soluciones industriales para maquiladoras, automotriz y telecomunicaciones. Más de 20 años de experiencia atendiendo la industria electrónica."
       },
       "contact": {
         "title": "Información de Contacto",
@@ -287,24 +287,28 @@
           "title": "Empresa",
           "links": [
             {
+              "name": "Inicio",
+              "url": "/"
+            },
+            {
               "name": "Nosotros",
               "url": "/nosotros"
             },
             {
-              "name": "Misión y Valores",
-              "url": "/mision-valores"
+              "name": "Productos",
+              "url": "/productos"
             },
             {
-              "name": "Historia",
-              "url": "/historia"
+              "name": "Servicios",
+              "url": "/servicios"
             },
             {
-              "name": "Equipo de Expertos",
-              "url": "/equipo"
+              "name": "Blog",
+              "url": "/blog"
             },
             {
-              "name": "Certificaciones",
-              "url": "/certificaciones"
+              "name": "Contacto",
+              "url": "/contacto"
             }
           ]
         },
@@ -355,10 +359,6 @@
             {
               "name": "Capacitación",
               "url": "/capacitacion"
-            },
-            {
-              "name": "Blog Técnico",
-              "url": "/blog"
             }
           ]
         }
@@ -388,6 +388,62 @@
       },
       "social": {
         "title": "Síguenos"
+      }
+    },
+    "privacy": {
+      "title": "Política de Privacidad",
+      "lastUpdated": "Última actualización",
+      "locale": "es-ES",
+      "close": "Cerrar",
+      "sections": {
+        "intro": {
+          "title": "Compromiso con su Privacidad",
+          "content": "En IPCSolder, valoramos y respetamos su privacidad. Esta política explica cómo recopilamos, usamos y protegemos su información personal cuando utiliza nuestros servicios o se comunica con nosotros."
+        },
+        "dataCollection": {
+          "title": "Información que Recopilamos",
+          "intro": "Recopilamos únicamente la información necesaria para brindarle el mejor servicio posible:",
+          "items": [
+            "Información de contacto: nombre, email, teléfono y empresa",
+            "Información profesional: cargo, industria y ubicación",
+            "Consultas y mensajes que nos envía a través de formularios",
+            "Información técnica básica del navegador para mejorar nuestro sitio web"
+          ]
+        },
+        "dataUse": {
+          "title": "Cómo Utilizamos su Información",
+          "intro": "Utilizamos su información exclusivamente para:",
+          "items": [
+            "Responder a sus consultas y brindar soporte técnico",
+            "Enviarle información sobre productos y servicios relevantes",
+            "Mejorar nuestros productos y servicios",
+            "Cumplir con obligaciones legales y comerciales"
+          ]
+        },
+        "dataProtection": {
+          "title": "Protección de sus Datos",
+          "content": "Implementamos medidas de seguridad técnicas y organizacionales para proteger su información personal contra acceso no autorizado, alteración, divulgación o destrucción. Sus datos se almacenan en servidores seguros y solo el personal autorizado tiene acceso a ellos."
+        },
+        "noSale": {
+          "title": "🔒 No Vendemos su Información",
+          "content": "NUNCA vendemos, alquilamos o compartimos su información personal con terceros para fines comerciales. Sus datos son confidenciales y se utilizan únicamente para brindarle nuestros servicios."
+        },
+        "userRights": {
+          "title": "Sus Derechos",
+          "intro": "Usted tiene derecho a:",
+          "items": [
+            "Acceder a la información personal que tenemos sobre usted",
+            "Solicitar la corrección de datos inexactos",
+            "Solicitar la eliminación de sus datos personales",
+            "Retirar su consentimiento en cualquier momento",
+            "Presentar una queja ante las autoridades competentes"
+          ]
+        },
+        "contact": {
+          "title": "Contacto para Temas de Privacidad",
+          "content": "Si tiene preguntas sobre esta política de privacidad o desea ejercer sus derechos, contáctenos:",
+          "phone": "Teléfono"
+        }
       }
     },
     "about": {

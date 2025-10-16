@@ -314,7 +314,7 @@
     "company": {
       "name": "IPCSolder",
       "tagline": "We Are The Experts",
-      "description": "Leaders in electronic soldering and industrial solutions for maquiladoras, automotive and telecommunications. Over 15 years of experience serving the electronics industry."
+      "description": "Leaders in electronic soldering and industrial solutions for maquiladoras, automotive and telecommunications. Over 20 years of experience serving the electronics industry."
     },
     "contact": {
       "title": "Contact Information",
@@ -328,24 +328,28 @@
         "title": "Company",
         "links": [
           {
+            "name": "Home",
+            "url": "/"
+          },
+          {
             "name": "About Us",
             "url": "/about"
           },
           {
-            "name": "Mission & Values",
-            "url": "/mission-values"
+            "name": "Products",
+            "url": "/products"
           },
           {
-            "name": "History",
-            "url": "/history"
+            "name": "Services",
+            "url": "/services"
           },
           {
-            "name": "Expert Team",
-            "url": "/team"
+            "name": "Blog",
+            "url": "/blog"
           },
           {
-            "name": "Certifications",
-            "url": "/certifications"
+            "name": "Contact",
+            "url": "/contact"
           }
         ]
       },
@@ -396,10 +400,6 @@
           {
             "name": "Training",
             "url": "/training"
-          },
-          {
-            "name": "Technical Blog",
-            "url": "/blog"
           }
         ]
       }
@@ -429,6 +429,62 @@
     },
     "social": {
       "title": "Follow Us"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "Last updated",
+    "locale": "en-US",
+    "close": "Close",
+    "sections": {
+      "intro": {
+        "title": "Our Commitment to Your Privacy",
+        "content": "At IPCSolder, we value and respect your privacy. This policy explains how we collect, use, and protect your personal information when you use our services or communicate with us."
+      },
+      "dataCollection": {
+        "title": "Information We Collect",
+        "intro": "We collect only the information necessary to provide you with the best possible service:",
+        "items": [
+          "Contact information: name, email, phone, and company",
+          "Professional information: position, industry, and location",
+          "Inquiries and messages you send us through forms",
+          "Basic browser technical information to improve our website"
+        ]
+      },
+      "dataUse": {
+        "title": "How We Use Your Information",
+        "intro": "We use your information exclusively to:",
+        "items": [
+          "Respond to your inquiries and provide technical support",
+          "Send you information about relevant products and services",
+          "Improve our products and services",
+          "Comply with legal and commercial obligations"
+        ]
+      },
+      "dataProtection": {
+        "title": "Protection of Your Data",
+        "content": "We implement technical and organizational security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction. Your data is stored on secure servers and only authorized personnel have access to it."
+      },
+      "noSale": {
+        "title": "🔒 We Don't Sell Your Information",
+        "content": "We NEVER sell, rent, or share your personal information with third parties for commercial purposes. Your data is confidential and is used solely to provide you with our services."
+      },
+      "userRights": {
+        "title": "Your Rights",
+        "intro": "You have the right to:",
+        "items": [
+          "Access the personal information we have about you",
+          "Request correction of inaccurate data",
+          "Request deletion of your personal data",
+          "Withdraw your consent at any time",
+          "File a complaint with competent authorities"
+        ]
+      },
+      "contact": {
+        "title": "Contact for Privacy Matters",
+        "content": "If you have questions about this privacy policy or wish to exercise your rights, contact us:",
+        "phone": "Phone"
+      }
     }
   },
   "contact": {
