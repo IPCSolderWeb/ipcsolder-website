@@ -76,7 +76,7 @@ const Home = ({ currentLanguage = 'es' }) => {
         }
         break;
       case 'cta-secondary':
-        // "Ver Fichas Técnicas" -> Contacto con pre-llenado
+        // "Solicitar Fichas Técnicas" -> Contacto con pre-llenado
         {
           const contactUrl = i18n.language === 'es' ? '/contacto' : '/contact';
           const subject = i18n.language === 'es' 

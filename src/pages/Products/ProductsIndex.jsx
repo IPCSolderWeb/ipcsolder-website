@@ -3,10 +3,21 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const ProductsIndex = () => {
-    const { t, ready } = useTranslation();
+    const { t, ready, i18n } = useTranslation();
     const navigate = useNavigate();
     const [activeCategory, setActiveCategory] = useState('all');
     const [isVisible, setIsVisible] = useState({});
+    
+    // Estado para el modal de catálogo
+    const [showCatalogModal, setShowCatalogModal] = useState(false);
+    const [catalogForm, setCatalogForm] = useState({
+        email: '',
+        name: '',
+        company: '',
+        subscribeNewsletter: false
+    });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitMessage, setSubmitMessage] = useState({ type: '', text: '' });
 
     // Verificar si hay un filtro específico solicitado desde Home
     useEffect(() => {
@@ -89,6 +100,100 @@ const ProductsIndex = () => {
         setTimeout(() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }, 100);
+    };
+
+    // Función para abrir modal de catálogo
+    const handleCatalogDownload = () => {
+        setShowCatalogModal(true);
+        setSubmitMessage({ type: '', text: '' });
+    };
+
+    // Función para manejar cambios en el formulario
+    const handleFormChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setCatalogForm(prev => ({
+            ...prev,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    // Función para enviar formulario y descargar catálogo
+    const handleCatalogSubmit = async (e) => {
+        e.preventDefault();
+        
+        // Validar email
+        if (!catalogForm.email || !catalogForm.email.includes('@')) {
+            setSubmitMessage({
+                type: 'error',
+                text: i18n.language === 'es' ? 'Por favor ingresa un email válido' : 'Please enter a valid email'
+            });
+            return;
+        }
+
+        setIsSubmitting(true);
+        setSubmitMessage({ type: '', text: '' });
+
+        try {
+            // Llamar a la API para registrar la descarga
+            const response = await fetch('/api/catalog/download', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: catalogForm.email,
+                    name: catalogForm.name,
+                    company: catalogForm.company,
+                    subscribeNewsletter: catalogForm.subscribeNewsletter,
+                    language: i18n.language,
+                    source: 'products-page'
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                // Mostrar mensaje de éxito
+                setSubmitMessage({
+                    type: 'success',
+                    text: i18n.language === 'es' 
+                        ? '¡Gracias! Tu descarga comenzará en un momento...' 
+                        : 'Thank you! Your download will start shortly...'
+                });
+
+                // Iniciar descarga del PDF
+                setTimeout(() => {
+                    window.open('/documents/catalogoIPCSolder.pdf', '_blank');
+                    
+                    // Cerrar modal después de 2 segundos
+                    setTimeout(() => {
+                        setShowCatalogModal(false);
+                        setCatalogForm({
+                            email: '',
+                            name: '',
+                            company: '',
+                            subscribeNewsletter: false
+                        });
+                    }, 2000);
+                }, 500);
+
+            } else {
+                setSubmitMessage({
+                    type: 'error',
+                    text: data.error || (i18n.language === 'es' ? 'Error al procesar la solicitud' : 'Error processing request')
+                });
+            }
+        } catch (error) {
+            console.error('Error submitting catalog form:', error);
+            setSubmitMessage({
+                type: 'error',
+                text: i18n.language === 'es' 
+                    ? 'Error de conexión. Por favor intenta de nuevo.' 
+                    : 'Connection error. Please try again.'
+            });
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     // Si las traducciones no est�n listas, mostrar contenido con placeholders
@@ -201,218 +306,208 @@ const ProductsIndex = () => {
 
                         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
                             {/* Termopares Tipo K */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/mro/thermocouples.jpg"
-                                            alt={t('products.mro.thermocouples.title')}
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/mro/thermocouples-k.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.mro.thermocouples.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.mro.thermocouples.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.mro.thermocouples.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.mro.thermocouples.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.mro.thermocouples.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.mro.thermocouples.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
-                            {/* {t('products.mro.redGlue.title')} Chip Bonder */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/mro/red-glue.jpg"
-                                            alt="{t('products.mro.redGlue.title')}"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            {/* Red Glue Chip Bonder */}
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/mro/red-glue.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.mro.redGlue.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.mro.redGlue.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.mro.redGlue.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.mro.redGlue.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.mro.redGlue.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.mro.redGlue.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Isopropyl Alcohol (IPA) */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/mro/ipa.jpg"
-                                            alt={t('products.mro.ipa.title')}
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/mro/ipa-alcohol.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.mro.ipa.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.mro.ipa.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.mro.ipa.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.mro.ipa.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.mro.ipa.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.mro.ipa.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* F37 Gel Nozzle Cleaner */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/mro/nozzle-cleaner.jpg"
-                                            alt="F37 Gel Nozzle Cleaner"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/mro/nozzle-cleaner.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.mro.nozzleCleaner.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.mro.nozzleCleaner.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.mro.nozzleCleaner.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.mro.nozzleCleaner.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.mro.nozzleCleaner.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.mro.nozzleCleaner.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Router Bits */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-gray-500 to-gray-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/mro/router-bits.jpg"
-                                            alt="Router Bits"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/mro/router-bits.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.mro.routerBits.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.mro.routerBits.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.mro.routerBits.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.mro.routerBits.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.mro.routerBits.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.mro.routerBits.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -438,89 +533,85 @@ const ProductsIndex = () => {
 
                         <div className="grid lg:grid-cols-2 gap-8">
                             {/* Trays and Bins ESD Safe */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-amber-600 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/esd/trays-bins.jpg"
-                                            alt="Trays and Bins ESD Safe"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/esd/trays-bins.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.esd.traysAndBins.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.esd.traysAndBins.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.esd.traysAndBins.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.esd.traysAndBins.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.esd.traysAndBins.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.esd.traysAndBins.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Conductive EVA Sheets */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-gray-600 to-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/esd/eva-sheets.jpg"
-                                            alt="Conductive EVA Sheets"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/esd/eva-sheets.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.esd.evaSheets.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.esd.evaSheets.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.esd.evaSheets.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.esd.evaSheets.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.esd.evaSheets.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.esd.evaSheets.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -546,175 +637,167 @@ const ProductsIndex = () => {
 
                         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
                             {/* Solder Bars */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-gray-500 to-gray-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/solder/solder-bars.jpg"
-                                            alt="Solder Bars"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/solder/solder-bars.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.solder.solderBars.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.solder.solderBars.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.solder.solderBars.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.solder.solderBars.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.solder.solderBars.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.solder.solderBars.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Solder Wires */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/solder/solder-wires.jpg"
-                                            alt="Solder Wires"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/solder/solder-wire.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.solder.solderWire.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.solder.solderWire.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.solder.solderWire.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.solder.solderWire.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.solder.solderWire.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.solder.solderWire.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Liquid Flux */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/solder/liquid-flux.jpg"
-                                            alt="Liquid Flux"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/solder/liquid-flux.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.solder.liquidFlux.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.solder.liquidFlux.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.solder.liquidFlux.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.solder.liquidFlux.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.solder.liquidFlux.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.solder.liquidFlux.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Solder Preforms */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/solder/solder-preforms.jpg"
-                                            alt="Solder Preforms"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/solder/preforms.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.solder.preforms.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.solder.preforms.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.solder.preforms.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.solder.preforms.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.solder.preforms.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.solder.preforms.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -740,89 +823,85 @@ const ProductsIndex = () => {
 
                         <div className="grid lg:grid-cols-2 gap-8">
                             {/* Machine Spares */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/machines/machine-spares.jpg"
-                                            alt="Machine Spares"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/machines/spare-parts.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.machines.spareParts.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.machines.spareParts.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.machines.spareParts.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.machines.spareParts.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.machines.spareParts.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.machines.spareParts.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Preventive Maintenance & Repair Service */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/machines/maintenance-service.jpg"
-                                            alt="Maintenance Service"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/machines/maintenance.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.machines.maintenance.title')} y {t('products.machines.repair.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.machines.maintenance.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.machines.maintenance.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.machines.maintenance.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.machines.maintenance.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.machines.maintenance.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -848,132 +927,126 @@ const ProductsIndex = () => {
 
                         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
                             {/* Precision Cutting */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-cyan-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/laser/precision-cutting.jpg"
-                                            alt="Precision Cutting"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/laser/precision-cutting.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.laser.precisionCutting.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.laser.precisionCutting.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.laser.precisionCutting.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.laser.precisionCutting.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.laser.precisionCutting.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.laser.precisionCutting.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Laser Engraving */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/laser/laser-engraving.jpg"
-                                            alt="Laser Engraving"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/laser/laser-engraving.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.laser.laserEngraving.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.laser.laserEngraving.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.laser.laserEngraving.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.laser.laserEngraving.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.laser.laserEngraving.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.laser.laserEngraving.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Inspection Templates */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/laser/inspection-templates.jpg"
-                                            alt="Inspection Templates"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/laser/inspection-templates.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.laser.inspectionTemplates.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.laser.inspectionTemplates.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.laser.inspectionTemplates.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.laser.inspectionTemplates.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.laser.inspectionTemplates.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.laser.inspectionTemplates.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -999,218 +1072,167 @@ const ProductsIndex = () => {
 
                         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
                             {/* Squeegees */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/tooling/squeegees.jpg"
-                                            alt="Squeegees"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/tooling/squeegees.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.tooling.squeegees.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.tooling.squeegees.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.tooling.squeegees.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.tooling.squeegees.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.tooling.squeegees.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.tooling.squeegees.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Board Holders */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/tooling/board-holders.jpg"
-                                            alt="Board Holders"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/tooling/card-holders.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.tooling.cardHolders.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.tooling.cardHolders.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.tooling.cardHolders.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.tooling.cardHolders.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.tooling.cardHolders.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.tooling.cardHolders.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Router Plates */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-gray-500 to-gray-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/tooling/router-plates.jpg"
-                                            alt="Router Plates"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/tooling/router-plates.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.tooling.routerPlates.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.tooling.routerPlates.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.tooling.routerPlates.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.tooling.routerPlates.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.tooling.routerPlates.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.tooling.routerPlates.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
 
                             {/* Pallets */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/tooling/pallets.jpg"
-                                            alt="Pallets"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/tooling/pallets-fixtures.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
                                             {t('products.tooling.palletsFixtures.title')}
                                         </h3>
-                                        <p className="text-gray-600 text-sm">
+                                        <p className="text-gray-200 text-sm">
                                             {t('products.tooling.palletsFixtures.subtitle')}
                                         </p>
                                     </div>
+
+                                    <p className="text-gray-100 mb-6 leading-relaxed">
+                                        {t('products.tooling.palletsFixtures.description')}
+                                    </p>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.tooling.palletsFixtures.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.tooling.palletsFixtures.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.tooling.palletsFixtures.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
-                            </div>
-
-                            {/* Fixtures */}
-                            <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-lg flex items-center justify-center overflow-hidden">
-                                        <img
-                                            src="/images/products/tooling/fixtures.jpg"
-                                            alt="Fixtures"
-                                            className="w-full h-full object-cover rounded-lg"
-                                            onError={(e) => {
-                                                e.target.style.display = 'none';
-                                                e.target.nextSibling.style.display = 'flex';
-                                            }}
-                                        />
-                                        <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-gray-500 text-xs font-medium" style={{ display: 'none' }}>
-                                            IMG
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-semibold text-blue-900 mb-1">
-                                            {t('products.tooling.palletsFixtures.title')}
-                                        </h3>
-                                        <p className="text-gray-600 text-sm">
-                                            {t('products.tooling.palletsFixtures.subtitle')}
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <p className="text-gray-700 mb-6 leading-relaxed">
-                                    {t('products.tooling.palletsFixtures.description')}
-                                </p>
-
-                                <ul className="space-y-2 mb-6">
-                                    {t('products.tooling.palletsFixtures.features', { returnObjects: true }).map((feature, index) => (
-                                        <li key={index} className="flex items-center text-sm text-gray-600">
-                                            <span className="text-green-500 mr-2">?</span>
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                             </div>
                         </div>
                     </div>
@@ -1242,13 +1264,159 @@ const ProductsIndex = () => {
                             >
                                 {t('products.cta.primaryButton')}
                             </button>
-                            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                            <button 
+                                onClick={handleCatalogDownload}
+                                className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors"
+                            >
                                 {t('products.cta.secondaryButton')}
                             </button>
                         </div>
                     </div>
                 </div>
             </section>
+
+            {/* Modal de Descarga de Catálogo */}
+            {showCatalogModal && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+                        {/* Header del Modal */}
+                        <div className="bg-gradient-to-r from-blue-600 to-blue-900 text-white p-6 rounded-t-xl">
+                            <div className="flex justify-between items-center">
+                                <h3 className="text-2xl font-bold">
+                                    {i18n.language === 'es' ? '📄 Descargar Catálogo' : '📄 Download Catalog'}
+                                </h3>
+                                <button
+                                    onClick={() => setShowCatalogModal(false)}
+                                    className="text-white hover:text-gray-200 text-3xl font-bold leading-none"
+                                    disabled={isSubmitting}
+                                >
+                                    ×
+                                </button>
+                            </div>
+                            <p className="text-blue-100 mt-2">
+                                {i18n.language === 'es' 
+                                    ? 'Completa el formulario para acceder a nuestro catálogo completo' 
+                                    : 'Complete the form to access our complete catalog'}
+                            </p>
+                        </div>
+
+                        {/* Formulario */}
+                        <form onSubmit={handleCatalogSubmit} className="p-6 space-y-4">
+                            {/* Email (Requerido) */}
+                            <div>
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                                    {i18n.language === 'es' ? 'Email' : 'Email'} <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={catalogForm.email}
+                                    onChange={handleFormChange}
+                                    required
+                                    disabled={isSubmitting}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                                    placeholder={i18n.language === 'es' ? 'tu@email.com' : 'your@email.com'}
+                                />
+                            </div>
+
+                            {/* Nombre (Opcional) */}
+                            <div>
+                                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                                    {i18n.language === 'es' ? 'Nombre' : 'Name'} <span className="text-gray-400 text-xs">(opcional)</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={catalogForm.name}
+                                    onChange={handleFormChange}
+                                    disabled={isSubmitting}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                                    placeholder={i18n.language === 'es' ? 'Juan Pérez' : 'John Doe'}
+                                />
+                            </div>
+
+                            {/* Empresa (Opcional) */}
+                            <div>
+                                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
+                                    {i18n.language === 'es' ? 'Empresa' : 'Company'} <span className="text-gray-400 text-xs">(opcional)</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id="company"
+                                    name="company"
+                                    value={catalogForm.company}
+                                    onChange={handleFormChange}
+                                    disabled={isSubmitting}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                                    placeholder={i18n.language === 'es' ? 'Tu Empresa S.A.' : 'Your Company Inc.'}
+                                />
+                            </div>
+
+                            {/* Checkbox Newsletter */}
+                            <div className="flex items-start">
+                                <input
+                                    type="checkbox"
+                                    id="subscribeNewsletter"
+                                    name="subscribeNewsletter"
+                                    checked={catalogForm.subscribeNewsletter}
+                                    onChange={handleFormChange}
+                                    disabled={isSubmitting}
+                                    className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded disabled:cursor-not-allowed"
+                                />
+                                <label htmlFor="subscribeNewsletter" className="ml-2 block text-sm text-gray-700">
+                                    {i18n.language === 'es' 
+                                        ? 'Suscribirme al newsletter para recibir novedades y artículos técnicos' 
+                                        : 'Subscribe to newsletter to receive updates and technical articles'}
+                                </label>
+                            </div>
+
+                            {/* Mensaje de estado */}
+                            {submitMessage.text && (
+                                <div className={`p-3 rounded-lg ${
+                                    submitMessage.type === 'success' 
+                                        ? 'bg-green-100 text-green-800 border border-green-200' 
+                                        : 'bg-red-100 text-red-800 border border-red-200'
+                                }`}>
+                                    {submitMessage.text}
+                                </div>
+                            )}
+
+                            {/* Botones */}
+                            <div className="flex gap-3 pt-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowCatalogModal(false)}
+                                    disabled={isSubmitting}
+                                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {i18n.language === 'es' ? 'Cancelar' : 'Cancel'}
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                                >
+                                    {isSubmitting ? (
+                                        <>
+                                            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                            </svg>
+                                            {i18n.language === 'es' ? 'Procesando...' : 'Processing...'}
+                                        </>
+                                    ) : (
+                                        <>
+                                            📥 {i18n.language === 'es' ? 'Descargar Catálogo' : 'Download Catalog'}
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

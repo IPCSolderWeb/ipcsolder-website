@@ -171,7 +171,7 @@
         "title": "¿Cómo podemos ayudarte a mejorar tu producción?",
         "description": "Contáctanos para un assessment gratuito de tu línea de producción. Te ayudamos a aumentar tu yield y reducir defectos.",
         "primaryCta": "Solicitar Assessment Gratuito",
-        "secondaryCta": "Ver Fichas Técnicas"
+        "secondaryCta": "Solicitar Fichas Técnicas"
       },
       "contact": {
         "title": "Contacta a Nuestros Expertos",
@@ -1155,7 +1155,7 @@
         "title": "¿Necesitas una solución específica?",
         "description": "Nuestro equipo de expertos está listo para ayudarte a encontrar el producto perfecto para tu aplicación. Contáctanos para una consulta personalizada.",
         "primaryButton": "Solicitar Consulta Gratuita",
-        "secondaryButton": "Ver Catálogo Completo"
+        "secondaryButton": "Descargar Catálogo Completo"
       }
     },
     "services": {
