@@ -6,6 +6,7 @@ const Newsletter = () => {
         recentSubscribers: 0,
         confirmationRate: 0,
         catalogDownloads: 0,
+        recentCatalogDownloads: 0,
         onlyNewsletter: 0,
         onlyCatalog: 0,
         both: 0,
@@ -112,6 +113,35 @@ const Newsletter = () => {
         } catch (error) {
             console.error('Error exporting subscribers:', error)
             alert('Error al exportar la lista de suscriptores')
+        }
+    }
+
+    // Exportar solo descargas de catálogo
+    const exportCatalogDownloads = async () => {
+        try {
+            const response = await fetch('/api/newsletter/subscribers?status=catalog&limit=1000')
+            if (!response.ok) {
+                throw new Error('Error al exportar descargas de catálogo')
+            }
+            const data = await response.json()
+
+            // Crear CSV
+            const csvContent = [
+                'Email,Nombre,Empresa,Idioma,Suscrito Newsletter,Fecha Descarga Catálogo,Fuente',
+                ...data.subscribers.map(sub =>
+                    `${sub.email},${sub.name || ''},${sub.company || ''},${sub.language},${sub.status === 'active' ? 'Sí' : 'No'},${sub.catalogDownloadedAt ? new Date(sub.catalogDownloadedAt).toLocaleDateString('es-ES') : 'N/A'},${sub.downloadSource || 'N/A'}`
+                )
+            ].join('\n')
+
+            // Descargar archivo
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+            const link = document.createElement('a')
+            link.href = URL.createObjectURL(blob)
+            link.download = `catalog-downloads-${new Date().toISOString().split('T')[0]}.csv`
+            link.click()
+        } catch (error) {
+            console.error('Error exporting catalog downloads:', error)
+            alert('Error al exportar descargas de catálogo')
         }
     }
 
@@ -351,7 +381,7 @@ const Newsletter = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex justify-center space-x-4">
+            <div className="flex justify-center space-x-4 flex-wrap gap-2">
                 <button
                     onClick={() => {
                         setShowSubscribers(true)
@@ -365,7 +395,13 @@ const Newsletter = () => {
                     onClick={exportSubscribers}
                     className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
                 >
-                    Exportar Lista
+                    📧 Exportar Newsletter
+                </button>
+                <button
+                    onClick={exportCatalogDownloads}
+                    className="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition-colors"
+                >
+                    📥 Exportar Descargas Catálogo
                 </button>
             </div>
 
