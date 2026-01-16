@@ -4,6 +4,7 @@ import { adminService, blogService, useAuth } from '../../services/supabase'
 import Toast from '../../components/admin/Toast'
 import ImageUploader from '../../components/admin/ImageUploader'
 import ConfirmLeaveModal from '../../components/admin/ConfirmLeaveModal'
+import ImageUrlModal from '../../components/admin/ImageUrlModal'
 import BlogPreview from '../../components/admin/BlogPreview'
 import useToast from '../../hooks/useToast'
 
@@ -23,6 +24,7 @@ const PostEditor = () => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false) // Detectar cambios sin guardar
   const [showLeaveModal, setShowLeaveModal] = useState(false) // Modal de confirmación
   const [showPreview, setShowPreview] = useState(false) // Mostrar vista previa
+  const [showImageModal, setShowImageModal] = useState(false) // Modal de insertar imagen
 
   // Estados del post
   const [postData, setPostData] = useState({
@@ -188,6 +190,61 @@ const PostEditor = () => {
     }, 0)
   }
 
+  // Función para insertar imagen desde URL
+  const handleInsertImage = (imageUrl, altText, alignment, size) => {
+    const textarea = document.getElementById(`content-${currentLanguage}`)
+    if (!textarea) return
+
+    const start = textarea.selectionStart
+    const end = textarea.selectionEnd
+
+    // Determinar el tamaño máximo según la selección
+    const maxWidth = size === 'small' ? '300px' : size === 'medium' ? '500px' : '800px'
+
+    // Generar HTML de la imagen según alineación
+    let imageHtml = ''
+    
+    if (alignment === 'center') {
+      // Centro: usar display block y margin auto
+      imageHtml = `<p style="text-align: center; margin: 30px 0;">
+  <a href="${imageUrl}" target="_blank" rel="noopener noreferrer">
+    <img src="${imageUrl}" alt="${altText || 'Imagen'}" style="max-width: ${maxWidth}; height: auto; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block;" />
+  </a>
+</p>`
+    } else if (alignment === 'left') {
+      // Izquierda: sin width 100%, se alinea naturalmente
+      imageHtml = `<p style="margin: 30px 0;">
+  <a href="${imageUrl}" target="_blank" rel="noopener noreferrer">
+    <img src="${imageUrl}" alt="${altText || 'Imagen'}" style="max-width: ${maxWidth}; height: auto; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: block;" />
+  </a>
+</p>`
+    } else { // right
+      // Derecha: usar margin-left auto
+      imageHtml = `<p style="margin: 30px 0;">
+  <a href="${imageUrl}" target="_blank" rel="noopener noreferrer">
+    <img src="${imageUrl}" alt="${altText || 'Imagen'}" style="max-width: ${maxWidth}; height: auto; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: block; margin-left: auto;" />
+  </a>
+</p>`
+    }
+
+    const newContent = 
+      contentData[currentLanguage].content.substring(0, start) +
+      imageHtml +
+      contentData[currentLanguage].content.substring(end)
+
+    handleContentChange(currentLanguage, 'content', newContent)
+
+    // Cerrar modal
+    setShowImageModal(false)
+
+    // Restaurar el foco
+    setTimeout(() => {
+      textarea.focus()
+      const newCursorPos = start + imageHtml.length
+      textarea.setSelectionRange(newCursorPos, newCursorPos)
+    }, 0)
+  }
+
   // Funciones de formato
   const formatButtons = [
     {
@@ -231,6 +288,12 @@ const PostEditor = () => {
       title: 'Salto de línea',
       action: () => insertHtmlAtCursor('<br>\n', '', ''),
       group: 'structure'
+    },
+    {
+      label: '🖼️',
+      title: 'Insertar imagen desde URL',
+      action: () => setShowImageModal(true),
+      group: 'media'
     },
     {
       label: '⬅️➡️',
@@ -522,6 +585,21 @@ const PostEditor = () => {
                       {/* Grupo: Estructura */}
                       <div className="flex gap-1 pr-2 border-r border-gray-300">
                         {formatButtons.filter(btn => btn.group === 'structure').map((btn, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            onClick={btn.action}
+                            title={btn.title}
+                            className="px-3 py-1 text-sm font-medium bg-white border border-gray-300 rounded hover:bg-blue-50 hover:border-blue-400 transition-colors"
+                          >
+                            {btn.label}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Grupo: Media */}
+                      <div className="flex gap-1 pr-2 border-r border-gray-300">
+                        {formatButtons.filter(btn => btn.group === 'media').map((btn, idx) => (
                           <button
                             key={idx}
                             type="button"
@@ -876,6 +954,13 @@ Debes devolver CUATRO secciones (Español e Inglés):
         isOpen={showLeaveModal}
         onConfirm={confirmLeave}
         onCancel={cancelLeave}
+      />
+
+      {/* Modal de insertar imagen */}
+      <ImageUrlModal
+        isOpen={showImageModal}
+        onInsert={handleInsertImage}
+        onCancel={() => setShowImageModal(false)}
       />
     </div>
   )
