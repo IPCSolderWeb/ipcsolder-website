@@ -183,7 +183,7 @@ const BlogPost = ({ currentLanguage = 'es' }) => {
 
         {/* Content */}
         <div 
-          className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900"
+          className="blog-content prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900"
           dangerouslySetInnerHTML={{ __html: content.content }}
         />
 
@@ -285,6 +285,83 @@ const BlogPost = ({ currentLanguage = 'es' }) => {
           </Link>
         </div>
       </div>
+
+      {/* Estilos personalizados para el contenido del blog */}
+      <style jsx>{`
+        .blog-content {
+          color: #374151;
+          line-height: 1.8;
+        }
+        
+        .blog-content h2 {
+          font-size: 2rem;
+          font-weight: bold;
+          margin-top: 2rem;
+          margin-bottom: 1rem;
+          color: #1f2937;
+        }
+        
+        .blog-content h3 {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-top: 1.5rem;
+          margin-bottom: 0.75rem;
+          color: #1f2937;
+        }
+        
+        .blog-content p {
+          margin-bottom: 1rem;
+        }
+        
+        .blog-content strong {
+          font-weight: 600;
+          color: #1f2937;
+        }
+        
+        .blog-content em {
+          font-style: italic;
+        }
+        
+        .blog-content ul,
+        .blog-content ol {
+          margin: 1.5rem 0;
+          padding-left: 1.5rem;
+        }
+        
+        .blog-content li {
+          margin-bottom: 0.5rem;
+        }
+        
+        .blog-content ul li {
+          list-style-type: none;
+          position: relative;
+        }
+        
+        .blog-content a {
+          color: #2563eb;
+          text-decoration: underline;
+        }
+        
+        .blog-content a:hover {
+          color: #1d4ed8;
+        }
+        
+        .blog-content code {
+          background-color: #f3f4f6;
+          padding: 0.2rem 0.4rem;
+          border-radius: 0.25rem;
+          font-size: 0.875em;
+          font-family: monospace;
+        }
+        
+        .blog-content blockquote {
+          border-left: 4px solid #3b82f6;
+          padding-left: 1rem;
+          margin: 1.5rem 0;
+          font-style: italic;
+          color: #4b5563;
+        }
+      `}</style>
     </div>
   )
 }
