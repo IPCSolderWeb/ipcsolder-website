@@ -25,6 +25,16 @@ export default async function handler(req, res) {
     // Calcular métricas
     const totalSubscribers = subscribers.length;
     
+    // Métricas de catálogo
+    const catalogDownloads = subscribers.filter(sub => sub.catalog_downloaded_at !== null).length;
+    const onlyNewsletter = subscribers.filter(sub => sub.catalog_downloaded_at === null).length;
+    const onlyCatalog = subscribers.filter(sub => 
+      sub.catalog_downloaded_at !== null && !sub.is_active
+    ).length;
+    const both = subscribers.filter(sub => 
+      sub.catalog_downloaded_at !== null && sub.is_active && sub.confirmed_at !== null
+    ).length;
+    
     // Suscriptores por idioma
     const languageStats = subscribers.reduce((acc, sub) => {
       acc[sub.language] = (acc[sub.language] || 0) + 1;
@@ -86,6 +96,10 @@ export default async function handler(req, res) {
       recentSubscribers,
       confirmationRate: parseFloat(confirmationRate),
       languageBreakdown: languageStats,
+      catalogDownloads,
+      onlyNewsletter,
+      onlyCatalog,
+      both,
       recentSubscribersList,
       lastUpdated: new Date().toISOString()
     };

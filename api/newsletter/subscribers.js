@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
     let query = supabase
       .from('newsletter_subscribers')
-      .select('id, email, language, is_active, confirmed_at, created_at, unsubscribed_at')
+      .select('id, email, name, company, language, is_active, confirmed_at, created_at, unsubscribed_at, catalog_downloaded_at, download_source')
       .order('created_at', { ascending: false });
 
     // Filtrar por estado
@@ -60,6 +60,8 @@ export default async function handler(req, res) {
     const formattedSubscribers = subscribers.map(sub => ({
       id: sub.id,
       email: sub.email,
+      name: sub.name,
+      company: sub.company,
       language: sub.language,
       status: sub.unsubscribed_at 
         ? 'unsubscribed' 
@@ -68,7 +70,15 @@ export default async function handler(req, res) {
           : 'pending',
       subscribedAt: sub.created_at,
       confirmedAt: sub.confirmed_at,
-      unsubscribedAt: sub.unsubscribed_at
+      unsubscribedAt: sub.unsubscribed_at,
+      catalogDownloadedAt: sub.catalog_downloaded_at,
+      downloadSource: sub.download_source,
+      hasCatalog: sub.catalog_downloaded_at !== null,
+      interest: sub.catalog_downloaded_at && sub.is_active && sub.confirmed_at 
+        ? 'both' 
+        : sub.catalog_downloaded_at 
+          ? 'catalog' 
+          : 'newsletter'
     }));
 
     res.status(200).json({

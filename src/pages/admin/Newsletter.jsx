@@ -5,6 +5,10 @@ const Newsletter = () => {
         totalSubscribers: 0,
         recentSubscribers: 0,
         confirmationRate: 0,
+        catalogDownloads: 0,
+        onlyNewsletter: 0,
+        onlyCatalog: 0,
+        both: 0,
         languageBreakdown: { es: 0, en: 0 },
         recentSubscribersList: [],
         lastUpdated: null
@@ -93,9 +97,9 @@ const Newsletter = () => {
 
             // Crear CSV
             const csvContent = [
-                'Email,Idioma,Fecha Suscripción,Fecha Confirmación',
+                'Email,Nombre,Empresa,Idioma,Newsletter,Catálogo,Interés,Fecha Suscripción,Fecha Confirmación,Fecha Catálogo',
                 ...data.subscribers.map(sub =>
-                    `${sub.email},${sub.language},${new Date(sub.subscribedAt).toLocaleDateString('es-ES')},${sub.confirmedAt ? new Date(sub.confirmedAt).toLocaleDateString('es-ES') : 'N/A'}`
+                    `${sub.email},${sub.name || ''},${sub.company || ''},${sub.language},${sub.status === 'active' ? 'Sí' : 'No'},${sub.hasCatalog ? 'Sí' : 'No'},${sub.interest === 'both' ? 'Ambos' : sub.interest === 'catalog' ? 'Catálogo' : 'Newsletter'},${new Date(sub.subscribedAt).toLocaleDateString('es-ES')},${sub.confirmedAt ? new Date(sub.confirmedAt).toLocaleDateString('es-ES') : 'N/A'},${sub.catalogDownloadedAt ? new Date(sub.catalogDownloadedAt).toLocaleDateString('es-ES') : 'N/A'}`
                 )
             ].join('\n')
 
@@ -182,6 +186,21 @@ const Newsletter = () => {
                     </div>
                 </div>
 
+                {/* Catalog Downloads */}
+                <div className="bg-white rounded-lg shadow p-6">
+                    <div className="flex items-center">
+                        <div className="flex-shrink-0">
+                            <div className="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
+                                <span className="text-white text-lg">📥</span>
+                            </div>
+                        </div>
+                        <div className="ml-4">
+                            <p className="text-sm font-medium text-gray-600">Descargas Catálogo</p>
+                            <p className="text-2xl font-bold text-gray-900">{analytics.catalogDownloads}</p>
+                        </div>
+                    </div>
+                </div>
+
                 {/* Confirmation Rate */}
                 <div className="bg-white rounded-lg shadow p-6">
                     <div className="flex items-center">
@@ -242,6 +261,61 @@ const Newsletter = () => {
                             </div>
                         </div>
                     ))}
+                </div>
+            </div>
+
+            {/* Interest Distribution */}
+            <div className="bg-white rounded-lg shadow p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Distribución por Interés</h3>
+                <div className="space-y-4">
+                    <div>
+                        <div className="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>📧 Solo Newsletter</span>
+                            <span>{analytics.onlyNewsletter} personas</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                                className="h-2 rounded-full bg-blue-500"
+                                style={{
+                                    width: analytics.totalSubscribers > 0
+                                        ? `${(analytics.onlyNewsletter / analytics.totalSubscribers) * 100}%`
+                                        : '0%'
+                                }}
+                            ></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>📄 Solo Catálogo</span>
+                            <span>{analytics.onlyCatalog} personas</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                                className="h-2 rounded-full bg-purple-500"
+                                style={{
+                                    width: analytics.totalSubscribers > 0
+                                        ? `${(analytics.onlyCatalog / analytics.totalSubscribers) * 100}%`
+                                        : '0%'
+                                }}
+                            ></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="flex justify-between text-sm text-gray-600 mb-1">
+                            <span>🎯 Ambos</span>
+                            <span>{analytics.both} personas</span>
+                        </div>
+                        <div className="w-full bg-gray-200 rounded-full h-2">
+                            <div
+                                className="h-2 rounded-full bg-green-500"
+                                style={{
+                                    width: analytics.totalSubscribers > 0
+                                        ? `${(analytics.both / analytics.totalSubscribers) * 100}%`
+                                        : '0%'
+                                }}
+                            ></div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -320,21 +394,46 @@ const Newsletter = () => {
                                     <thead className="bg-gray-50 sticky top-0">
                                         <tr>
                                             <th className="px-4 py-2 text-left font-medium text-gray-700">Email</th>
+                                            <th className="px-4 py-2 text-left font-medium text-gray-700">Nombre</th>
+                                            <th className="px-4 py-2 text-left font-medium text-gray-700">Empresa</th>
                                             <th className="px-4 py-2 text-left font-medium text-gray-700">Idioma</th>
+                                            <th className="px-4 py-2 text-left font-medium text-gray-700">Catálogo</th>
+                                            <th className="px-4 py-2 text-left font-medium text-gray-700">Interés</th>
                                             <th className="px-4 py-2 text-left font-medium text-gray-700">Estado</th>
-                                            <th className="px-4 py-2 text-left font-medium text-gray-700">Fecha Suscripción</th>
+                                            <th className="px-4 py-2 text-left font-medium text-gray-700">Fecha</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {subscribers.map((subscriber) => (
                                             <tr key={subscriber.id} className="border-b border-gray-100">
                                                 <td className="px-4 py-2 text-gray-900">{subscriber.email}</td>
+                                                <td className="px-4 py-2 text-gray-700">{subscriber.name || '-'}</td>
+                                                <td className="px-4 py-2 text-gray-700">{subscriber.company || '-'}</td>
                                                 <td className="px-4 py-2">
                                                     <span className="inline-flex items-center">
                                                         {subscriber.language === 'es' ? '🇪🇸' : '🇺🇸'}
                                                         <span className="ml-1 text-gray-700">
-                                                            {subscriber.language === 'es' ? 'Español' : 'English'}
+                                                            {subscriber.language === 'es' ? 'ES' : 'EN'}
                                                         </span>
+                                                    </span>
+                                                </td>
+                                                <td className="px-4 py-2 text-center">
+                                                    {subscriber.hasCatalog ? (
+                                                        <span className="text-green-600 text-lg">✅</span>
+                                                    ) : (
+                                                        <span className="text-gray-400 text-lg">❌</span>
+                                                    )}
+                                                </td>
+                                                <td className="px-4 py-2">
+                                                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                                                        subscriber.interest === 'both'
+                                                            ? 'bg-green-100 text-green-800'
+                                                            : subscriber.interest === 'catalog'
+                                                                ? 'bg-purple-100 text-purple-800'
+                                                                : 'bg-blue-100 text-blue-800'
+                                                    }`}>
+                                                        {subscriber.interest === 'both' ? '🎯 Ambos' :
+                                                            subscriber.interest === 'catalog' ? '📄 Catálogo' : '📧 Newsletter'}
                                                     </span>
                                                 </td>
                                                 <td className="px-4 py-2">
