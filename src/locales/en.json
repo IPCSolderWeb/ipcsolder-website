@@ -212,7 +212,7 @@
       "title": "How can we help you improve your production?",
       "description": "Contact us for a free assessment of your production line. We help you increase your yield and reduce defects.",
       "primaryCta": "Request Free Assessment",
-      "secondaryCta": "View Technical Sheets"
+      "secondaryCta": "Request Technical Sheets"
     },
     "contact": {
       "title": "Contact Our Experts",
@@ -1217,7 +1217,7 @@
       "title": "Need a specific solution?",
       "description": "Our team of experts is ready to help you find the perfect product for your application. Contact us for a personalized consultation.",
       "primaryButton": "Request Free Consultation",
-      "secondaryButton": "View Complete Catalog"
+      "secondaryButton": "Download Complete Catalog"
     }
   },
   "services": {
