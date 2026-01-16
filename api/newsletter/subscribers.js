@@ -26,7 +26,11 @@ export default async function handler(req, res) {
       query = query.or('is_active.eq.false,confirmed_at.is.null');
     } else if (status === 'unsubscribed') {
       query = query.not('unsubscribed_at', 'is', null);
+    } else if (status === 'catalog') {
+      // Nueva opción: solo los que descargaron catálogo
+      query = query.not('catalog_downloaded_at', 'is', null);
     }
+    // Si status === 'all', no aplicar filtro (mostrar todos)
 
     // Aplicar paginación
     query = query.range(offset, offset + limit - 1);
@@ -48,6 +52,8 @@ export default async function handler(req, res) {
       countQuery = countQuery.or('is_active.eq.false,confirmed_at.is.null');
     } else if (status === 'unsubscribed') {
       countQuery = countQuery.not('unsubscribed_at', 'is', null);
+    } else if (status === 'catalog') {
+      countQuery = countQuery.not('catalog_downloaded_at', 'is', null);
     }
 
     const { count, error: countError } = await countQuery;

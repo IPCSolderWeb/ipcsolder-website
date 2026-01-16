@@ -11,42 +11,59 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Obtener todos los suscriptores confirmados (is_active = true y confirmed_at no es null)
-    const { data: subscribers, error: subscribersError } = await supabase
+    // Obtener TODOS los registros (incluyendo solo catálogo)
+    const { data: allRecords, error: allRecordsError } = await supabase
       .from('newsletter_subscribers')
-      .select('*')
-      .eq('is_active', true)
-      .not('confirmed_at', 'is', null);
+      .select('*');
 
-    if (subscribersError) {
-      throw subscribersError;
+    if (allRecordsError) {
+      throw allRecordsError;
     }
 
+    // Filtrar suscriptores confirmados de newsletter
+    const newsletterSubscribers = allRecords.filter(sub => 
+      sub.is_active && sub.confirmed_at !== null
+    );
+
+    // Filtrar descargas de catálogo (todos los que descargaron)
+    const catalogDownloaders = allRecords.filter(sub => 
+      sub.catalog_downloaded_at !== null
+    );
+
     // Calcular métricas
-    const totalSubscribers = subscribers.length;
+    const totalSubscribers = newsletterSubscribers.length;
+    const totalCatalogDownloads = catalogDownloaders.length;
     
     // Métricas de catálogo
-    const catalogDownloads = subscribers.filter(sub => sub.catalog_downloaded_at !== null).length;
-    const onlyNewsletter = subscribers.filter(sub => sub.catalog_downloaded_at === null).length;
-    const onlyCatalog = subscribers.filter(sub => 
-      sub.catalog_downloaded_at !== null && !sub.is_active
-    ).length;
-    const both = subscribers.filter(sub => 
-      sub.catalog_downloaded_at !== null && sub.is_active && sub.confirmed_at !== null
+    const onlyNewsletter = newsletterSubscribers.filter(sub => 
+      sub.catalog_downloaded_at === null
     ).length;
     
-    // Suscriptores por idioma
-    const languageStats = subscribers.reduce((acc, sub) => {
+    const onlyCatalog = catalogDownloaders.filter(sub => 
+      !sub.is_active || sub.confirmed_at === null
+    ).length;
+    
+    const both = catalogDownloaders.filter(sub => 
+      sub.is_active && sub.confirmed_at !== null
+    ).length;
+    
+    // Suscriptores por idioma (solo newsletter confirmados)
+    const languageStats = newsletterSubscribers.reduce((acc, sub) => {
       acc[sub.language] = (acc[sub.language] || 0) + 1;
       return acc;
     }, {});
 
-    // Suscriptores de los últimos 30 días
+    // Suscriptores de los últimos 30 días (newsletter)
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
     
-    const recentSubscribers = subscribers.filter(sub => 
+    const recentSubscribers = newsletterSubscribers.filter(sub => 
       new Date(sub.created_at) >= thirtyDaysAgo
+    ).length;
+
+    // Descargas de catálogo de los últimos 30 días
+    const recentCatalogDownloads = catalogDownloaders.filter(sub =>
+      new Date(sub.catalog_downloaded_at) >= thirtyDaysAgo
     ).length;
 
     // Suscriptores por mes (últimos 6 meses)
@@ -57,7 +74,7 @@ export default async function handler(req, res) {
       const monthStart = new Date(date.getFullYear(), date.getMonth(), 1);
       const monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0);
       
-      const monthSubscribers = subscribers.filter(sub => {
+      const monthSubscribers = newsletterSubscribers.filter(sub => {
         const subDate = new Date(sub.created_at);
         return subDate >= monthStart && subDate <= monthEnd;
       }).length;
@@ -78,11 +95,11 @@ export default async function handler(req, res) {
       throw unconfirmedError;
     }
 
-    const totalSignups = subscribers.length + unconfirmedSubscribers.length;
-    const confirmationRate = totalSignups > 0 ? (subscribers.length / totalSignups * 100).toFixed(1) : 0;
+    const totalSignups = newsletterSubscribers.length + unconfirmedSubscribers.length;
+    const confirmationRate = totalSignups > 0 ? (newsletterSubscribers.length / totalSignups * 100).toFixed(1) : 0;
 
     // Obtener los últimos 5 suscriptores confirmados
-    const recentSubscribersList = subscribers
+    const recentSubscribersList = newsletterSubscribers
       .sort((a, b) => new Date(b.confirmed_at) - new Date(a.confirmed_at))
       .slice(0, 5)
       .map(sub => ({
@@ -96,7 +113,8 @@ export default async function handler(req, res) {
       recentSubscribers,
       confirmationRate: parseFloat(confirmationRate),
       languageBreakdown: languageStats,
-      catalogDownloads,
+      catalogDownloads: totalCatalogDownloads,
+      recentCatalogDownloads,
       onlyNewsletter,
       onlyCatalog,
       both,
