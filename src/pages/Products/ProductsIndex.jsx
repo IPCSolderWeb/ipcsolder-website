@@ -799,6 +799,129 @@ const ProductsIndex = () => {
                                     <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
                                 </div>
                             </div>
+
+                            {/* Solder Paste */}
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/solder/solder-paste.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
+                                            {t('products.solder.solderPaste.title')}
+                                        </h3>
+                                        <p className="text-gray-200 text-sm">
+                                            {t('products.solder.solderPaste.subtitle')}
+                                        </p>
+                                    </div>
+
+                                    <p className="text-gray-100 mb-4 leading-relaxed">
+                                        {t('products.solder.solderPaste.description')}
+                                    </p>
+
+                                    {/* Aleaciones Lead Free y Leaded */}
+                                    <div className="mb-4 space-y-2">
+                                        <div className="bg-white bg-opacity-10 rounded-lg p-3">
+                                            <p className="text-green-400 font-semibold text-sm mb-1">
+                                                ✓ {t('products.solder.solderPaste.leadFree.title')}
+                                            </p>
+                                            <p className="text-gray-200 text-xs">
+                                                {t('products.solder.solderPaste.leadFree.alloys', { returnObjects: true }).join(' • ')}
+                                            </p>
+                                        </div>
+                                        <div className="bg-white bg-opacity-10 rounded-lg p-3">
+                                            <p className="text-blue-400 font-semibold text-sm mb-1">
+                                                ✓ {t('products.solder.solderPaste.leaded.title')}
+                                            </p>
+                                            <p className="text-gray-200 text-xs">
+                                                {t('products.solder.solderPaste.leaded.alloys', { returnObjects: true }).join(' • ')}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <ul className="space-y-2 mb-6">
+                                        {t('products.solder.solderPaste.features', { returnObjects: true }).map((feature, index) => (
+                                            <li key={index} className="flex items-center text-sm text-gray-200">
+                                                <span className="text-green-400 mr-2">✓</span>
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
+                                </div>
+                            </div>
+
+                            {/* Rework & Touch Up */}
+                            <div 
+                                className="relative rounded-xl p-8 shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 overflow-hidden"
+                                style={{
+                                    backgroundImage: 'url(/images/products/solder/rework-touchup.webp)',
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                    backgroundRepeat: 'no-repeat'
+                                }}
+                            >
+                                {/* Overlay semitransparente */}
+                                <div className="absolute inset-0 bg-black bg-opacity-60 rounded-xl"></div>
+                                
+                                {/* Contenido */}
+                                <div className="relative z-10">
+                                    <div className="mb-6">
+                                        <h3 className="text-xl font-semibold text-white mb-2">
+                                            {t('products.solder.reworkTouchUp.title')}
+                                        </h3>
+                                        <p className="text-gray-200 text-sm">
+                                            {t('products.solder.reworkTouchUp.subtitle')}
+                                        </p>
+                                    </div>
+
+                                    <p className="text-gray-100 mb-4 leading-relaxed">
+                                        {t('products.solder.reworkTouchUp.description')}
+                                    </p>
+
+                                    {/* Liquid Flux y Gel Flux */}
+                                    <div className="mb-4 space-y-3">
+                                        <div className="bg-white bg-opacity-10 rounded-lg p-3">
+                                            <p className="text-cyan-400 font-semibold text-sm mb-2">
+                                                💧 {t('products.solder.reworkTouchUp.liquidFlux.title')}
+                                            </p>
+                                            <ul className="space-y-1">
+                                                {t('products.solder.reworkTouchUp.liquidFlux.features', { returnObjects: true }).map((feature, index) => (
+                                                    <li key={index} className="flex items-center text-xs text-gray-200">
+                                                        <span className="text-green-400 mr-2">✓</span>
+                                                        {feature}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className="bg-white bg-opacity-10 rounded-lg p-3">
+                                            <p className="text-purple-400 font-semibold text-sm mb-2">
+                                                🧪 {t('products.solder.reworkTouchUp.gelFlux.title')}
+                                            </p>
+                                            <ul className="space-y-1">
+                                                {t('products.solder.reworkTouchUp.gelFlux.features', { returnObjects: true }).map((feature, index) => (
+                                                    <li key={index} className="flex items-center text-xs text-gray-200">
+                                                        <span className="text-green-400 mr-2">✓</span>
+                                                        {feature}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div><button onClick={handleQuoteRequest} className="block w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-center">{t('products.actions.quote')}</button></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
