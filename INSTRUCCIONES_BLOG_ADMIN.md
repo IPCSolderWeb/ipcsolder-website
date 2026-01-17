@@ -53,6 +53,178 @@ Usa estos botones para dar formato al contenido sin escribir HTML:
 
 ---
 
+## 📎 Agregar Documentos de Apoyo
+
+### ¿Para qué sirve?
+
+Agregar documentos descargables al final de tus blogs (fichas técnicas, catálogos, manuales, etc.) sin ocupar espacio en el servidor.
+
+### 🎯 Cómo funciona:
+
+1. **Subes el documento a la nube** (Google Drive o Dropbox)
+2. **Obtienes un enlace público**
+3. **Usas el botón 📎 en el editor** para agregarlo
+4. **Aparece automáticamente** en la sección "Recursos Adicionales" al final del blog
+
+---
+
+## ☁️ Cómo Obtener Enlaces Públicos
+
+### 📁 Google Drive (Recomendado):
+
+**Paso 1: Subir el archivo**
+1. Ve a https://drive.google.com
+2. Haz clic en "Nuevo" → "Subir archivo"
+3. Selecciona tu documento (PDF, Excel, Word, ZIP, etc.)
+4. Espera a que termine de subir
+
+**Paso 2: Hacer el archivo público**
+1. Haz clic derecho en el archivo → "Compartir"
+2. En "Acceso general", haz clic en "Restringido"
+3. Selecciona **"Cualquier persona con el enlace"**
+4. Asegúrate que diga **"Lector"** (no "Editor")
+5. Haz clic en "Copiar enlace"
+
+**Paso 3: Convertir el enlace (IMPORTANTE)**
+
+El enlace que copiaste se ve así:
+```
+https://drive.google.com/file/d/1ABC123xyz/view?usp=sharing
+```
+
+Necesitas convertirlo a formato de descarga directa:
+```
+https://drive.google.com/uc?export=download&id=1ABC123xyz
+```
+
+**Cómo hacerlo:**
+- Copia solo el ID (la parte entre `/d/` y `/view`)
+- Usa este formato: `https://drive.google.com/uc?export=download&id=TU_ID_AQUI`
+
+**✅ Ventajas de Google Drive:**
+- 15 GB gratis
+- Muy confiable
+- Enlaces no expiran
+- Fácil de actualizar archivos
+
+**⚠️ Importante:**
+- ✅ Solo el archivo específico será público
+- ✅ Nadie puede ver tus otros archivos de Drive
+- ✅ Solo pueden ver/descargar, no editar
+- ❌ NO compartas carpetas completas, solo archivos individuales
+
+---
+
+### 📦 Dropbox:
+
+**Paso 1: Subir el archivo**
+1. Ve a https://www.dropbox.com
+2. Haz clic en "Subir" → "Archivos"
+3. Selecciona tu documento
+4. Espera a que termine de subir
+
+**Paso 2: Crear enlace público**
+1. Pasa el mouse sobre el archivo
+2. Haz clic en "Compartir"
+3. Haz clic en "Crear enlace"
+4. Haz clic en "Copiar enlace"
+
+**Paso 3: Modificar el enlace (IMPORTANTE)**
+
+El enlace que copiaste termina en `?dl=0`:
+```
+https://www.dropbox.com/s/abc123/archivo.pdf?dl=0
+```
+
+Cámbialo a `?dl=1` para descarga directa:
+```
+https://www.dropbox.com/s/abc123/archivo.pdf?dl=1
+```
+
+**✅ Ventajas de Dropbox:**
+- 2 GB gratis (menos que Drive)
+- Enlaces simples
+- Descarga directa fácil
+
+**⚠️ Importante:**
+- ✅ Solo el archivo específico será público
+- ✅ Nadie puede ver tus otros archivos
+- ✅ Solo pueden descargar, no editar
+
+---
+
+## 📎 Usar el Botón de Documentos en el Editor
+
+**Paso a paso:**
+
+1. **Prepara tu documento:**
+   - Súbelo a Google Drive o Dropbox
+   - Obtén el enlace público (siguiendo las instrucciones arriba)
+   - Copia el enlace
+
+2. **En el editor del blog:**
+   - Haz clic en el botón **📎** en la barra de herramientas
+   - Se abrirá el modal "Agregar Documento"
+
+3. **Completa el formulario:**
+   - **URL del documento:** Pega el enlace público
+   - **Título:** Ej: "Ficha Técnica Soldadura SAC305"
+   - **Tipo:** Selecciona (PDF, Excel, Word, ZIP, Imagen, Otro)
+   - **Descripción:** (Opcional) Ej: "Especificaciones técnicas completas"
+
+4. **Haz clic en "Agregar Documento"**
+   - Se agregará automáticamente a la sección "Recursos Adicionales"
+   - Aparecerá al final del contenido
+   - Puedes agregar múltiples documentos
+
+5. **Vista previa:**
+   - Cambia a la pestaña "👁️ Vista Previa"
+   - Verás la sección "📚 Recursos Adicionales" al final
+   - Verifica que los enlaces funcionen
+
+---
+
+## 📚 Cómo se ve en el Blog
+
+Al final de tu artículo aparecerá:
+
+```
+═══════════════════════════════════
+📚 Recursos Adicionales
+═══════════════════════════════════
+
+📄 Ficha Técnica Soldadura SAC305
+   Especificaciones técnicas completas
+
+📊 Tabla de Temperaturas
+   Guía de referencia rápida
+
+📦 Archivos CAD
+   Modelos 3D para diseño
+```
+
+Cada documento es un enlace clickeable que abre en nueva pestaña.
+
+---
+
+## ⚠️ Mejores Prácticas
+
+### ✅ Hacer:
+- Usa nombres descriptivos para los documentos
+- Agrega descripciones breves y útiles
+- Verifica que los enlaces funcionen antes de publicar
+- Usa Google Drive para archivos grandes (hasta 15GB gratis)
+- Mantén los archivos organizados en carpetas en tu Drive
+
+### ❌ Evitar:
+- No uses enlaces temporales o que expiren
+- No compartas carpetas completas (solo archivos individuales)
+- No uses servicios poco confiables
+- No olvides cambiar `?dl=0` a `?dl=1` en Dropbox
+- No olvides convertir el enlace de Drive al formato correcto
+
+---
+
 ## 🖼️ Insertar Imágenes en el Contenido
 
 ### ¿Cómo agregar imágenes dentro del artículo?
