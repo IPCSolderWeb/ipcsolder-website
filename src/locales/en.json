@@ -1068,6 +1068,40 @@
           "Process repeatability",
           "Waste reduction"
         ]
+      },
+      "solderPaste": {
+        "title": "Solder Paste",
+        "subtitle": "Lead Free & Leaded",
+        "description": "High-quality solder paste in lead-free alloys (SAC0307, SN100C) and leaded alloys (SN63/PB37, SN60/PB40) for SMT processes.",
+        "leadFree": {
+          "title": "Lead Free",
+          "alloys": ["SAC0307", "SN100C"]
+        },
+        "leaded": {
+          "title": "Leaded",
+          "alloys": ["SN63/PB37", "SN60/PB40"]
+        },
+        "features": [
+          "No Clean",
+          "Faster wetting",
+          "Good cosmetics",
+          "IPC Compliance",
+          "Low residue",
+          "Great solder activity"
+        ]
+      },
+      "reworkTouchUp": {
+        "title": "Rework & Touch Up",
+        "subtitle": "Flux for rework and repair",
+        "description": "Specialized flux for manual rework and critical repairs. Available in liquid format for general applications and gel for precision work on BGA and critical components.",
+        "liquidFlux": {
+          "title": "Liquid Flux",
+          "features": ["Low residues", "No Clean", "Rechargeable pens", "Minimize defects", "Excellent wetting"]
+        },
+        "gelFlux": {
+          "title": "Gel Flux",
+          "features": ["Low residues", "BGA and critical reworks", "Pneumatic Syringe", "Manual Syringe", "Superior Activity", "No Clean"]
+        }
       }
     },
     "machines": {

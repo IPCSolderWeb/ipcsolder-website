@@ -1006,6 +1006,40 @@
             "Repetibilidad de proceso",
             "Reducción de desperdicio"
           ]
+        },
+        "solderPaste": {
+          "title": "Soldadura en Pasta",
+          "subtitle": "Lead Free y Leaded",
+          "description": "Pasta de soldadura de alta calidad en aleaciones sin plomo (SAC0307, SN100C) y con plomo (SN63/PB37, SN60/PB40) para procesos SMT.",
+          "leadFree": {
+            "title": "Lead Free",
+            "alloys": ["SAC0307", "SN100C"]
+          },
+          "leaded": {
+            "title": "Leaded",
+            "alloys": ["SN63/PB37", "SN60/PB40"]
+          },
+          "features": [
+            "No Clean",
+            "Mojabilidad rápida",
+            "Excelente cosmética",
+            "Cumplimiento IPC",
+            "Bajo residuo",
+            "Gran actividad de soldadura"
+          ]
+        },
+        "reworkTouchUp": {
+          "title": "Rework & Touch Up",
+          "subtitle": "Flux para retrabajo y reparación",
+          "description": "Flux especializados para retrabajo manual y reparaciones críticas. Disponibles en formato líquido para aplicaciones generales y gel para trabajos de precisión en BGA y componentes críticos.",
+          "liquidFlux": {
+            "title": "Liquid Flux",
+            "features": ["Bajo residuo", "No Clean", "Plumas recargables", "Minimiza defectos", "Excelente mojabilidad"]
+          },
+          "gelFlux": {
+            "title": "Gel Flux",
+            "features": ["Bajo residuo", "BGA y retrabajo crítico", "Jeringa neumática", "Jeringa manual", "Actividad superior", "No Clean"]
+          }
         }
       },
       "machines": {
