@@ -361,6 +361,15 @@ const BlogPost = ({ currentLanguage = 'es' }) => {
           font-style: italic;
           color: #4b5563;
         }
+        
+        /* Estilos para la sección de Recursos Adicionales */
+        .blog-content a[target="_blank"] {
+          transition: all 0.2s ease;
+        }
+        
+        .blog-content a[target="_blank"]:hover {
+          transform: translateX(5px);
+        }
       `}</style>
     </div>
   )

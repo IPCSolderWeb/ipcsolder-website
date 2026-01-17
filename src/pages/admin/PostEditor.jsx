@@ -5,6 +5,7 @@ import Toast from '../../components/admin/Toast'
 import ImageUploader from '../../components/admin/ImageUploader'
 import ConfirmLeaveModal from '../../components/admin/ConfirmLeaveModal'
 import ImageUrlModal from '../../components/admin/ImageUrlModal'
+import DocumentModal from '../../components/admin/DocumentModal'
 import BlogPreview from '../../components/admin/BlogPreview'
 import useToast from '../../hooks/useToast'
 
@@ -25,6 +26,7 @@ const PostEditor = () => {
   const [showLeaveModal, setShowLeaveModal] = useState(false) // Modal de confirmación
   const [showPreview, setShowPreview] = useState(false) // Mostrar vista previa
   const [showImageModal, setShowImageModal] = useState(false) // Modal de insertar imagen
+  const [showDocumentModal, setShowDocumentModal] = useState(false) // Modal de insertar documento
 
   // Estados del post
   const [postData, setPostData] = useState({
@@ -190,6 +192,79 @@ const PostEditor = () => {
     }, 0)
   }
 
+  // Función para insertar documento en recursos adicionales
+  const handleInsertDocument = (documentUrl, documentTitle, documentType, description) => {
+    const textarea = document.getElementById(`content-${currentLanguage}`)
+    if (!textarea) return
+
+    // Iconos por tipo
+    const icons = {
+      pdf: '📄',
+      excel: '📊',
+      word: '📝',
+      zip: '📦',
+      image: '🖼️',
+      other: '📎'
+    }
+    const icon = icons[documentType] || '📎'
+
+    // Buscar si ya existe la sección de recursos adicionales
+    const currentContent = contentData[currentLanguage].content
+    const resourcesMarker = '<!-- RECURSOS_ADICIONALES -->'
+    
+    let newContent = ''
+    
+    if (currentContent.includes(resourcesMarker)) {
+      // Ya existe la sección, agregar el documento a la lista
+      const documentItem = `    <li style="margin-bottom: 10px;">
+      <a href="${documentUrl}" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 500; display: flex; align-items: start; gap: 8px;">
+        <span style="font-size: 20px;">${icon}</span>
+        <div>
+          <div style="font-size: 15px;">${documentTitle}</div>
+          ${description ? `<div style="font-size: 13px; color: #6b7280; margin-top: 2px;">${description}</div>` : ''}
+        </div>
+      </a>
+    </li>`
+      
+      // Insertar antes del cierre de </ul>
+      newContent = currentContent.replace('</ul>\n</div>', `${documentItem}\n  </ul>\n</div>`)
+    } else {
+      // No existe la sección, crearla al final
+      const resourcesSection = `
+
+${resourcesMarker}
+<div style="margin-top: 40px; padding: 20px; background: linear-gradient(to right, #f0f9ff, #e0f2fe); border-radius: 8px; border-left: 3px solid #3b82f6;">
+  <h3 style="font-size: 18px; font-weight: bold; color: #1e40af; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+    <span style="font-size: 20px;">📚</span> Recursos Adicionales
+  </h3>
+  <ul style="list-style: none; padding: 0; margin: 0;">
+    <li style="margin-bottom: 10px;">
+      <a href="${documentUrl}" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 500; display: flex; align-items: start; gap: 8px;">
+        <span style="font-size: 20px;">${icon}</span>
+        <div>
+          <div style="font-size: 15px;">${documentTitle}</div>
+          ${description ? `<div style="font-size: 13px; color: #6b7280; margin-top: 2px;">${description}</div>` : ''}
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>`
+      
+      newContent = currentContent + resourcesSection
+    }
+
+    handleContentChange(currentLanguage, 'content', newContent)
+
+    // Cerrar modal
+    setShowDocumentModal(false)
+
+    // Restaurar el foco
+    setTimeout(() => {
+      textarea.focus()
+      textarea.setSelectionRange(newContent.length, newContent.length)
+    }, 0)
+  }
+
   // Función para insertar imagen desde URL
   const handleInsertImage = (imageUrl, altText, alignment, size) => {
     const textarea = document.getElementById(`content-${currentLanguage}`)
@@ -293,6 +368,12 @@ const PostEditor = () => {
       label: '🖼️',
       title: 'Insertar imagen desde URL',
       action: () => setShowImageModal(true),
+      group: 'media'
+    },
+    {
+      label: '📎',
+      title: 'Agregar documento a Recursos Adicionales',
+      action: () => setShowDocumentModal(true),
       group: 'media'
     },
     {
@@ -961,6 +1042,13 @@ Debes devolver CUATRO secciones (Español e Inglés):
         isOpen={showImageModal}
         onInsert={handleInsertImage}
         onCancel={() => setShowImageModal(false)}
+      />
+
+      {/* Modal de insertar documento */}
+      <DocumentModal
+        isOpen={showDocumentModal}
+        onInsert={handleInsertDocument}
+        onCancel={() => setShowDocumentModal(false)}
       />
     </div>
   )
