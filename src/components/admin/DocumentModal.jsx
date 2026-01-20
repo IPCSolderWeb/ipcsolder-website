@@ -2,36 +2,92 @@ import React, { useState } from 'react'
 
 const DocumentModal = ({ isOpen, onInsert, onCancel }) => {
   const [documentUrl, setDocumentUrl] = useState('')
-  const [documentTitle, setDocumentTitle] = useState('')
   const [documentType, setDocumentType] = useState('pdf')
-  const [description, setDescription] = useState('')
+  
+  // Campos bilingües
+  const [titleEs, setTitleEs] = useState('')
+  const [titleEn, setTitleEn] = useState('')
+  const [descriptionEs, setDescriptionEs] = useState('')
+  const [descriptionEn, setDescriptionEn] = useState('')
 
   if (!isOpen) return null
+
+  // Función para convertir enlaces de Google Drive automáticamente
+  const convertToDirectLink = (url) => {
+    if (!url) return url
+    
+    // Detectar si es un enlace de Google Drive
+    if (url.includes('drive.google.com') || url.includes('docs.google.com')) {
+      // Extraer el ID del archivo de diferentes formatos de URL
+      let fileId = null
+      
+      // Formato: https://drive.google.com/file/d/FILE_ID/view
+      const match1 = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/)
+      if (match1) {
+        fileId = match1[1]
+      }
+      
+      // Formato: https://drive.google.com/open?id=FILE_ID
+      const match2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/)
+      if (match2) {
+        fileId = match2[1]
+      }
+      
+      // Formato: https://docs.google.com/document/d/FILE_ID/edit
+      const match3 = url.match(/\/d\/([a-zA-Z0-9_-]+)/)
+      if (match3) {
+        fileId = match3[1]
+      }
+      
+      // Si encontramos el ID, convertir al formato de descarga directa
+      if (fileId) {
+        return `https://drive.google.com/uc?export=download&id=${fileId}`
+      }
+    }
+    
+    // Si no es Google Drive o no se pudo convertir, devolver URL original
+    return url
+  }
 
   const handleInsert = () => {
     if (!documentUrl.trim()) {
       alert('Por favor ingresa una URL del documento')
       return
     }
-    if (!documentTitle.trim()) {
-      alert('Por favor ingresa un título para el documento')
+    if (!titleEs.trim()) {
+      alert('Por favor ingresa el título en español')
+      return
+    }
+    if (!titleEn.trim()) {
+      alert('Por favor ingresa el título en inglés')
       return
     }
 
-    onInsert(documentUrl, documentTitle, documentType, description)
+    // Convertir el enlace automáticamente si es de Google Drive
+    const convertedUrl = convertToDirectLink(documentUrl.trim())
+
+    // Pasar ambos idiomas al handler con la URL convertida
+    onInsert(convertedUrl, documentType, {
+      es: { title: titleEs, description: descriptionEs },
+      en: { title: titleEn, description: descriptionEn }
+    })
     
     // Limpiar campos
     setDocumentUrl('')
-    setDocumentTitle('')
     setDocumentType('pdf')
-    setDescription('')
+    setTitleEs('')
+    setTitleEn('')
+    setDescriptionEs('')
+    setDescriptionEn('')
   }
 
   const handleCancel = () => {
     setDocumentUrl('')
-    setDocumentTitle('')
     setDocumentType('pdf')
-    setDescription('')
+    setTitleEs('')
+    setTitleEn('')
+    setDescriptionEs('')
+    setDescriptionEn('')
     onCancel()
   }
 
@@ -79,22 +135,13 @@ const DocumentModal = ({ isOpen, onInsert, onCancel }) => {
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
             />
             <p className="text-xs text-gray-500 mt-1">
-              💡 Enlace público de Google Drive, Dropbox, etc.
+              💡 Enlace público de Google Drive
             </p>
-          </div>
-
-          {/* Título del documento */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Título del documento <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              value={documentTitle}
-              onChange={(e) => setDocumentTitle(e.target.value)}
-              placeholder="Ej: Ficha Técnica Soldadura SAC305"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-            />
+            {documentUrl && (documentUrl.includes('drive.google.com') || documentUrl.includes('docs.google.com')) && (
+              <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-xs text-blue-800">
+                ✨ <strong>Enlace de Google Drive detectado.</strong> Se convertirá automáticamente al formato de descarga directa.
+              </div>
+            )}
           </div>
 
           {/* Tipo de documento */}
@@ -112,7 +159,7 @@ const DocumentModal = ({ isOpen, onInsert, onCancel }) => {
                     : 'border-gray-300 text-gray-700 hover:border-green-300'
                 }`}
               >
-                📄 PDF
+                PDF
               </button>
               <button
                 type="button"
@@ -123,7 +170,7 @@ const DocumentModal = ({ isOpen, onInsert, onCancel }) => {
                     : 'border-gray-300 text-gray-700 hover:border-green-300'
                 }`}
               >
-                📊 Excel
+                Excel
               </button>
               <button
                 type="button"
@@ -134,7 +181,7 @@ const DocumentModal = ({ isOpen, onInsert, onCancel }) => {
                     : 'border-gray-300 text-gray-700 hover:border-green-300'
                 }`}
               >
-                📝 Word
+                Word
               </button>
               <button
                 type="button"
@@ -145,7 +192,7 @@ const DocumentModal = ({ isOpen, onInsert, onCancel }) => {
                     : 'border-gray-300 text-gray-700 hover:border-green-300'
                 }`}
               >
-                📦 ZIP
+                ZIP
               </button>
               <button
                 type="button"
@@ -156,7 +203,7 @@ const DocumentModal = ({ isOpen, onInsert, onCancel }) => {
                     : 'border-gray-300 text-gray-700 hover:border-green-300'
                 }`}
               >
-                🖼️ Imagen
+                Imagen
               </button>
               <button
                 type="button"
@@ -167,37 +214,110 @@ const DocumentModal = ({ isOpen, onInsert, onCancel }) => {
                     : 'border-gray-300 text-gray-700 hover:border-green-300'
                 }`}
               >
-                📎 Otro
+                Otro
               </button>
             </div>
           </div>
 
-          {/* Descripción */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Descripción breve <span className="text-gray-400 text-xs">(opcional)</span>
-            </label>
-            <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Ej: Especificaciones técnicas completas"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-            />
+          {/* Separador Español */}
+          <div className="border-t-2 border-blue-200 pt-4 mt-6">
+            <div className="flex items-center mb-3">
+              <span className="text-2xl mr-2">🇪🇸</span>
+              <h4 className="text-lg font-bold text-blue-900">ESPAÑOL</h4>
+            </div>
+
+            {/* Título ES */}
+            <div className="mb-3">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Título en español <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                value={titleEs}
+                onChange={(e) => setTitleEs(e.target.value)}
+                placeholder="Ej: Ficha Técnica Soldadura SAC305"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
+
+            {/* Descripción ES */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Descripción breve <span className="text-gray-400 text-xs">(opcional)</span>
+              </label>
+              <input
+                type="text"
+                value={descriptionEs}
+                onChange={(e) => setDescriptionEs(e.target.value)}
+                placeholder="Ej: Especificaciones técnicas completas"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
+          </div>
+
+          {/* Separador Inglés */}
+          <div className="border-t-2 border-red-200 pt-4 mt-4">
+            <div className="flex items-center mb-3">
+              <span className="text-2xl mr-2">🇺🇸</span>
+              <h4 className="text-lg font-bold text-red-900">ENGLISH</h4>
+            </div>
+
+            {/* Título EN */}
+            <div className="mb-3">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Title in English <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                value={titleEn}
+                onChange={(e) => setTitleEn(e.target.value)}
+                placeholder="Ex: SAC305 Solder Technical Sheet"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
+
+            {/* Descripción EN */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Brief description <span className="text-gray-400 text-xs">(optional)</span>
+              </label>
+              <input
+                type="text"
+                value={descriptionEn}
+                onChange={(e) => setDescriptionEn(e.target.value)}
+                placeholder="Ex: Complete technical specifications"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+              />
+            </div>
           </div>
 
           {/* Preview */}
-          {documentTitle && (
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+          {(titleEs || titleEn) && (
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3 mt-4">
               <p className="text-xs font-medium text-gray-600 mb-2">Vista previa:</p>
-              <div className="flex items-start">
-                <span className="text-2xl mr-2">{getIcon(documentType)}</span>
-                <div>
-                  <p className="font-medium text-gray-900">{documentTitle}</p>
-                  {description && (
-                    <p className="text-sm text-gray-600">{description}</p>
-                  )}
-                </div>
+              <div className="space-y-2">
+                {titleEs && (
+                  <div className="flex items-start">
+                    <span className="text-2xl mr-2">{getIcon(documentType)}</span>
+                    <div>
+                      <p className="font-medium text-gray-900 text-sm">🇪🇸 {titleEs}</p>
+                      {descriptionEs && (
+                        <p className="text-xs text-gray-600">{descriptionEs}</p>
+                      )}
+                    </div>
+                  </div>
+                )}
+                {titleEn && (
+                  <div className="flex items-start">
+                    <span className="text-2xl mr-2">{getIcon(documentType)}</span>
+                    <div>
+                      <p className="font-medium text-gray-900 text-sm">🇺🇸 {titleEn}</p>
+                      {descriptionEn && (
+                        <p className="text-xs text-gray-600">{descriptionEn}</p>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -205,13 +325,12 @@ const DocumentModal = ({ isOpen, onInsert, onCancel }) => {
           {/* Info box */}
           <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded">
             <p className="text-sm text-green-800">
-              <strong>💡 Cómo funciona:</strong>
+              <strong>✨ Nuevo:</strong> El documento se agregará automáticamente en ambos idiomas
             </p>
             <ul className="text-xs text-green-700 mt-2 space-y-1 ml-4">
-              <li>• El documento se agregará a la sección "Recursos Adicionales"</li>
-              <li>• Aparecerá al final del blog con el icono correspondiente</li>
-              <li>• Al hacer clic, se abre en nueva pestaña</li>
-              <li>• No ocupa espacio en Supabase (usa tu Drive/Dropbox)</li>
+              <li>• Aparecerá en la sección "Recursos Adicionales" de español E inglés</li>
+              <li>• No necesitas agregarlo dos veces</li>
+              <li>• Se abre en nueva pestaña al hacer clic</li>
             </ul>
           </div>
         </div>

@@ -8,13 +8,67 @@ const ImageUrlModal = ({ isOpen, onInsert, onCancel }) => {
 
   if (!isOpen) return null
 
+  // Función para convertir enlaces de imágenes (solo Imgur)
+  const convertImageUrl = (url) => {
+    if (!url) return url
+    
+    // BLOQUEAR GOOGLE DRIVE para imágenes (no es confiable)
+    if (url.includes('drive.google.com') || url.includes('docs.google.com')) {
+      alert('⚠️ Google Drive NO es confiable para mostrar imágenes en blogs.\n\n' +
+            '✅ Recomendación: Usa Imgur (imgur.com) en su lugar.\n\n' +
+            'Imgur es:\n' +
+            '• Gratis y sin límites\n' +
+            '• Diseñado específicamente para imágenes\n' +
+            '• 100% confiable\n' +
+            '• Más rápido\n\n' +
+            'Para documentos (PDF, Excel, etc.) SÍ puedes usar Google Drive con el botón 📎')
+      return null // Retornar null para indicar que no se debe usar
+    }
+    
+    // IMGUR: Convertir enlaces de página a enlaces directos de imagen
+    if (url.includes('imgur.com')) {
+      // Si ya es un enlace directo (i.imgur.com), no hacer nada
+      if (url.includes('i.imgur.com')) {
+        return url
+      }
+      
+      // Si es un álbum (imgur.com/a/), no se puede convertir
+      if (url.includes('/a/')) {
+        alert('⚠️ Los álbumes de Imgur no funcionan.\n\n' +
+              'Por favor:\n' +
+              '1. Abre la imagen individual\n' +
+              '2. Haz clic derecho → "Copiar dirección de imagen"\n' +
+              '3. Pega ese enlace (debe empezar con i.imgur.com)')
+        return null
+      }
+      
+      // Convertir imgur.com/ID a i.imgur.com/ID.jpg
+      const match = url.match(/imgur\.com\/([a-zA-Z0-9]+)/)
+      if (match) {
+        const imageId = match[1]
+        return `https://i.imgur.com/${imageId}.jpg`
+      }
+    }
+    
+    // Si no es Imgur ni Drive, devolver URL original (otros servicios)
+    return url
+  }
+
   const handleInsert = () => {
     if (!imageUrl.trim()) {
       alert('Por favor ingresa una URL de imagen')
       return
     }
 
-    onInsert(imageUrl, altText, alignment, size)
+    // Convertir el enlace automáticamente
+    const convertedUrl = convertImageUrl(imageUrl.trim())
+    
+    // Si la conversión retorna null, significa que no se debe usar (Drive o álbum)
+    if (convertedUrl === null) {
+      return // No continuar con la inserción
+    }
+
+    onInsert(convertedUrl, altText, alignment, size)
     
     // Limpiar campos
     setImageUrl('')
@@ -58,12 +112,32 @@ const ImageUrlModal = ({ isOpen, onInsert, onCancel }) => {
               type="url"
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="https://ejemplo.com/imagen.jpg"
+              placeholder="https://i.imgur.com/ejemplo.jpg"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
             <p className="text-xs text-gray-500 mt-1">
-              💡 Usa enlaces públicos de Google Drive, Imgur, Dropbox, etc.
+              💡 <strong>Solo Imgur:</strong> Para imágenes usa Imgur. Para documentos (PDF, Excel) usa el botón 📎
             </p>
+            {imageUrl && imageUrl.includes('imgur.com') && !imageUrl.includes('i.imgur.com') && !imageUrl.includes('/a/') && (
+              <div className="mt-2 p-2 bg-yellow-50 border border-yellow-300 rounded text-xs text-yellow-800">
+                ⚠️ <strong>URL de página de Imgur detectada.</strong> Se convertirá automáticamente al enlace directo de imagen (i.imgur.com).
+              </div>
+            )}
+            {imageUrl && imageUrl.includes('i.imgur.com') && (
+              <div className="mt-2 p-2 bg-green-50 border border-green-200 rounded text-xs text-green-800">
+                ✅ <strong>Enlace directo de Imgur.</strong> Perfecto para imágenes web.
+              </div>
+            )}
+            {imageUrl && imageUrl.includes('imgur.com/a/') && (
+              <div className="mt-2 p-2 bg-red-50 border border-red-300 rounded text-xs text-red-800">
+                ❌ <strong>Álbum de Imgur detectado.</strong> Los álbumes no funcionan. Abre la imagen individual y copia el enlace directo.
+              </div>
+            )}
+            {imageUrl && (imageUrl.includes('drive.google.com') || imageUrl.includes('docs.google.com')) && (
+              <div className="mt-2 p-2 bg-red-50 border border-red-300 rounded text-xs text-red-800">
+                ❌ <strong>Google Drive NO funciona para imágenes.</strong> Usa Imgur en su lugar. Drive solo funciona para documentos (botón 📎).
+              </div>
+            )}
           </div>
 
           {/* Texto alternativo */}

@@ -7,6 +7,7 @@ import ConfirmLeaveModal from '../../components/admin/ConfirmLeaveModal'
 import ImageUrlModal from '../../components/admin/ImageUrlModal'
 import DocumentModal from '../../components/admin/DocumentModal'
 import BlogPreview from '../../components/admin/BlogPreview'
+import ResourcesManager from '../../components/admin/ResourcesManager'
 import useToast from '../../hooks/useToast'
 
 const PostEditor = () => {
@@ -192,11 +193,8 @@ const PostEditor = () => {
     }, 0)
   }
 
-  // Función para insertar documento en recursos adicionales
-  const handleInsertDocument = (documentUrl, documentTitle, documentType, description) => {
-    const textarea = document.getElementById(`content-${currentLanguage}`)
-    if (!textarea) return
-
+  // Función para insertar documento en recursos adicionales (AMBOS IDIOMAS)
+  const handleInsertDocument = (documentUrl, documentType, content) => {
     // Iconos por tipo
     const icons = {
       pdf: '📄',
@@ -208,61 +206,104 @@ const PostEditor = () => {
     }
     const icon = icons[documentType] || '📎'
 
-    // Buscar si ya existe la sección de recursos adicionales
-    const currentContent = contentData[currentLanguage].content
-    const resourcesMarker = '<!-- RECURSOS_ADICIONALES -->'
+    // Insertar en AMBOS idiomas
+    const languages = ['es', 'en']
     
-    let newContent = ''
-    
-    if (currentContent.includes(resourcesMarker)) {
-      // Ya existe la sección, agregar el documento a la lista
-      const documentItem = `    <li style="margin-bottom: 10px;">
+    languages.forEach(lang => {
+      const currentContent = contentData[lang].content
+      const resourcesMarker = '<!-- RECURSOS_ADICIONALES -->'
+      const title = content[lang].title
+      const description = content[lang].description
+      
+      let newContent = ''
+      
+      if (currentContent.includes(resourcesMarker)) {
+        // Ya existe la sección, agregar el documento a la lista
+        const documentItem = `    <li style="margin-bottom: 10px;">
       <a href="${documentUrl}" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 500; display: flex; align-items: start; gap: 8px;">
         <span style="font-size: 20px;">${icon}</span>
         <div>
-          <div style="font-size: 15px;">${documentTitle}</div>
+          <div style="font-size: 15px;">${title}</div>
           ${description ? `<div style="font-size: 13px; color: #6b7280; margin-top: 2px;">${description}</div>` : ''}
         </div>
       </a>
     </li>`
-      
-      // Insertar antes del cierre de </ul>
-      newContent = currentContent.replace('</ul>\n</div>', `${documentItem}\n  </ul>\n</div>`)
-    } else {
-      // No existe la sección, crearla al final
-      const resourcesSection = `
+        
+        // Insertar antes del cierre de </ul>
+        newContent = currentContent.replace('</ul>\n</div>', `${documentItem}\n  </ul>\n</div>`)
+      } else {
+        // No existe la sección, crearla al final
+        const sectionTitle = lang === 'es' ? 'Recursos Adicionales' : 'Additional Resources'
+        const resourcesSection = `
 
 ${resourcesMarker}
 <div style="margin-top: 40px; padding: 20px; background: linear-gradient(to right, #f0f9ff, #e0f2fe); border-radius: 8px; border-left: 3px solid #3b82f6;">
   <h3 style="font-size: 18px; font-weight: bold; color: #1e40af; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-    <span style="font-size: 20px;">📚</span> Recursos Adicionales
+    <span style="font-size: 20px;">📚</span> ${sectionTitle}
   </h3>
   <ul style="list-style: none; padding: 0; margin: 0;">
     <li style="margin-bottom: 10px;">
       <a href="${documentUrl}" target="_blank" rel="noopener noreferrer" style="color: #2563eb; text-decoration: none; font-weight: 500; display: flex; align-items: start; gap: 8px;">
         <span style="font-size: 20px;">${icon}</span>
         <div>
-          <div style="font-size: 15px;">${documentTitle}</div>
+          <div style="font-size: 15px;">${title}</div>
           ${description ? `<div style="font-size: 13px; color: #6b7280; margin-top: 2px;">${description}</div>` : ''}
         </div>
       </a>
     </li>
   </ul>
 </div>`
-      
-      newContent = currentContent + resourcesSection
-    }
+        
+        newContent = currentContent + resourcesSection
+      }
 
-    handleContentChange(currentLanguage, 'content', newContent)
+      // Actualizar el contenido del idioma
+      handleContentChange(lang, 'content', newContent)
+    })
 
     // Cerrar modal
     setShowDocumentModal(false)
 
-    // Restaurar el foco
-    setTimeout(() => {
-      textarea.focus()
-      textarea.setSelectionRange(newContent.length, newContent.length)
-    }, 0)
+    // Mostrar notificación de éxito
+    showSuccess('Documento agregado en español e inglés', '✅ Agregado en ambos idiomas')
+  }
+
+  // Función para eliminar un recurso (AMBOS IDIOMAS)
+  const handleRemoveResource = (resource) => {
+    const languages = ['es', 'en']
+    
+    languages.forEach(lang => {
+      let currentContent = contentData[lang].content
+      const resourcesMarker = '<!-- RECURSOS_ADICIONALES -->'
+      
+      if (!currentContent.includes(resourcesMarker)) return
+      
+      // Escapar caracteres especiales en la URL para regex
+      const escapedUrl = resource.url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      
+      // Buscar y eliminar el <li> específico por su URL (es único)
+      // Usamos un regex más específico que busca desde <li hasta </li> que contenga la URL
+      const liRegex = new RegExp(`\\s*<li[^>]*>[\\s\\S]*?href="${escapedUrl}"[\\s\\S]*?<\\/li>\\n?`, 'g')
+      const newContent = currentContent.replace(liRegex, '')
+      
+      // Verificar si quedan más recursos en la sección
+      const resourcesSection = newContent.split(resourcesMarker)[1]
+      const remainingLis = resourcesSection ? (resourcesSection.match(/<li[^>]*>/g) || []).length : 0
+      
+      // Si no quedan recursos, eliminar toda la sección
+      if (remainingLis === 0) {
+        const sectionRegex = new RegExp(`\\n*${resourcesMarker}[\\s\\S]*?<\\/div>`, 'g')
+        currentContent = newContent.replace(sectionRegex, '')
+      } else {
+        currentContent = newContent
+      }
+      
+      // Actualizar el contenido
+      handleContentChange(lang, 'content', currentContent)
+    })
+    
+    // Mostrar notificación
+    showSuccess('Documento eliminado de ambos idiomas', '🗑️ Eliminado')
   }
 
   // Función para insertar imagen desde URL
@@ -368,12 +409,6 @@ ${resourcesMarker}
       label: '🖼️',
       title: 'Insertar imagen desde URL',
       action: () => setShowImageModal(true),
-      group: 'media'
-    },
-    {
-      label: '📎',
-      title: 'Agregar documento a Recursos Adicionales',
-      action: () => setShowDocumentModal(true),
       group: 'media'
     },
     {
@@ -941,7 +976,7 @@ Debes devolver CUATRO secciones (Español e Inglés):
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow p-6 w-full">
+            <div className="bg-white rounded-lg shadow p-6 w-full mb-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-6">Configuración</h3>
 
               {/* Category */}
@@ -1013,6 +1048,14 @@ Debes devolver CUATRO secciones (Español e Inglés):
                 </div>
               </div>
             </div>
+
+            {/* Resources Manager */}
+            <ResourcesManager
+              contentData={contentData}
+              currentLanguage={currentLanguage}
+              onRemoveResource={handleRemoveResource}
+              onOpenModal={() => setShowDocumentModal(true)}
+            />
           </div>
         </div>
       </div>
