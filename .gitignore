@@ -25,6 +25,10 @@ sync.sh
 # Documentación interna sensible
 INSTRUCCIONES_BLOG_ADMIN.md
 
+# Archivos de debug locales
+debug-check.html
+DEBUG_INSTRUCTIONS.md
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

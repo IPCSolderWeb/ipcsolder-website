@@ -757,7 +757,7 @@ ${resourcesMarker}
                     placeholder={`Contenido completo del post en ${currentLanguage === 'es' ? 'español' : 'inglés'}. Usa la barra de herramientas arriba para insertar formato HTML.`}
                   />
                   <p className="text-sm text-gray-500 mt-1">
-                    Soporta HTML básico: &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;
+                    Soporta HTML básico: &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;, &lt;table&gt;, &lt;thead&gt;, &lt;tbody&gt;, &lt;tr&gt;, &lt;th&gt;, &lt;td&gt;
                   </p>
 
                   {/* AI Helper Section */}
@@ -835,7 +835,45 @@ Debes devolver CUATRO secciones (Español e Inglés):
    - Agrega <br><br> entre bloques de contenido diferentes
    - Ejemplo: </ul><br><br><h3>Siguiente Sección</h3>
 
-7. ESTRUCTURA RECOMENDADA CON ESPACIADO:
+7. TABLAS (PARA COMPARACIONES Y DATOS):
+   - Usa tablas cuando necesites comparar productos, especificaciones o datos técnicos
+   - Estructura completa con estilos inline:
+   
+   <table style="width: 100%; border-collapse: collapse; margin: 30px 0;">
+     <thead>
+       <tr>
+         <th style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 12px; text-align: left; font-weight: 600;">Columna 1</th>
+         <th style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 12px; text-align: left; font-weight: 600;">Columna 2</th>
+         <th style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 12px; text-align: left; font-weight: 600;">Columna 3</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr style="border-bottom: 1px solid #e5e7eb;">
+         <td style="padding: 12px; font-weight: 500;">Dato 1</td>
+         <td style="padding: 12px;">Valor 1</td>
+         <td style="padding: 12px;">Descripción 1</td>
+       </tr>
+       <tr style="border-bottom: 1px solid #e5e7eb; background-color: #f9fafb;">
+         <td style="padding: 12px; font-weight: 500;">Dato 2</td>
+         <td style="padding: 12px;">Valor 2</td>
+         <td style="padding: 12px;">Descripción 2</td>
+       </tr>
+       <tr style="border-bottom: 1px solid #e5e7eb;">
+         <td style="padding: 12px; font-weight: 500;">Dato 3</td>
+         <td style="padding: 12px;">Valor 3</td>
+         <td style="padding: 12px;">Descripción 3</td>
+       </tr>
+     </tbody>
+   </table>
+   
+   - CUÁNDO USAR TABLAS:
+     • Comparación de productos o modelos
+     • Especificaciones técnicas
+     • Ventajas vs desventajas
+     • Datos numéricos o mediciones
+     • Características de diferentes opciones
+
+8. ESTRUCTURA RECOMENDADA CON ESPACIADO:
    <h2 style="text-align: center; font-weight: bold; margin-bottom: 20px;">Título Principal</h2>
    
    <p style="margin-bottom: 15px;">Introducción atractiva que explica el tema...</p>
@@ -854,11 +892,26 @@ Debes devolver CUATRO secciones (Español e Inglés):
    
    <br>
    
-   <h3 style="font-weight: bold; margin-top: 30px; margin-bottom: 15px;">Segunda Sección</h3>
+   <h3 style="font-weight: bold; margin-top: 30px; margin-bottom: 15px;">Comparación de Opciones</h3>
    
-   <p style="margin-bottom: 15px;">Más contenido relevante...</p>
+   <p style="margin-bottom: 15px;">Cuando necesites comparar, usa una tabla:</p>
    
-   <p style="text-align: center; margin: 25px 0;"><strong>⚠️ Advertencia o nota importante</strong></p>
+   <table style="width: 100%; border-collapse: collapse; margin: 30px 0;">
+     <thead>
+       <tr>
+         <th style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 12px; text-align: left;">Característica</th>
+         <th style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 12px; text-align: left;">Opción A</th>
+         <th style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; padding: 12px; text-align: left;">Opción B</th>
+       </tr>
+     </thead>
+     <tbody>
+       <tr style="border-bottom: 1px solid #e5e7eb;">
+         <td style="padding: 12px; font-weight: 500;">Precio</td>
+         <td style="padding: 12px;">$100</td>
+         <td style="padding: 12px;">$150</td>
+       </tr>
+     </tbody>
+   </table>
    
    <br>
    
@@ -870,6 +923,7 @@ Debes devolver CUATRO secciones (Español e Inglés):
 - Agrega introducción atractiva
 - Divide en secciones claras con buen espaciado
 - Incluye consejos prácticos en listas
+- Usa TABLAS para comparaciones y datos técnicos
 - Destaca información crítica con símbolos (✓ ⚡ ⚠️)
 - Agrega conclusión útil
 - Usa terminología técnica precisa
@@ -881,6 +935,7 @@ Debes devolver CUATRO secciones (Español e Inglés):
 - Los CONTENIDOS deben tener EXCELENTE ESPACIADO con margins y <br>
 - SIEMPRE usa estilos inline (margin-bottom, margin-top) en TODOS los elementos
 - Usa símbolos ✓ ✔️ ⚡ 🔹 en las listas para mejor visualización
+- USA TABLAS cuando necesites comparar o mostrar datos estructurados
 - Separa claramente las 4 secciones con las líneas de ═══
 - La traducción al inglés debe ser profesional y técnicamente precisa`}
                           </div>
@@ -924,6 +979,10 @@ Debes devolver CUATRO secciones (Español e Inglés):
                             <div>
                               <strong>Lista con símbolos:</strong><br/>
                               <code className="bg-white px-1">&lt;li style="margin-bottom: 10px;"&gt;✓ Punto importante&lt;/li&gt;</code>
+                            </div>
+                            <div>
+                              <strong>Tabla para comparaciones:</strong><br/>
+                              <code className="bg-white px-1">&lt;table style="width: 100%; margin: 30px 0;"&gt;...&lt;/table&gt;</code>
                             </div>
                             <div>
                               <strong>Separador entre secciones:</strong><br/>
