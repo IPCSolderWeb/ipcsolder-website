@@ -307,9 +307,10 @@ const Newsletter = () => {
                             <div
                                 className="h-2 rounded-full bg-blue-500"
                                 style={{
-                                    width: analytics.totalSubscribers > 0
-                                        ? `${(analytics.onlyNewsletter / analytics.totalSubscribers) * 100}%`
-                                        : '0%'
+                                    width: (() => {
+                                        const total = analytics.onlyNewsletter + analytics.onlyCatalog + analytics.both;
+                                        return total > 0 ? `${(analytics.onlyNewsletter / total) * 100}%` : '0%';
+                                    })()
                                 }}
                             ></div>
                         </div>
@@ -323,9 +324,10 @@ const Newsletter = () => {
                             <div
                                 className="h-2 rounded-full bg-purple-500"
                                 style={{
-                                    width: analytics.totalSubscribers > 0
-                                        ? `${(analytics.onlyCatalog / analytics.totalSubscribers) * 100}%`
-                                        : '0%'
+                                    width: (() => {
+                                        const total = analytics.onlyNewsletter + analytics.onlyCatalog + analytics.both;
+                                        return total > 0 ? `${(analytics.onlyCatalog / total) * 100}%` : '0%';
+                                    })()
                                 }}
                             ></div>
                         </div>
@@ -339,9 +341,10 @@ const Newsletter = () => {
                             <div
                                 className="h-2 rounded-full bg-green-500"
                                 style={{
-                                    width: analytics.totalSubscribers > 0
-                                        ? `${(analytics.both / analytics.totalSubscribers) * 100}%`
-                                        : '0%'
+                                    width: (() => {
+                                        const total = analytics.onlyNewsletter + analytics.onlyCatalog + analytics.both;
+                                        return total > 0 ? `${(analytics.both / total) * 100}%` : '0%';
+                                    })()
                                 }}
                             ></div>
                         </div>
