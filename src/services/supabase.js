@@ -41,7 +41,7 @@ export const blogService = {
         post_contents!inner(*),
         categories(*),
         post_tags(tags(*))
-      `)
+      `, { count: 'exact' })
       .eq('status', 'published')
       .eq('post_contents.language', language)
 

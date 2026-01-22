@@ -195,6 +195,22 @@ const PostEditor = () => {
 
   // Función para insertar documento en recursos adicionales (AMBOS IDIOMAS)
   const handleInsertDocument = (documentUrl, documentType, content) => {
+    // Validar si la URL ya existe en alguno de los idiomas
+    const urlExistsInES = contentData.es.content.includes(documentUrl)
+    const urlExistsInEN = contentData.en.content.includes(documentUrl)
+    
+    if (urlExistsInES || urlExistsInEN) {
+      // Cerrar el modal primero
+      setShowDocumentModal(false)
+      
+      // Mostrar error en rojo después de un pequeño delay para que se vea bien
+      setTimeout(() => {
+        showError('Este documento ya está agregado. Verifica la URL antes de intentar agregarlo nuevamente.', '⚠️ Documento duplicado')
+      }, 100)
+      
+      return // No agregar el documento
+    }
+    
     // Iconos por tipo
     const icons = {
       pdf: '📄',
@@ -278,28 +294,43 @@ ${resourcesMarker}
       
       if (!currentContent.includes(resourcesMarker)) return
       
+      // Dividir el contenido en: antes de recursos y sección de recursos
+      const parts = currentContent.split(resourcesMarker)
+      const beforeResources = parts[0]
+      const resourcesSectionWithEnd = parts[1] // Incluye desde el marker hasta el final
+      
       // Escapar caracteres especiales en la URL para regex
       const escapedUrl = resource.url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
       
-      // Buscar y eliminar el <li> específico por su URL (es único)
-      // Usamos un regex más específico que busca desde <li hasta </li> que contenga la URL
+      // Buscar y eliminar el <li> específico SOLO en la sección de recursos
       const liRegex = new RegExp(`\\s*<li[^>]*>[\\s\\S]*?href="${escapedUrl}"[\\s\\S]*?<\\/li>\\n?`, 'g')
-      const newContent = currentContent.replace(liRegex, '')
+      const updatedResourcesSection = resourcesSectionWithEnd.replace(liRegex, '')
       
-      // Verificar si quedan más recursos en la sección
-      const resourcesSection = newContent.split(resourcesMarker)[1]
-      const remainingLis = resourcesSection ? (resourcesSection.match(/<li[^>]*>/g) || []).length : 0
+      // Verificar si quedan más recursos en la sección actualizada
+      const remainingLis = updatedResourcesSection.match(/<li[^>]*>/g)
       
-      // Si no quedan recursos, eliminar toda la sección
-      if (remainingLis === 0) {
-        const sectionRegex = new RegExp(`\\n*${resourcesMarker}[\\s\\S]*?<\\/div>`, 'g')
-        currentContent = newContent.replace(sectionRegex, '')
+      let newContent
+      if (remainingLis && remainingLis.length > 0) {
+        // Aún hay recursos, reconstruir con la sección actualizada
+        newContent = beforeResources + resourcesMarker + updatedResourcesSection
       } else {
-        currentContent = newContent
+        // No quedan recursos, eliminar toda la sección
+        // Buscar el cierre del div de recursos para eliminarlo también
+        const sectionEndRegex = /[\s\S]*?<\/div>/
+        const sectionMatch = updatedResourcesSection.match(sectionEndRegex)
+        
+        if (sectionMatch) {
+          // Eliminar desde el marker hasta el cierre del div
+          const afterResourcesSection = updatedResourcesSection.substring(sectionMatch[0].length)
+          newContent = beforeResources.trimEnd() + '\n' + afterResourcesSection
+        } else {
+          // Fallback: solo eliminar la sección de recursos
+          newContent = beforeResources
+        }
       }
       
       // Actualizar el contenido
-      handleContentChange(lang, 'content', currentContent)
+      handleContentChange(lang, 'content', newContent)
     })
     
     // Mostrar notificación
@@ -322,25 +353,31 @@ ${resourcesMarker}
     
     if (alignment === 'center') {
       // Centro: usar display block y margin auto
-      imageHtml = `<p style="text-align: center; margin: 30px 0;">
+      imageHtml = `<!-- INICIO IMAGEN -->
+<p style="text-align: center; margin: 30px 0;">
   <a href="${imageUrl}" target="_blank" rel="noopener noreferrer">
     <img src="${imageUrl}" alt="${altText || 'Imagen'}" style="max-width: ${maxWidth}; height: auto; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: inline-block;" />
   </a>
-</p>`
+</p>
+<!-- FIN IMAGEN -->`
     } else if (alignment === 'left') {
       // Izquierda: sin width 100%, se alinea naturalmente
-      imageHtml = `<p style="margin: 30px 0;">
+      imageHtml = `<!-- INICIO IMAGEN -->
+<p style="margin: 30px 0;">
   <a href="${imageUrl}" target="_blank" rel="noopener noreferrer">
     <img src="${imageUrl}" alt="${altText || 'Imagen'}" style="max-width: ${maxWidth}; height: auto; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: block;" />
   </a>
-</p>`
+</p>
+<!-- FIN IMAGEN -->`
     } else { // right
       // Derecha: usar margin-left auto
-      imageHtml = `<p style="margin: 30px 0;">
+      imageHtml = `<!-- INICIO IMAGEN -->
+<p style="margin: 30px 0;">
   <a href="${imageUrl}" target="_blank" rel="noopener noreferrer">
     <img src="${imageUrl}" alt="${altText || 'Imagen'}" style="max-width: ${maxWidth}; height: auto; cursor: pointer; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); display: block; margin-left: auto;" />
   </a>
-</p>`
+</p>
+<!-- FIN IMAGEN -->`
     }
 
     const newContent = 
@@ -359,6 +396,65 @@ ${resourcesMarker}
       const newCursorPos = start + imageHtml.length
       textarea.setSelectionRange(newCursorPos, newCursorPos)
     }, 0)
+  }
+
+  // Función para formatear HTML (agregar saltos de línea e indentación)
+  const formatHtml = () => {
+    const textarea = document.getElementById(`content-${currentLanguage}`)
+    if (!textarea) return
+
+    let html = contentData[currentLanguage].content
+
+    // Si está vacío, no hacer nada
+    if (!html.trim()) {
+      showWarning('No hay contenido para formatear', 'Campo vacío')
+      return
+    }
+
+    try {
+      // Formatear HTML: agregar saltos de línea después de tags
+      let formatted = html
+        // Agregar salto de línea después de tags de cierre
+        .replace(/<\/(p|h2|h3|ul|ol|li|div|br|table|thead|tbody|tr|th|td)>/gi, '</$1>\n')
+        // Agregar salto de línea después de tags de apertura de bloque
+        .replace(/<(p|h2|h3|ul|ol|div|table|thead|tbody|tr)([^>]*)>/gi, '<$1$2>\n')
+        // Agregar salto de línea después de <br>
+        .replace(/<br\s*\/?>/gi, '<br>\n')
+        // Limpiar múltiples saltos de línea consecutivos
+        .replace(/\n{3,}/g, '\n\n')
+        // Limpiar espacios al inicio de líneas
+        .replace(/^\s+/gm, '')
+        // Agregar indentación básica para elementos anidados
+        .split('\n')
+        .map(line => {
+          const trimmed = line.trim()
+          if (!trimmed) return ''
+          
+          // Contar nivel de anidación
+          const openTags = (html.substring(0, html.indexOf(trimmed)).match(/<(ul|ol|table|thead|tbody|tr)([^>]*)>/gi) || []).length
+          const closeTags = (html.substring(0, html.indexOf(trimmed)).match(/<\/(ul|ol|table|thead|tbody|tr)>/gi) || []).length
+          const indent = Math.max(0, openTags - closeTags)
+          
+          return '  '.repeat(indent) + trimmed
+        })
+        .join('\n')
+        // Limpiar líneas vacías al inicio y final
+        .trim()
+
+      // Actualizar contenido
+      handleContentChange(currentLanguage, 'content', formatted)
+      
+      showSuccess('HTML formateado correctamente', '✨ Formato aplicado')
+      
+      // Restaurar foco
+      setTimeout(() => {
+        textarea.focus()
+      }, 100)
+      
+    } catch (error) {
+      console.error('Error formateando HTML:', error)
+      showError('Error al formatear el HTML', 'Error de formato')
+    }
   }
 
   // Funciones de formato
@@ -422,6 +518,12 @@ ${resourcesMarker}
       title: 'Texto importante centrado',
       action: () => insertHtmlAtCursor('<p style="text-align: center;"><strong>⚠️ ', '</strong></p>', 'Texto importante'),
       group: 'align'
+    },
+    {
+      label: '🎨 Formatear',
+      title: 'Formatear HTML con saltos de línea e indentación',
+      action: formatHtml,
+      group: 'utility'
     }
   ];
 
@@ -466,13 +568,14 @@ ${resourcesMarker}
 
       // Guardar contenido en ambos idiomas
       for (const [language, content] of Object.entries(contentData)) {
-        if (content.title.trim()) { // Solo guardar si hay título
+        // Guardar si hay al menos título, excerpt o content con información
+        if (content.title.trim() || content.excerpt.trim() || content.content.trim()) {
           const contentPayload = {
             post_id: savedPost.id,
             language,
-            title: content.title,
-            excerpt: content.excerpt,
-            content: content.content
+            title: content.title || '', // Permitir título vacío
+            excerpt: content.excerpt || '', // Permitir excerpt vacío
+            content: content.content || '' // Permitir content vacío
           }
 
           if (isEditing) {
@@ -729,7 +832,7 @@ ${resourcesMarker}
                       </div>
 
                       {/* Grupo: Alineación */}
-                      <div className="flex gap-1">
+                      <div className="flex gap-1 pr-2 border-r border-gray-300">
                         {formatButtons.filter(btn => btn.group === 'align').map((btn, idx) => (
                           <button
                             key={idx}
@@ -737,6 +840,21 @@ ${resourcesMarker}
                             onClick={btn.action}
                             title={btn.title}
                             className="px-3 py-1 text-sm font-medium bg-white border border-gray-300 rounded hover:bg-blue-50 hover:border-blue-400 transition-colors"
+                          >
+                            {btn.label}
+                          </button>
+                        ))}
+                      </div>
+
+                      {/* Grupo: Utilidades */}
+                      <div className="flex gap-1">
+                        {formatButtons.filter(btn => btn.group === 'utility').map((btn, idx) => (
+                          <button
+                            key={idx}
+                            type="button"
+                            onClick={btn.action}
+                            title={btn.title}
+                            className="px-3 py-1 text-sm font-medium bg-gradient-to-r from-purple-500 to-purple-600 text-white border border-purple-600 rounded hover:from-purple-600 hover:to-purple-700 transition-all shadow-sm"
                           >
                             {btn.label}
                           </button>
@@ -937,7 +1055,52 @@ Debes devolver CUATRO secciones (Español e Inglés):
 - Usa símbolos ✓ ✔️ ⚡ 🔹 en las listas para mejor visualización
 - USA TABLAS cuando necesites comparar o mostrar datos estructurados
 - Separa claramente las 4 secciones con las líneas de ═══
-- La traducción al inglés debe ser profesional y técnicamente precisa`}
+- La traducción al inglés debe ser profesional y técnicamente precisa
+
+**🎨 FORMATO DEL HTML (MUY IMPORTANTE PARA LEGIBILIDAD):**
+- Devuelve el HTML con SALTOS DE LÍNEA después de cada tag
+- Usa INDENTACIÓN para elementos anidados
+- NO devuelvas todo el HTML en una sola línea pegada
+- Cada <p>, <h2>, <h3>, <ul>, <li>, <br>, <table> debe estar en su propia línea
+- Esto facilita encontrar dónde insertar imágenes o hacer ediciones
+
+**EJEMPLO DE FORMATO CORRECTO:**
+<h2 style="text-align: center; font-weight: bold; margin-bottom: 20px;">
+  Título Principal
+</h2>
+
+<p style="margin-bottom: 15px;">
+  Primer párrafo con contenido...
+</p>
+
+<br>
+
+<h3 style="font-weight: bold; margin-top: 30px; margin-bottom: 15px;">
+  Subtítulo
+</h3>
+
+<ul style="margin: 20px 0; padding-left: 20px;">
+  <li style="margin-bottom: 10px;">✓ Punto 1</li>
+  <li style="margin-bottom: 10px;">✓ Punto 2</li>
+</ul>
+
+**❌ NO HAGAS ESTO (todo en una línea):**
+<h2 style="...">Título</h2><p style="...">Texto...</p><br><h3 style="...">Subtítulo</h3>
+
+**✅ HAZ ESTO (con saltos de línea y espacios):**
+<h2 style="...">
+  Título
+</h2>
+
+<p style="...">
+  Texto...
+</p>
+
+<br>
+
+<h3 style="...">
+  Subtítulo
+</h3>`}
                           </div>
                         </div>
                         <div className="flex justify-between items-center mt-3 gap-2">
